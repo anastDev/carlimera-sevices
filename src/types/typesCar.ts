@@ -19,6 +19,15 @@ export interface Car {
     description: string;
     features: string[];
     conditionText: string;
+    doors: number;
+    registration: string;
+    seats: number;
+    emissionClass: string;
+    motExpiry: string;
+    prevOwners: number;
+    warranty: string;
+    keys: number | undefined;
+    serviceHistory: string;
 }
 
 export interface DateOption {

@@ -1,7 +1,6 @@
 import type {Car} from "@/types/typesCar.ts";
 import {type ReactNode, useLayoutEffect, useState} from "react";
 import {Route, Routes, useLocation} from "react-router";
-import NavBar from "@/components/layout/NavBar.tsx";
 import HomePage from "@/pages/Homepage.tsx";
 import CarsPage from "@/pages/CarsPage.tsx";
 import AboutPage from "@/pages/Aboutpage.tsx";
@@ -10,6 +9,7 @@ import Footer from "@/components/layout/Footer.tsx";
 import BookingDialog from "@/components/BookingDialog.tsx";
 import {toast} from "sonner";
 import {cars} from "@/data/carData.ts";
+import Header from "@/components/layout/header/Header.tsx";
 
 interface WrapperProps {
     children: ReactNode;
@@ -34,8 +34,6 @@ export const  AppShell = ()=>  {
         setDialogOpen(true);
     };
 
-    const handleBookViewingGeneric = () => handleBookViewing(cars[0]);
-
     const handleConfirmBooking = ( dateId: string, timeId: string) => {
         toast("Booking confirmed!",{
             description: `${dateId} ${timeId}`,
@@ -44,9 +42,9 @@ export const  AppShell = ()=>  {
 
     return (
         <Wrapper>
-            <NavBar onBookViewing={handleBookViewingGeneric} />
+           <Header/>
 
-            <main className="container mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
+            <main className="container mx-auto max-w-7xl px-4 pb-16 pt-10 sm:px-6 lg:px-8">
                 <Routes>
                     <Route
                         path="/"

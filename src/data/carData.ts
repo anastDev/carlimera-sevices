@@ -19,7 +19,7 @@ export const cars: Car[] = [
         exteriorColor: "Dark Blue",
         interiorColor: "Cream / Ivory Ambience Cloth Trim",
         images: [
-            "https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&q=80&w=1200", // Placeholder dark blue car
+            "https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&q=80&w=1200",
             "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=1200"
         ],
         description: "Embrace the timeless charm of Italian design with this beautifully presented 2011 Fiat 500C. This iconic city car seamlessly blends retro heritage with modern metropolitan agility, making it the perfect companion for navigating tight city streets or cruising down coastal lanes. Featuring its distinct, premium canvas roll-back convertible roof, this 500C allows you to enjoy open-top motoring at the touch of a button. Beyond its charismatic aesthetics, it is incredibly economical to run, easy to park, and offers an surprisingly spirited driving experience. Its compact footprint hides a clever, driver-focused cabin that ensures every journey is packed with personality and fun.",
@@ -30,7 +30,16 @@ export const cars: Car[] = [
             "Multi-Spoke Alloy Wheels: Elegant multi-spoke radial alloy wheels featuring a central Fiat hub accent.",
             "City Parking Mode: Ultra-light power steering toggle designed to make parallel parking effortless."
         ],
-        conditionText: "The vehicle's dark blue paintwork displays an excellent deep gloss finish across the bonnet and front fascia panels. The iconic circular headlamps and lower daytime running lights present clear and free of clouding or moisture haze. The intricate front lower grille and classic chrome bumper trim appear well-aligned, showing minimal signs of standard road wear. The factory alloy wheels look structurally sound and complete."
+        conditionText: "The vehicle's dark blue paintwork displays an excellent deep gloss finish across the bonnet and front fascia panels. The iconic circular headlamps and lower daytime running lights present clear and free of clouding or moisture haze. The intricate front lower grille and classic chrome bumper trim appear well-aligned, showing minimal signs of standard road wear. The factory alloy wheels look structurally sound and complete.",
+        doors: 3,
+        registration: "2008 (08 reg)",
+        seats: 4,
+        emissionClass: "Euro 5",
+        warranty: "3 Months Dealership Warranty Included",
+        keys: 2,
+        prevOwners: 2,
+        serviceHistory: "Full Dealership History",
+        motExpiry: "October 2026",
     },
     {
         id: "qashqai-2018",
@@ -60,7 +69,16 @@ export const cars: Car[] = [
             "NissanConnect Touchscreen: Built-in satellite navigation, smartphone integration, and Bluetooth.",
             "Panoramic Glass Roof: Sweeping fixed glass roof with an electric sunshade to flood the cabin with light."
         ],
-        conditionText: "This Qashqai is in excellent condition, with minor age-related stone chips on the front bumper. The interior fabrics are pristine and free of wear, and all electrical features and driving assists have been fully tested and confirmed operational."
+        conditionText: "This Qashqai is in excellent condition, with minor age-related stone chips on the front bumper. The interior fabrics are pristine and free of wear, and all electrical features and driving assists have been fully tested and confirmed operational.",
+        doors: 5,
+        registration: "NX18KLL",
+        seats: 5,
+        emissionClass: "Euro 6 / ULEZ Compliant",
+        prevOwners: 1,
+        warranty: "6 Months Comprehensive Parts & Labour Warranty",
+        serviceHistory: "Full Service History",
+        motExpiry: "March 2027",
+        keys: 2,
     },
     {
         id: "i20-2024",
@@ -88,7 +106,16 @@ export const cars: Car[] = [
             "Mild Hybrid Efficiency: Regenerative braking and seamless auto start-stop to minimize fuel costs.",
             "Heated Steering Wheel & Seats: Premium winter convenience features to keep you cozy instantly."
         ],
-        conditionText: "Presented in showroom condition with virtually zero signs of wear. Under manufacturer warranty until 2029 for absolute peace of mind."
+        conditionText: "Presented in showroom condition with virtually zero signs of wear. Under manufacturer warranty until 2029 for absolute peace of mind.",
+        doors: 5,
+        registration: "2008 (08 reg)",
+        emissionClass: "Euro 6d / ULEZ Compliant",
+        prevOwners: 1,
+        warranty: "Balance of Hyundai 5-Year Unlimited Mileage Warranty",
+        keys: 2,
+        serviceHistory: "First Service Done",
+        motExpiry: "January 2027",
+        seats: 5
     },
     {
         id: "i10-2024",
@@ -116,7 +143,16 @@ export const cars: Car[] = [
             "Apple CarPlay & Android Auto: Cast your favorite maps and music applications straight onto the dashboard.",
             "Rear View Camera: Crisp display with active guidelines to slip into tiny spots cleanly."
         ],
-        conditionText: "Immaculate condition throughout. Only one previous owner, with full dealership service history and original manufacturer documentation."
+        conditionText: "Immaculate condition throughout. Only one previous owner, with full dealership service history and original manufacturer documentation.",
+        registration: "FE24OPK",
+        emissionClass: "Euro 6d / ULEZ Compliant",
+        warranty: "Balance of Hyundai 5-Year Unlimited Mileage Warranty",
+        prevOwners: 1,
+        serviceHistory: "Full Hyundai History",
+        motExpiry: "February 2027",
+        keys: 2,
+        doors: 5,
+        seats: 5
     },
     {
         id: "mazda6-2015",
@@ -144,6 +180,129 @@ export const cars: Car[] = [
             "Heated Leather Seats: Fully electric adjustable memory seats wrapped in luxurious stone leather.",
             "Head-Up Display (HUD): Projects your current speed and safety alerts onto your line of sight."
         ],
-        conditionText: "Finished in Mazda's iconic Soul Red Metallic. The paint has a lovely depth, with typical motorway stone-chipping on the front valance. Mechanically superb, boasting a freshly stamped service booklet."
+        conditionText: "Finished in Mazda's iconic Soul Red Metallic. The paint has a lovely depth, with typical motorway stone-chipping on the front valance. Mechanically superb, boasting a freshly stamped service booklet.",
+        registration: "BV15UPH",
+        emissionClass: "Euro 6 / ULEZ Compliant",
+        prevOwners: 3,
+        warranty: "3 Months Dealership Warranty Included",
+        keys: 2,
+        serviceHistory: "Full Service History",
+        motExpiry: "November 2026",
+        doors: 4,
+        seats: 5
+    },
+    {
+        id: "peugeot208-2019",
+        brand: "Peugeot",
+        model: "208",
+        year: 2019,
+        price: 8450,
+        mileage: 39000,
+        transmission: "manual",
+        fuelType: "gasoline",
+        topSpeed: 188,
+        bodyType: "Hatchback",
+        location: "Coventry, United Kingdom",
+        title: "2019 Peugeot 208 PureTech GT Line – Striking & Modern Sporty Hatchback",
+        engine: "1.2L PureTech Turbocharged 3-Cylinder Petrol Engine",
+        drivetrain: "FWD (Front-Wheel Drive)",
+        exteriorColor: "Elixir Red",
+        interiorColor: "Mistral Tri-Material Cloth/Leather Effect Trim with Lime Green Stitching",
+        images: [
+            "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=1200"
+        ],
+        description: "Stand out from the crowd with this visually arresting 2019 Peugeot 208 GT Line. Bringing futuristic aesthetic choices to the supermini class, this premium hatchback boasts a sharp exterior layout matched by a cutting-edge cabin design. Highly fuel-efficient yet punchy thanks to its award-winning turbocharged engine, it delivers responsive steering dynamics ideal for city commutes or weekend trips down country roads.",
+        features: [
+            "Peugeot i-Cockpit: Configurable 3D digital instrument cluster paired with a compact sports steering wheel.",
+            "Full LED Lighting Matrix: Distinctive 3-claw claw-effect headlights and signature daytime running lights.",
+            "GT Line Performance Aesthetics: High-gloss black wheel arch extensions, sports front grille, and twin chrome exhaust pipes.",
+            "Visio Park Assist: High-resolution reversing camera complete with an interactive rear obstacle layout system."
+        ],
+        conditionText: "The metallic Elixir Red body panels retain a stunning, deep showroom gloss. Wheels are structurally sound and pristine. The interior upholstery feels remarkably crisp, and the innovative digital dashboard systems have been thoroughly tested and verified as operational.",
+        doors: 5,
+        registration: "YF19YCJ",
+        emissionClass: "Euro 6",
+        prevOwners: 2,
+        warranty: "3 Months Dealership Warranty Included",
+        keys: 1,
+        serviceHistory: "Full Service History",
+        motExpiry: "September 2026",
+        seats: 5
+    },
+    {
+        id: "toyotayaris-2021",
+        brand: "Toyota",
+        model: "Yaris",
+        year: 2021,
+        price: 14200,
+        mileage: 22500,
+        transmission: "automatic",
+        fuelType: "hybrid",
+        topSpeed: 175,
+        bodyType: "Hatchback",
+        location: "Coventry, United Kingdom",
+        title: "2021 Toyota Yaris 1.5 VVT-i Hybrid Design – Bulletproof Reliability & Self-Charging Efficiency",
+        engine: "1.5L Dynamic Force 3-Cylinder Self-Charging Hybrid System",
+        drivetrain: "FWD (Front-Wheel Drive)",
+        exteriorColor: "Eclipse Black",
+        interiorColor: "Grey Premium Fabric Upholstery",
+        images: [
+            "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&q=80&w=1200"
+        ],
+        description: "Experience exceptionally low running costs and legendary build quality with this self-charging 2021 Toyota Yaris Hybrid. Needing no external plug-in cables, the system intelligently shifts between clean electric battery power and gasoline to offer unrivaled fuel economy in traffic-heavy metropolitan environments. Its sharp look makes it an asset to any driveway.",
+        features: [
+            "Self-Charging Hybrid Drive: Seamless transitions between electric and petrol drive modes with smart regenerative braking power.",
+            "Toyota Safety Sense: Pre-collision assistance, adaptive cruise control, lane trace assist, and road sign recognition packages.",
+            "Smart Device Projection: Multi-touch infotainment media system loaded with native Apple CarPlay and Android Auto setup links.",
+            "Machine-Faced Alloy Design: Modern 5-spoke structural alloy rims featuring contrasting gloss-black inner detailing."
+        ],
+        conditionText: "The dark Eclipse Black paintwork reflects cleanly and shows minimal signs of everyday highway stone chipping. The cabin smells clean and has never been smoked in, while the hybrid battery health certificate is fully up to date.",
+        doors: 5,
+        registration: "BK21WUU",
+        emissionClass: "Euro 6d / ULEZ Compliant",
+        prevOwners: 1,
+        warranty: "Balance of Toyota 10-Year Relax Warranty",
+        keys: 2,
+        serviceHistory: "Full Toyota History",
+        motExpiry: "June 2027",
+        seats: 5
+    },
+    {
+        id: "toyotachr-2020",
+        brand: "Toyota",
+        model: "C-HR",
+        year: 2020,
+        price: 16900,
+        mileage: 31000,
+        transmission: "automatic",
+        fuelType: "hybrid",
+        topSpeed: 170,
+        bodyType: "SUV",
+        location: "Coventry, United Kingdom",
+        title: "2020 Toyota C-HR 1.8 VVT-i Hybrid Icon – Futuristic Coupe-Styled Compact Crossover",
+        engine: "1.8L Petrol Hybrid Synergy Drive E-CVT Automatic",
+        drivetrain: "FWD (Front-Wheel Drive)",
+        exteriorColor: "Decuma Grey Metallic",
+        interiorColor: "Black Textured Fabric Sport Seats",
+        images: [
+            "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=1200"
+        ],
+        description: "The Toyota C-HR challenges conventional crossover shapes with its diamond-cut styling details and hidden rear door handles that mimic a high-riding sports coupe. Underneath the expressive sheet metal is an incredibly quiet and refined automatic hybrid drivetrain, making driving down Coventry ring roads a relaxed, effortless experience.",
+        features: [
+            "E-CVT Transmission System: Silky smooth power delivery with zero manual gear shifting or clutch friction wear.",
+            "Dual-Zone Climate Setup: Fully automated passenger and driver independent temperature zoning control systems.",
+            "Reverse Parking Guideline System: Full color camera system complete with active sonar sound parking markers."
+        ],
+        conditionText: "The metallic paint across the structural panels and bumpers is structurally pristine. Both original keys are present, and the car comes accompanied by a clean, independent vehicle history check.",
+        doors: 5,
+        registration: "WR20XCP",
+        emissionClass: "Euro 6 / ULEZ Compliant",
+        prevOwners: 2,
+        warranty: "6 Months Comprehensive Parts & Labour Warranty",
+        keys: undefined,
+        serviceHistory: "Full Service History",
+        motExpiry: "April 2027",
+        seats: 5
     }
 ];

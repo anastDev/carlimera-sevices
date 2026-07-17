@@ -1,43 +1,119 @@
 import { Link } from "react-router";
+import {Car, SquarePlay} from "lucide-react";
 
 export const Footer = () => {
     return (
-        <footer className="bg-blue-950 px-4 py-12 text-blue-100/90 sm:px-6 lg:px-8 border-t border-blue-900 mt-16">
-            <div className="container mx-auto space-y-8">
-                {/* Embedded Map Container */}
-                <div className="overflow-hidden rounded-2xl border border-blue-900 shadow-inner">
-                    <iframe
-                        className="h-55 w-full border-0 grayscale opacity-85 hover:grayscale-0 transition-all duration-300"
-                        src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=52.4066,%20-1.5122+(CARlimera)&t=&z=14&ie=UTF8&iwloc=B&output=embed"
-                        title="CARlimera Services location"
-                    />
-                </div>
+        <footer className="bg-brand-dark py-12 mt-4">
+            <div className="container mx-auto max-w-7xl px-8 sm:px-12 space-y-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-16">
 
-                <div className="flex flex-col justify-between gap-8 sm:flex-row border-t border-blue-900/60 pt-8">
-                    <div className="flex flex-col space-y-2">
-                        <p className="text-base font-bold text-white tracking-wide">CARlimera Services Ltd</p>
-                        <p className="text-xs text-blue-200/90 leading-relaxed max-w-xs">
-                            Opp 115 Max Road, Coventry, West Midlands, CV6 1EL
-                        </p>
-                        <p className="text-xs text-blue-200/90">
-                            <span className="font-semibold text-white">07469 292183</span> &middot; <a href="mailto:kalimeraservices@gmail.com" className="hover:text-white underline underline-offset-2">kalimeraservices@gmail.com</a>
-                        </p>
-                    </div>
+                    {/* Dealership Description & Contact Info */}
+                    <div className="flex flex-col space-y-4">
 
-                    {/* Navigation Links */}
-                    <div className="flex flex-col gap-3 min-w-[120px]">
+                        <div className="space-y-2">
+                           <div className="space-y-1">
+                               <h3 className="text-base font-bold text-slate-100">Carlimera Services Ltd</h3>
+                               <p className="text-sm text-slate-200/90 leading-relaxed">
+                                   Carlimera Services Ltd is a Coventry second-hand car dealership offering quality vehicles, flexible finance, part exchange and UK-wide delivery with transparent, reliable service.
+                               </p>
+                           </div>
+                        </div>
 
-                        {/* Quick Links */}
-                        <div className="flex flex-col gap-2 text-sm font-semibold">
-                            <Link to="/cars" className="text-blue-100 hover:text-white transition-colors">Browse Cars</Link>
-                            <Link to="/about" className="text-blue-100 hover:text-white transition-colors">About Us</Link>
-                            <Link to="/contact" className="text-blue-100 hover:text-white transition-colors">Contact</Link>
+                        <div className="space-y-1.5 text-xs text-slate-300 pt-1">
+                            <p className="leading-relaxed">
+                                <a
+                                    href="https://www.google.com/maps/dir/?api=1&destination=CARlimera+Services+Coventry"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:text-white inline-block"
+                                    title="Navigate to CARlimera Services on Google Maps"
+                                >
+                                    Opp 115 Max Road, Coventry, West Midlands, CV6 1EL
+                                </a>
+                            </p>
+                            <p className="flex items-center gap-1.5 flex-wrap">
+                                <a
+                                    href="tel:07469292183"
+                                    className="text-sm font-semibold hover:text-white transition-colors"
+                                >
+                                    07469 292183
+                                </a>
+                                <span>&middot;</span>
+                                <a
+                                    href="mailto:kalimeraservices@gmail.com"
+                                    className="hover:text-white underline underline-offset-2 transition-colors"
+                                >
+                                    kalimeraservices@gmail.com
+                                </a>
+                            </p>
                         </div>
                     </div>
+
+                    {/* Useful Links Navigation */}
+                    <div className="flex flex-col items-start sm:items-center space-y-2">
+                      <div className="space-y-3">
+                          <h4 className="text-sm font-bold uppercase tracking-wider text-slate-100">
+                              Useful Links
+                          </h4>
+                          <nav className="flex flex-col gap-2.5 text-sm font-semibold">
+                              <Link to="/cars" className="text-slate-300 hover:text-white transition-colors">
+                                  Browse Cars
+                              </Link>
+                              <Link to="/about" className="text-slate-300 hover:text-white transition-colors">
+                                  About Us
+                              </Link>
+                              <Link to="/contact" className="text-slate-300 hover:text-white transition-colors">
+                                  Contact
+                              </Link>
+                          </nav>
+
+                          <p className="flex flex-row items-center space-x-2">
+                              <span className="text-slate-300">Find us on: </span>
+                              <a
+                              href="https://www.youtube.com/@CARlimeraServices"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs font-semibold text-slate-300 hover:text-white transition-colors"
+                              title="Follow our virtual car walkarounds on YouTube"
+                          >
+                              <SquarePlay className="w-5 h-5 text-slate-300 group-hover:white transition-colors" />
+                          </a>
+                              <a
+                                  className="text-xs font-semibold text-slate-300 hover:text-white transition-colors"
+                                  href="https://www.autotrader.co.uk/dealers/warwickshire/coventry/carlimera-services-10035432?channel=cars"
+                                  target="_blank"
+                              >
+                                  <Car />
+                              </a>
+                          </p>
+                      </div>
+
+                    </div>
+
+                    {/* Business Hours */}
+                    <div className="flex flex-col space-y-3">
+                        <h4 className="text-sm font-bold uppercase tracking-wider text-slate-100">
+                            Business Hours
+                        </h4>
+                        <div className="flex flex-col gap-2 text-sm font-medium text-slate-200/90">
+                            <div className="flex justify-between border-b border-blue-900/40 pb-1.5">
+                                <span>Mon – Fri</span>
+                                <span className="text-slate-100 font-semibold">9:00 AM – 6:00 PM</span>
+                            </div>
+                            <div className="flex justify-between pb-1">
+                                <span>Sunday</span>
+                                <span className="text-slate-100 font-semibold">14:00 PM – 6:00 PM</span>
+                            </div>
+                            <p className="text-xs text-slate-300/80 font-normal italic mt-1 leading-normal">
+                                * We advise booking an appointment before visiting to guarantee availability.
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
 
-                {/* Micro-Copyright */}
-                <div className="flex justify-between items-center text-xs text-blue-300/80 border-t border-blue-900/40 pt-6">
+                {/* Copyright */}
+                <div className="flex justify-between items-center text-xs text-slate-300/80 border-t border-slate-100/40 pt-6">
                     <p>&copy; {new Date().getFullYear()} CARlimera Services Ltd. All rights reserved.</p>
                     <p className="hidden sm:block">Registered in England & Wales</p>
                 </div>

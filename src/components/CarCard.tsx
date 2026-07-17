@@ -13,7 +13,7 @@ export const CarCard = ({ car, onBookViewing }: CarCardProps) => {
     const hasImage = car.images && car.images.length > 0;
 
     return (
-        <Card className="overflow-hidden !rounded-xl border border-gray-200 bg-white hover:shadow-lg hover:border-teal-600/50 transition-all duration-300 transform translate-z-0 cursor-pointer">
+        <Card className="overflow-hidden !rounded-lg border border-gray-200 bg-white hover:shadow-lg hover:border-teal-600/50 transition-all duration-300 transform translate-z-0 cursor-pointer">
             <CardContent className="p-0">
                 <div className="relative aspect-[16/10] w-full bg-gray-100 flex items-center justify-center border-b border-gray-100 overflow-hidden">
                     {hasImage ? (
