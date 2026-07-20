@@ -112,7 +112,6 @@ export const ContactPage = () => {
                                 <div className="flex flex-col gap-4">
                                     <Input placeholder="Your name" required className="bg-gray-50 border-gray-300 focus:border-teal-700 focus:ring-teal-700" />
                                     <Input type="email" placeholder="Email Address" required className="bg-gray-50 border-gray-300 focus:border-teal-700 focus:ring-teal-700" />
-                                    {/* Changed rows to 6 or let it flex resize so it doesn't break smaller viewports */}
                                     <Textarea placeholder="Message" rows={6} className="bg-gray-50 border-gray-300 focus:border-teal-700 focus:ring-teal-700 flex-1 min-h-[120px]" required />
                                 </div>
 
@@ -136,7 +135,7 @@ export const ContactPage = () => {
             {/* Embedded Map Container */}
             <div className="overflow-hidden rounded-xl mt-8 shadow-sm">
                 <iframe
-                    className="h-90 w-full border-0 grayscale opacity-85 hover:grayscale-0 transition-all duration-300"
+                    className="h-90 w-full border-0"
                     src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=52.4066,%20-1.5122+(CARlimera)&t=&z=14&ie=UTF8&iwloc=B&output=embed"
                     title="CARlimera Services location"
                 />
