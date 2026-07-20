@@ -9,10 +9,12 @@ export const Footer = () => {
 
                     {/* Dealership Description & Contact Info */}
                     <div className="flex flex-col space-y-4">
-
                         <div className="space-y-2">
                            <div className="space-y-1">
-                               <h3 className="text-base font-bold text-slate-100">Carlimera Services Ltd</h3>
+                               <div className="flex flex-row items-center space-x-2">
+                                   <img className="w-8 rounded-sm bg-gray-100" src="/carlimera-logo.png" alt="CARlimera Logo"/>
+                                   <h3 className="text-base font-bold text-slate-100">Carlimera Services Ltd</h3>
+                               </div>
                                <p className="text-sm text-slate-200/90 leading-relaxed">
                                    Carlimera Services Ltd is a Coventry second-hand car dealership offering quality vehicles, flexible finance, part exchange and UK-wide delivery with transparent, reliable service.
                                </p>
@@ -81,6 +83,7 @@ export const Footer = () => {
                               <a
                                   className="text-xs font-semibold text-slate-300 hover:text-white transition-colors"
                                   href="https://www.autotrader.co.uk/dealers/warwickshire/coventry/carlimera-services-10035432?channel=cars"
+                                  title="Find us on AutoTrader UK"
                                   target="_blank"
                               >
                                   <Car />
