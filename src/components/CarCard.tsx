@@ -2,54 +2,64 @@ import type {Car} from "@/types/typesCar.ts";
 import { Button } from "@/components/ui/button.tsx";
 import {CardContent} from "@/components/ui/card.tsx";
 import {Card} from "@radix-ui/themes";
-import {CarIcon, Fuel, Milestone, Settings} from "lucide-react";
+import {ArrowUpRight, CarIcon, Fuel, Milestone, Settings} from "lucide-react";
+import {useNavigate} from "react-router";
+import {card} from "@/utils/transitions.ts";
+import {motion} from "framer-motion";
 
 interface CarCardProps {
     car: Car;
-    onBookViewing: (car: Car) => void;
 }
 
-export const CarCard = ({ car, onBookViewing }: CarCardProps) => {
+export const CarCard = ({ car }: CarCardProps) => {
     const hasImage = car.images && car.images.length > 0;
+    const navigate = useNavigate();
 
     return (
-        <Card className="overflow-hidden !rounded-lg border border-gray-200 bg-white hover:shadow-lg hover:border-teal-600/50 transition-all duration-300 transform translate-z-0 cursor-pointer">
+        <Card className="overflow-hidden h-full w-full !rounded-lg border border-border bg-background hover:shadow-md hover:border-primary/50 transition-all duration-300 transform translate-z-0">
             <CardContent className="p-0">
-                <div className="relative aspect-[16/10] w-full bg-gray-100 flex items-center justify-center border-b border-gray-100 overflow-hidden">
+                <motion.div
+                    variants={card}
+                    whileHover="hover"
+                    className="relative aspect-[16/10] w-full bg-background flex items-center justify-center border-b border-border overflow-hidden">
                     {hasImage ? (
-                        <img
-                            src={car.images?.[0]}
-                            alt={car.title}
-                            className="h-full w-full object-cover object-center rounded-t-lg"
-                        />
+                        <div className="relative h-full w-full">
+                            <img
+                                src={car.images?.[0]}
+                                alt={car.title}
+                                className="h-full w-full object-cover object-center rounded-t-lg"
+                            />
+
+                            <Button
+                                onClick={() => navigate(`/cars/${car.id}`)}
+                                className="absolute top-3 right-3 h-10 w-10 p-0 rounded-full bg-primary/90 backdrop-blur hover:bg-primary/60 shadow-md"
+                            >
+                                <ArrowUpRight className="h-4 w-4 text-primary-foreground" />
+                            </Button>
+                        </div>
                     ) : (
-                        <div className="flex h-full w-full flex-col items-center justify-center text-gray-500 gap-2 rounded-t-2xl sm:rounded-t-3xl">
+                        <div className="flex h-full w-full flex-col items-center justify-center text-muted-foreground gap-2 rounded-t-lg">
                             <CarIcon size={32} className="text-gray-400" aria-hidden="true" />
                             <span className="text-xs font-semibold">Image Pending</span>
                         </div>
                     )}
-                </div>
+                </motion.div>
 
                 {/* Content Zone */}
                 <div className="p-5 space-y-4">
                     <div>
-                        <h3 className="text-base font-medium text-gray-900">{car.title}</h3>
-                       <div className="flex flex-row justify-between text-xs my-2">
-                           <p className="text-teal-600 flex flex-col items-center"><Settings className="h-5 w-5" />{car.transmission}</p>
-                           <p className="text-teal-600 flex flex-col items-center"><Fuel className="h-5 w-5" />{car.fuelType}</p>
-                           <p className="text-teal-600 flex flex-col items-center"><Milestone className="h-5 w-5" />{car.mileage.toLocaleString()} mi</p>
+                        <h3 className="text-base font-medium  text-foreground ">{car.year} {car.make} {car.model}</h3>
+                        <p className="text-sm text-muted-foreground my-0.5 line-clamp-1">{car.engine}</p>
+                        <p className="text-sm text-muted-foreground ">MOT {car.motExpiry}</p>
+                       <div className="flex flex-row justify-between text-xs my-4">
+                           <p className="text-teal-600 flex flex-col items-center"><Settings className="h-4 w-4" />{car.transmission}</p>
+                           <p className="text-teal-600 flex flex-col items-center"><Fuel className="h-4 w-4" />{car.fuelType}</p>
+                           <p className="text-teal-600 flex flex-col items-center"><Milestone className="h-4 w-4" />{car.mileage.toLocaleString()} mi</p>
                        </div>
-                        <p className="text-lg font-extrabold font-gray-900 text-teal-850 mt-1">
+                        <p className="text-lg font-extrabold text-foreground mt-4">
                             £{car.price.toLocaleString()}
                         </p>
                     </div>
-
-                    <Button
-                        onClick={() => onBookViewing(car)}
-                        className="w-full bg-teal-800 hover:bg-teal-900 text-white font-bold py-4 rounded-xl transition-colors cursor-pointer"
-                    >
-                        Book viewing
-                    </Button>
                 </div>
             </CardContent>
         </Card>
