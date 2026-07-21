@@ -11,7 +11,7 @@ export const Footer = () => {
                     <div className="flex flex-col space-y-4">
                         <div className="space-y-2">
                            <div className="space-y-1">
-                               <div className="flex flex-row items-center space-x-2">
+                               <div className="flex flex-row items-center space-x-2 mb-2">
                                    <img className="w-8 rounded-sm bg-gray-100" src="/carlimera-logo.png" alt="CARlimera Logo"/>
                                    <h3 className="text-base font-bold text-slate-100">Carlimera Services Ltd</h3>
                                </div>
@@ -21,7 +21,7 @@ export const Footer = () => {
                            </div>
                         </div>
 
-                        <div className="space-y-1.5 text-xs text-slate-300 pt-1">
+                        <div className="space-y-1.5 text-xs text-slate-300">
                             <p className="leading-relaxed">
                                 <a
                                     href="https://www.google.com/maps/dir/?api=1&destination=CARlimera+Services+Coventry"
@@ -70,7 +70,7 @@ export const Footer = () => {
                           </nav>
 
                           <p className="flex flex-row items-center space-x-2">
-                              <span className="text-slate-300">Find us on: </span>
+                              <span className="text-slate-300 text-sm font-semibold">Find us on: </span>
                               <a
                               href="https://www.youtube.com/@CARlimeraServices"
                               target="_blank"
@@ -118,7 +118,7 @@ export const Footer = () => {
                 {/* Copyright */}
                 <div className="flex justify-between items-center text-xs text-slate-300/80 border-t border-slate-100/40 pt-6">
                     <p>&copy; {new Date().getFullYear()} CARlimera Services Ltd. All rights reserved.</p>
-                    <p className="hidden sm:block">Registered in England & Wales</p>
+                    <p className="hidden sm:block">Developed by anastDev</p>
                 </div>
             </div>
         </footer>
