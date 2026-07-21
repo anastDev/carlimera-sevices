@@ -1,38 +1,39 @@
 import Select from "@/components/smoothui/select";
 
-interface FilterSelectProps {
+interface FilterFieldProps {
     label: string;
+    value: string;
+    onChange: (value: string) => void;
     options: string[];
-    value?: string;
-    onChange?: (value: string) => void;
 }
 
-export const FilterSelect = ({
+export const  FilterField = ({
                                  label,
-                                 options,
                                  value,
                                  onChange,
-                             }: FilterSelectProps) => {
+                                 options,
+                             }: FilterFieldProps)=>  {
 
-    const formattedOptions = options.map((option) => ({
+    const selectOptions = options.map((option) => ({
         value: option,
         label: option,
     }));
 
     return (
-        <div className="flex flex-col gap-1.5 w-full">
-            <label className="text-xs font-medium text-muted-foreground">
+        <div>
+            <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
                 {label}
             </label>
 
             <Select
                 aria-label={label}
-                options={formattedOptions}
                 value={value}
+                options={selectOptions}
                 onValueChange={onChange}
+                placeholder={`Select ${label}`}
             />
         </div>
     );
-};
+}
 
-export default FilterSelect;
+export default FilterField;

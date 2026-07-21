@@ -3,7 +3,8 @@ import type {Car} from "@/types/typesCar.ts";
 export const cars: Car[] = [
     {
         id: "fiat500c-2011",
-        brand: "Fiat",
+        category: "Hatchback",
+        make: "Fiat",
         model: "500C",
         year: 2011,
         price: 1100,
@@ -43,7 +44,8 @@ export const cars: Car[] = [
     },
     {
         id: "qashqai-2018",
-        brand: "Nissan",
+        category: "SUV",
+        make: "Nissan",
         model: "Qashqai",
         year: 2018,
         price: 12900,
@@ -82,7 +84,8 @@ export const cars: Car[] = [
     },
     {
         id: "i20-2024",
-        brand: "Hyundai",
+        category: "SUV",
+        make: "Hyundai",
         model: "i20",
         year: 2024,
         price: 16500,
@@ -119,7 +122,8 @@ export const cars: Car[] = [
     },
     {
         id: "i10-2024",
-        brand: "Hyundai",
+        category: "Hatchback",
+        make: "Hyundai",
         model: "i10",
         year: 2024,
         price: 14000,
@@ -156,7 +160,8 @@ export const cars: Car[] = [
     },
     {
         id: "mazda6-2015",
-        brand: "Mazda",
+        category: "SUV",
+        make: "Mazda",
         model: "6",
         year: 2015,
         price: 5600,
@@ -193,7 +198,8 @@ export const cars: Car[] = [
     },
     {
         id: "peugeot208-2019",
-        brand: "Peugeot",
+        category: "Coupe",
+        make: "Peugeot",
         model: "208",
         year: 2019,
         price: 8450,
@@ -232,7 +238,8 @@ export const cars: Car[] = [
     },
     {
         id: "toyotayaris-2021",
-        brand: "Toyota",
+        category: "Hatchback",
+        make: "Toyota",
         model: "Yaris",
         year: 2021,
         price: 14200,
@@ -270,7 +277,8 @@ export const cars: Car[] = [
     },
     {
         id: "toyotachr-2020",
-        brand: "Toyota",
+        category: "SUV",
+        make: "Toyota",
         model: "C-HR",
         year: 2020,
         price: 16900,
