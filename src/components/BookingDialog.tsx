@@ -68,7 +68,7 @@ export const BookingDialog = ({ car, open, onOpenChange, onConfirm }: BookingDia
                     {hasImage ? (
                         <img
                             src={car?.images?.[0]}
-                            alt={car?.brand}
+                            alt={car?.make}
                             className="h-full w-full object-cover"
                         />
                     ) : (
@@ -79,7 +79,7 @@ export const BookingDialog = ({ car, open, onOpenChange, onConfirm }: BookingDia
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
                         <div className="text-white">
-                            <p className="text-sm font-bold leading-tight">{car?.brand ?? "Select a vehicle"}</p>
+                            <p className="text-sm font-bold leading-tight">{car?.make ?? "Select a vehicle"}</p>
                             <p className="text-xs text-blue-100 font-medium mt-0.5">
                                 {car?.price ? `£${car.price.toLocaleString()}` : "Price pending"}
                             </p>
