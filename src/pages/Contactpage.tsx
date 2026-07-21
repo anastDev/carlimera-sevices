@@ -3,14 +3,14 @@ import { Button } from "@/components/ui/button.tsx";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {MapPin, Phone, Mail, CalendarDays, Clock} from "lucide-react";
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList, BreadcrumbPage,
-    BreadcrumbSeparator
-} from "@/components/ui/breadcrumb.tsx";
+import { motion } from "framer-motion";
+import Breadcrumb from "@/components/smoothui/breadcrumb";
+import {container, fadeUp} from "@/utils/transitions.ts";
 
+const items = [
+    {label: "Home", value: "/"},
+    {label: "Contact"}
+];
 
 export const ContactPage = () => {
     const [submitted, setSubmitted] = useState(false);
@@ -21,54 +21,48 @@ export const ContactPage = () => {
     };
 
     return (
-        <div className="container mx-auto max-w-7xl px-4 pb-8 mt-12 sm:mt-20 sm:px-6 lg:px-8">
+        <motion.div
+            variants={container}
+            initial="hidden"
+            animate="visible"
+            className="container mx-auto max-w-7xl px-4 pb-8 mt-12 sm:mt-20 sm:px-6 lg:px-8">
             {/* Breadcrumb */}
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/" className="text-gray-400 hover:text-orange-400">
-                            Home
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator className="text-gray-400" />
-                    <BreadcrumbItem>
-                        <BreadcrumbPage className="text-gray-400">Contact Us</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
+            <Breadcrumb items={items} className="hover:text-primary">
+
             </Breadcrumb>
 
-            <h1 className="my-6 text-3xl font-extrabold text-gray-900">Contact Us</h1>
+            <motion.h1 variants={fadeUp} className="my-6 text-3xl font-extrabold text-foreground">Contact Us</motion.h1>
 
-            <div className="w-full">
+            <motion.div variants={fadeUp} className="w-full">
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-stretch">
 
                     {/* Contact details */}
                     <div className="lg:col-span-7 space-y-6">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100">
-                                <MapPin size={24} className="mt-0.5 text-teal-800 flex-shrink-0" />
+                            <div className="flex items-start gap-3 p-3 rounded-lg bg-background border border-border shadow-sm">
+                                <MapPin size={24} className="mt-0.5 text-primary flex-shrink-0" />
                                 <div>
-                                    <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Address</h4>
-                                    <p className="text-sm text-gray-800 font-medium mt-1">CARlimera Services Ltd, Opp 115 Max Road, Coventry CV6 1EL</p>
+                                    <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Address</h4>
+                                    <p className="text-sm text-foreground/80 font-medium mt-1">CARlimera Services Ltd, Opp 115 Max Road, Coventry CV6 1EL</p>
                                 </div>
                             </div>
 
                             <div className="space-y-3">
-                                <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100">
-                                    <Phone size={20} className="text-teal-800 flex-shrink-0" aria-hidden="true" />
+                                <div className="flex items-center gap-3 p-3 rounded-lg bg-background border border-border shadow-sm">
+                                    <Phone size={20} className="text-primary flex-shrink-0" aria-hidden="true" />
                                     <div>
-                                        <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Phone</h4>
-                                        <a href="tel:07469292183" className="text-sm font-semibold text-teal-850 hover:text-teal-700 transition-colors">
+                                        <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Phone</h4>
+                                        <a href="tel:07469292183" className="text-sm font-semibold text-foreground/80 transition-colors">
                                             07469 292183
                                         </a>
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100">
-                                    <Mail size={20} className="text-teal-800 flex-shrink-0"  />
+                                <div className="flex items-center gap-3 p-3 rounded-lg bg-background border border-border shadow-sm">
+                                    <Mail size={20} className="text-primary flex-shrink-0"  />
                                     <div>
-                                        <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Email</h4>
-                                        <a href="mailto:kalimeraservices@gmail.com" className="text-sm font-semibold text-teal-850 hover:text-teal-700 transition-colors block truncate max-w-[12.5rem]">
+                                        <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Email</h4>
+                                        <a href="mailto:kalimeraservices@gmail.com" className="text-sm font-semibold text-foreground/80 transition-colors block truncate max-w-[12.5rem]">
                                             kalimeraservices@gmail.com
                                         </a>
                                     </div>
@@ -76,28 +70,28 @@ export const ContactPage = () => {
                             </div>
                         </div>
 
-                        {/* Operating Hours Box */}
-                        <div className="rounded-lg border border-teal-100/40 shadow-md bg-teal-50/20 p-5 space-y-4">
-                            <h3 className="text-base font-bold text-teal-950 flex items-center">
-                                <Clock className="mr-2 h-5 w-5 text-teal-800" />
+                        {/* Business Hours */}
+                        <div className="rounded-lg shadow-sm bg-border/30 p-5 space-y-4">
+                            <h3 className="text-base font-bold text-foreground/80 flex items-center">
+                                <Clock className="mr-2 h-5 w-5 text-primary/80" />
                                 Business Hours
                             </h3>
-                            <div className="divide-y divide-teal-100/60 text-sm font-medium text-gray-800">
+                            <div className="divide-y divide-border/60 text-sm font-medium text-muted-foreground">
                                 <div className="flex justify-between py-2">
                                     <span>Monday – Friday</span>
-                                    <span className="font-semibold text-gray-900">9:00 AM – 6:00 PM</span>
+                                    <span className="font-semibold text-foreground">9:00 AM – 6:00 PM</span>
                                 </div>
                                 <div className="flex justify-between py-2">
                                     <span>Saturday</span>
-                                    <span className="font-semibold text-gray-900">9:00 AM – 6:00 PM</span>
+                                    <span className="font-semibold text-foreground">9:00 AM – 6:00 PM</span>
                                 </div>
                                 <div className="flex justify-between py-2">
                                     <span>Sunday</span>
-                                    <span className="font-semibold text-teal-800">Appointment Only</span>
+                                    <span className="font-semibold text-primary">Appointment Only</span>
                                 </div>
                             </div>
-                            <div className="flex items-start bg-white/70 border border-teal-100/50 rounded-lg p-2.5 text-xs text-teal-950 leading-relaxed">
-                                <CalendarDays className="mr-2 h-4.5 w-4.5 flex-shrink-0 text-teal-800 mt-0.5" />
+                            <div className="flex items-center bg-background/70 border border-border/50 rounded-lg p-2.5 text-xs text-primary/80 leading-relaxed">
+                                <CalendarDays className="mr-2 h-4.5 w-4.5 flex-shrink-0 mt-0.5" />
                                 <span>We advise booking an appointment before visiting to guarantee staff availability and car preparation.</span>
                             </div>
                         </div>
@@ -105,8 +99,8 @@ export const ContactPage = () => {
 
                     {/* Contact Form */}
                     <div className="lg:col-span-5 h-full">
-                        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm h-full flex flex-col">
-                            <h3 className="text-lg font-bold text-gray-900 mb-4">Send your inquiry</h3>
+                        <form onSubmit={handleSubmit} className="bg-background p-6 rounded-lg border border-border shadow-sm h-full flex flex-col">
+                            <h3 className="text-lg font-bold text-foreground mb-4">Send your inquiry</h3>
 
                             <div className="flex flex-col gap-4 flex-1 justify-between">
                                 <div className="flex flex-col gap-4">
@@ -116,7 +110,7 @@ export const ContactPage = () => {
                                 </div>
 
                                 <div className="space-y-4 mt-auto">
-                                    <Button type="submit" className="w-full bg-teal-800 text-white hover:bg-teal-900 py-5 rounded-xl font-bold transition-colors cursor-pointer shadow-sm">
+                                    <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-5 rounded-xl font-bold transition-colors cursor-pointer shadow-sm">
                                         Send
                                     </Button>
                                     {submitted && (
@@ -130,17 +124,17 @@ export const ContactPage = () => {
                     </div>
 
                 </div>
-            </div>
+            </motion.div>
 
             {/* Embedded Map Container */}
-            <div className="overflow-hidden rounded-xl mt-8 shadow-sm">
+            <motion.div variants={fadeUp} className="overflow-hidden rounded-xl mt-8 shadow-sm">
                 <iframe
                     className="h-90 w-full border-0"
                     src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=52.4066,%20-1.5122+(CARlimera)&t=&z=14&ie=UTF8&iwloc=B&output=embed"
                     title="CARlimera Services location"
                 />
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 }
 
