@@ -1,5 +1,5 @@
 import {Toaster} from "sonner";
-import {HashRouter as Router} from "react-router";
+import {BrowserRouter as Router} from "react-router";
 import AppShell from "@/components/AppShell.tsx";
 
 export default function App() {
