@@ -32,6 +32,7 @@ export const  FilterPanel = ({
                      }: FilterPanelProps)=>  {
     return (
         <div className="space-y-5">
+
             {/* Temporary Field */}
             <div>
                 <label className="mb-1.5 block text-xs font-medium text-muted-foreground">Search by title</label>
@@ -85,13 +86,13 @@ export const  FilterPanel = ({
                 <Button
                     variant="outline"
                     onClick={onReset}
-                    className="flex-1 border-border text-muted-foreground hover:bg-secondary hover:text-primary"
+                    className="flex-1 py-4 px-3 border-border text-muted-foreground hover:bg-secondary hover:text-primary"
                 >
                     Reset all
                 </Button>
                 <Button
                     onClick={onSearch}
-                    className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
+                    className="flex-1 py-4 px-3 bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                     Search
                 </Button>

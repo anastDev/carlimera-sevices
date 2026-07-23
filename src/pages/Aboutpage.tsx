@@ -15,7 +15,7 @@ export const AboutPage = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            className="container mx-auto max-w-7xl px-4 pb-8 mt-12 sm:mt-20 sm:px-6 lg:px-8"
+            className="container mx-auto max-w-7xl px-4 pb-10 mt-12 sm:mt-20 sm:px-6 lg:px-8"
         >
             {/* Breadcrumb */}
             <Breadcrumb items={items} className="hover:text-primary"></Breadcrumb>
