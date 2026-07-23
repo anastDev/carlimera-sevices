@@ -1,6 +1,5 @@
 export interface Car {
     id: string;
-    category: string;
     make: string;
     model: string;
     year: number;
@@ -9,7 +8,7 @@ export interface Car {
     transmission: string;
     fuelType: string;
     topSpeed: number;
-    bodyType: string;
+    category: string;
     location: string;
     title: string;
     engine: string;
