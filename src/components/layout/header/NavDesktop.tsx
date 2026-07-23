@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router";
-import type {ElementType} from "react";
-import { motion } from "framer-motion";
+import {type ElementType} from "react";
+import { motion} from "framer-motion";
 
 export const NavDesktop = ({ routes }: { routes: Array<{ title: string; path: string; Icon: ElementType }> }) => {
     const { pathname } = useLocation();

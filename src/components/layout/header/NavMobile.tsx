@@ -6,8 +6,8 @@ export const NavMobile = ({ routes }: { routes: Array<{ title: string; path: str
     const { pathname } = useLocation();
 
     return (
-        <nav className="lg:hidden fixed bottom-3 left-3 right-3 z-50">
-            <ul className="flex items-center justify-around bg-card border border-border rounded-full p-3 shadow-md shadow-brand-dark/10">
+        <nav className="lg:hidden fixed top-3 left-3 right-3 z-50">
+            <ul className="flex items-center justify-around bg-card border border-border rounded-full py-2.5 shadow-md shadow-brand-dark/10">
                 {routes.map(({ title, path, Icon }) => {
                     const isActive = pathname === path;
                     return (
@@ -16,14 +16,14 @@ export const NavMobile = ({ routes }: { routes: Array<{ title: string; path: str
                                 {isActive && (
                                     <motion.div
                                         layoutId="nav-glass-pill-mobile"
-                                        className="absolute inset-0 mx-auto h-10 w-10 rounded-full bg-secondary/70 backdrop-blur-md"
+                                        className="absolute inset-0 mx-auto h-10 w-14 rounded-full bg-secondary/70 backdrop-blur-md"
                                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                                     />
                                 )}
                                 <motion.div
                                     whileTap={{ scale: 0.88 }}
                                     transition={{ type: "spring", stiffness: 500, damping: 25 }}
-                                    className={`relative z-10 flex flex-col items-center justify-center py-1.5 gap-1 rounded-xl transition-colors duration-200 ${
+                                    className={`relative z-10 flex flex-col items-center justify-center py-1.5 gap-1 rounded-lg transition-colors duration-200 ${
                                         isActive
                                             ? "text-primary"
                                             : "text-muted-foreground active:text-primary"
