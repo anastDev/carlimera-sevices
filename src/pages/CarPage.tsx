@@ -18,12 +18,14 @@ import {
 } from "@/components/ui/carousel";
 import Breadcrumb from "@/components/smoothui/breadcrumb";
 import {useParams} from "react-router";
+import SmoothButton from "@/components/smoothui/smooth-button";
 
 interface CarPageProps {
     cars: Car[];
+    onBookViewing: (car: Car) => void;
 }
 
-export const CarPage = ({cars}: CarPageProps) => {
+export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
     const [api, setApi] = useState<CarouselApi>();
     const { id } = useParams<{ id: string }>();
     const [current, setCurrent] = useState(0);
@@ -44,13 +46,14 @@ export const CarPage = ({cars}: CarPageProps) => {
     };
 
     return (
-        <div className="container mx-auto max-w-7xl px-4 pb-8 mt-12 sm:mt-20 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-7xl px-4 pb-10 mt-12 sm:mt-20 sm:px-6 lg:px-8">
+
             {/* Breadcrumb */}
             <Breadcrumb
                 className="hover:text-primary"
                 items={[
                     { label: "Home", href: "/" },
-                    { label: "Cars", href: "/cars" },
+                    { label: "All Cars", href: "/cars" },
                     { label: `${car?.year} ${car?.make} ${car?.model}`, href: `/cars/${car?.id}`},
                 ]}
             >
@@ -69,7 +72,7 @@ export const CarPage = ({cars}: CarPageProps) => {
 
                     {/* Img Gallery */}
                     <div className="space-y-4">
-                        <Carousel setApi={setApi} className="relative w-full h-[33rem] group">
+                        <Carousel setApi={setApi} className="relative w-full max-h-[33rem] group">
 
                             {/* Main Hero Window View */}
                             <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-secondary shadow-sm border border-border">
@@ -135,14 +138,14 @@ export const CarPage = ({cars}: CarPageProps) => {
                     </div>
 
                     {/* Quick Info Grid Badges */}
-                    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+                    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 rounded-lg border border-border bg-background p-5 shadow-sm">
                         <div className="flex items-center space-x-3">
                             <div className="rounded-lg bg-accent text-sidebar-primary p-2.5">
                                 <Calendar className="h-5 w-5" />
                             </div>
                             <div>
-                                <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Year</p>
-                                <p className="text-sm font-bold text-foreground">{car?.year}</p>
+                                <p className="text-[0.70rem] sm:text-xs text-muted-foreground font-semibold uppercase tracking-wider">Year</p>
+                                <p className="text-[0.85rem] sm:text-sm font-bold text-foreground">{car?.year}</p>
                             </div>
                         </div>
                         <div className="flex items-center space-x-3">
@@ -150,8 +153,8 @@ export const CarPage = ({cars}: CarPageProps) => {
                                 <Milestone className="h-5 w-5" />
                             </div>
                             <div>
-                                <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Mileage</p>
-                                <p className="text-sm font-bold text-foreground">{car?.mileage.toLocaleString()} mi</p>
+                                <p className="text-[0.70rem] sm:text-xs text-muted-foreground font-semibold uppercase tracking-wider">Mileage</p>
+                                <p className="text-[0.85rem] sm:text-sm font-bold text-foreground">{car?.mileage.toLocaleString()} mi</p>
                             </div>
                         </div>
                         <div className="flex items-center space-x-3">
@@ -159,8 +162,8 @@ export const CarPage = ({cars}: CarPageProps) => {
                                 <Settings className="h-5 w-5" />
                             </div>
                             <div>
-                                <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Transmission</p>
-                                <p className="text-sm font-bold text-foreground capitalize">{car?.transmission}</p>
+                                <p className="text-[0.70rem] text-muted-foreground font-semibold uppercase tracking-wider">Transmission</p>
+                                <p className="text-[0.85rem] font-bold text-foreground capitalize">{car?.transmission}</p>
                             </div>
                         </div>
                         <div className="flex items-center space-x-3">
@@ -168,8 +171,8 @@ export const CarPage = ({cars}: CarPageProps) => {
                                 <NotepadText className="h-5 w-5" />
                             </div>
                             <div>
-                                <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Registration</p>
-                                <p className="text-sm font-bold text-foreground uppercase">{car?.registration}</p>
+                                <p className="text-[0.70rem] text-muted-foreground font-semibold uppercase tracking-wider">Registration</p>
+                                <p className="text-[0.85rem] font-bold text-foreground uppercase">{car?.registration}</p>
                             </div>
                         </div>
                         <div className="flex items-center space-x-3">
@@ -177,8 +180,8 @@ export const CarPage = ({cars}: CarPageProps) => {
                                 <Fuel className="h-5 w-5" />
                             </div>
                             <div>
-                                <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Fuel Type</p>
-                                <p className="text-sm font-bold text-foreground capitalize">{car?.fuelType}</p>
+                                <p className="text-[0.70rem] text-muted-foreground font-semibold uppercase tracking-wider">Fuel Type</p>
+                                <p className="text-[0.85rem] font-bold text-foreground capitalize">{car?.fuelType}</p>
                             </div>
                         </div>
 
@@ -300,26 +303,26 @@ export const CarPage = ({cars}: CarPageProps) => {
                 </div>
 
                 {/* Pricing Action Panel */}
-                <div className="space-y-6 min-h-[33rem]">
-                    <div className="sticky top-10 rounded-xl border border-gray-200 bg-white p-6 shadow-md shadow-gray-100 lg:mt-24">
+                <div className="space-y-6">
+                    <div className="sticky top-10 rounded-lg border border-border bg-background p-6 shadow-md shadow-border lg:mt-24">
                         <div className="mb-4">
-                            <span className="text-xs font-bold text-gray-600 uppercase tracking-wider">Vehicle Price</span>
+                            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Vehicle Price</span>
                             <div className="flex items-baseline space-x-1 mt-1">
-                                <span className="text-4xl font-black text-blue-950">£{car?.price.toLocaleString()}</span>
-                                <span className="text-sm font-medium text-gray-600 ml-1">no extra dealer fees</span>
+                                <span className="text-4xl font-black text-foreground">£{car?.price.toLocaleString()}</span>
+                                <span className="text-sm font-medium text-muted-foreground ml-1">no extra dealer fees</span>
                             </div>
                         </div>
 
                         {/* Primary Call to Action */}
-                        <button
-                            type="button"
-                            className="w-full flex justify-center items-center rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-3.5 text-base font-bold  shadow-sm  transition-all cursor-pointer"
+                        <SmoothButton
+                            onClick={() => cars && cars.length > 0 && onBookViewing(cars[0])}
+                            className="w-full flex justify-center items-center rounded-full bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-3.5 text-base font-bold  shadow-sm  transition-all cursor-pointer"
                         >
                             Book a Viewing / Test Drive
-                        </button>
+                        </SmoothButton>
 
                         {/* Dealer Trust Badges */}
-                        <ul className="mt-6 space-y-3.5 border-t border-gray-100 pt-6 text-sm text-gray-700 font-medium">
+                        <ul className="mt-6 space-y-3.5 border-t border-border pt-6 text-sm text-muted-foreground font-medium">
                             <li className="flex items-center">
                                 <CheckCircle className="mr-3 h-5 w-5 text-sidebar-primary flex-shrink-0" />
                                 <span>Zero deposit required to book a slot</span>
@@ -348,8 +351,14 @@ export const CarPage = ({cars}: CarPageProps) => {
                             <div className="mt-2.5 flex items-start gap-1.5 text-xs text-muted-foreground font-medium">
                                 <Clock className="h-4 w-4 text-sidebar-primary flex-shrink-0 mt-0.5" />
                                 <div className="space-y-1">
-                                    <p className="font-semibold text-foreground">Open Daily: 9:00 AM – 6:00 PM</p>
-                                    <p className="text-muted-foreground">Strictly by appointment only.</p>
+                                    <div className="flex justify-between border-b border-primary/30 pb-1.5">
+                                        <span className="text-primary pr-10">Monday – Friday</span>
+                                        <span className="text-primary font-semibold">9:00 AM – 6:00 PM</span>
+                                    </div>
+                                    <div className="flex justify-between pb-1">
+                                        <span className="text-primary">Sunday</span>
+                                        <span className="text-primary font-semibold">Closed</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
