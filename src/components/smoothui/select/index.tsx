@@ -303,7 +303,7 @@ export default function Select({
             "transition-colors",
             opt.disabled
               ? "pointer-events-none opacity-50"
-              : "hover:bg-accent hover:text-white",
+              : "hover:bg-accent hover:text-primary",
             isFocused && "bg-accent text-primary",
             isSelected && "font-medium"
           )}

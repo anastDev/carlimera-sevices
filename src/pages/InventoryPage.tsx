@@ -1,22 +1,18 @@
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SlidersHorizontal,List, Grid2x2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-    Sheet,
-    SheetContent,
-    SheetTrigger,
-} from "@/components/ui/sheet";
+import {List, Grid2x2, SlidersHorizontal} from "lucide-react";
+import SmoothButton from "@/components/smoothui/smooth-button";
 import type {Car} from "@/types/typesCar.ts";
 import CarCard from "@/components/CarCard.tsx";
 import FilterPanel from "@/components/FilterPanel.tsx";
 import type {FilterState} from "@/types/filterState.ts";
 import Breadcrumb from "@/components/smoothui/breadcrumb";
 import Select from "@/components/smoothui/select";
+import MobileSheetFilter from "@/components/MobileSheetFilter.tsx";
 
 const items = [
     { label: "Home", value: "/" },
-    { label: "Cars" },
+    { label: "All Cars" },
 ];
 
 interface InventoryPageProps {
@@ -37,20 +33,20 @@ const defaultFilters: FilterState = {
 };
 
 type ViewMode = "list" | "grid";
-type SortOption = "default" | "name" | "price-asc" | "price-desc";
+type SortOption = "default" | "name" | "asc" | "desc";
 
 const sortLabels: Record<SortOption, string> = {
     default: "Featured",
     name: "Name: A-Z",
-    "price-asc": "Price: Asc",
-    "price-desc": "Price: Desc",
+    "asc": "Price: Asc",
+    "desc": "Price: Desc",
 };
 
 export const InventoryPage = ({ cars }: InventoryPageProps) => {
     const [filters, setFilters] = useState<FilterState>(defaultFilters);
     const [appliedFilters, setAppliedFilters] = useState<FilterState>(defaultFilters);
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-    const [view, setView] = useState<ViewMode>("list");
+    const [view, setView] = useState<ViewMode>("grid");
     const [sort, setSort] = useState<SortOption>("default");
 
     const categories = useMemo(() => ["All", ...new Set(cars.map((c) => c.category))], [cars]);
@@ -84,9 +80,9 @@ export const InventoryPage = ({ cars }: InventoryPageProps) => {
         switch (sort) {
             case "name":
                 return result.sort((a, b) => a.title.localeCompare(b.title));
-            case "price-asc":
+            case "asc":
                 return result.sort((a, b) => Number(a.price) - Number(b.price));
-            case "price-desc":
+            case "desc":
                 return result.sort((a, b) => Number(b.price) - Number(a.price));
             default:
                 return result;
@@ -113,11 +109,11 @@ export const InventoryPage = ({ cars }: InventoryPageProps) => {
     }).length;
 
     return (
-        <div className="container mx-auto max-w-7xl px-4 pb-8 mt-12 sm:mt-20 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-7xl px-4 pb-10 mt-12 sm:mt-20 sm:px-6 lg:px-8">
             <Breadcrumb items={items} className="hover:text-primary" />
 
             <div className="mb-6 mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex flex-col">
+                <div className="flex-1 flex-col">
                     <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
                         Our Inventory
                     </h1>
@@ -127,10 +123,11 @@ export const InventoryPage = ({ cars }: InventoryPageProps) => {
                 </div>
 
 
-                <div className="flex flex-wrap items-center gap-3">
-                    <div className="flex items-center gap-2 max-w-sm">
+                <div className="flex flex-row items-center gap-1.5">
+                    <div className="flex items-center gap-2 max-w-xs">
                         <span className="text-sm text-muted-foreground whitespace-nowrap">Sort by:</span>
                         <Select
+                            className="pr-5 space-x-4"
                             value={sort}
                             onValueChange={(v) => setSort(v as SortOption)}
                             options={(Object.keys(sortLabels) as SortOption[]).map((key) => ({
@@ -141,58 +138,52 @@ export const InventoryPage = ({ cars }: InventoryPageProps) => {
                         </Select>
                     </div>
 
-                    <div className="flex items-center rounded-lg border border-border bg-background p-0.5 space-x-1">
+                    <div className="hidden lg:flex items-center rounded-lg border border-border bg-background p-0.5 space-x-1">
                         {(["list", "grid"] as ViewMode[]).map((mode) => {
                             const active = view === mode;
                             const Icon = mode === "list" ? List : Grid2x2;
                             return (
-                                <button
+                                <SmoothButton
                                     key={mode}
-                                    type="button"
                                     onClick={() => setView(mode)}
                                     aria-label={`${mode} view`}
                                     aria-pressed={active}
                                     className={`flex h-8 w-8 items-center justify-center rounded-md transition-colors ${
                                         active
                                             ? "bg-primary text-primary-foreground"
-                                            : "text-muted-foreground hover:bg-secondary hover:text-primary"
+                                            : "bg-background text-muted-foreground hover:bg-secondary"
                                     }`}
                                 >
                                     <Icon size={16} aria-hidden="true" />
-                                </button>
+                                </SmoothButton>
                             );
                         })}
                     </div>
 
                     <div className="lg:hidden">
-                        <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
-                            <SheetTrigger>
-                                <Button variant="outline" className="relative gap-2 border-border">
-                                    <SlidersHorizontal size={16} aria-hidden="true" />
-                                    Filters
-                                    {activeFilterCount > 0 && (
-                                        <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-semibold text-primary-foreground">
+                        <MobileSheetFilter
+                            mobileSheetTrigger={
+                            <SmoothButton variant="soft" className="relative gap-2 rounded-lg bg-background">
+                                <SlidersHorizontal size={20} aria-hidden="true" />
+                                Filters
+                                {activeFilterCount > 0 && (
+                                    <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center  bg-primary text-xs font-semibold text-primary-foreground">
                       {activeFilterCount}
                     </span>
-                                    )}
-                                </Button>
-                            </SheetTrigger>
-                            <SheetContent side="right" className="w-full overflow-y-auto sm:max-w-sm">
-                                <div className="mt-8">
-                                    <FilterPanel
-                                        filters={filters}
-                                        setFilters={setFilters}
-                                        onSearch={handleSearch}
-                                        onReset={handleReset}
-                                        categories={categories}
-                                        years={years}
-                                        makes={makes}
-                                        fuelTypes={fuelTypes}
-                                        transmissions={transmissions}
-                                    />
-                                </div>
-                            </SheetContent>
-                        </Sheet>
+                                )}
+                            </SmoothButton>}
+                            mobileFilterControl={mobileFiltersOpen}
+                            openChange={setMobileFiltersOpen}
+                            filters={filters}
+                            setFilters={setFilters}
+                            onsearch={handleSearch}
+                            onreset={handleReset}
+                            categories={categories}
+                            years={years}
+                            makes={makes}
+                            fuelTypes={fuelTypes}
+                            transmissions={transmissions}
+                            />
                     </div>
                 </div>
             </div>
@@ -217,12 +208,12 @@ export const InventoryPage = ({ cars }: InventoryPageProps) => {
 
                 <div className="lg:col-span-3">
                     {sortedCars.length === 0 ? (
-                        <div className="flex min-h-[300px] flex-col items-center justify-center rounded-xl border border-dashed border-border p-8 text-center">
+                        <div className="flex min-h-[18.75rem] flex-col items-center justify-center rounded-lg border border-dashed border-border p-8 text-center">
                             <p className="mb-1 text-base font-medium text-foreground">No cars match those filters.</p>
                             <p className="mb-4 text-sm text-muted-foreground">Try widening your search or resetting all filters.</p>
-                            <Button variant="outline" onClick={handleReset} className="border-border">
+                            <SmoothButton variant="outline" onClick={handleReset} className="border-border">
                                 Reset all
-                            </Button>
+                            </SmoothButton>
                         </div>
                     ) : (
                         <div
@@ -242,7 +233,7 @@ export const InventoryPage = ({ cars }: InventoryPageProps) => {
                                         exit={{ opacity: 0, scale: 0.96 }}
                                         transition={{ duration: 0.25 }}
                                     >
-                                        <CarCard car={car} />
+                                        <CarCard car={car} view={view} />
                                     </motion.div>
                                 ))}
                             </AnimatePresence>
