@@ -40,53 +40,42 @@ export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
             <div className="container mx-auto max-w-7xl mt-4 lg:mt-14 px-4 sm:px-6">
 
                 {/* Hero Section */}
-                <section className="relative hidden lg:grid lg:grid-cols-2 gap-8 items-center py-0 lg:py-12 overflow-hidden">
+                <section className="relative hidden lg:grid lg:grid-cols-2 gap-16 items-center lg:py-16 overflow-hidden">
 
                     {/* Text & Filter Half  */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="relative order-2 flex flex-col justify-center z-20 p-6 sm:p-12 lg:p-0 lg:order-1 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent lg:bg-none text-white lg:text-inherit mt-56 sm:mt-72 lg:mt-0"
+                        className="relative order-2 flex flex-col justify-center z-20 p-6 sm:p-12 lg:p-0 lg:pr-8 lg:order-1 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent lg:bg-none text-white lg:text-inherit mt-56 sm:mt-72 lg:mt-0"
                     >
                         <div className="text-center lg:text-left">
-                            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-teal-200 lg:text-primary">
+                            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-primary">
                                 Are you looking for a car?
                             </p>
-                            <h1 className="mb-3 text-3xl font-extrabold leading-tight tracking-tight text-white lg:text-brand-dark sm:text-4xl lg:text-5xl">
+                            <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-foreground sm:text-4xl lg:text-5xl">
                                 Find Your Next Vehicle Today.
                             </h1>
-                            <p className="mb-6 max-w-md mx-auto lg:mx-0 text-sm text-white/90 lg:text-muted-foreground sm:text-base">
+                            <p className="mb-8 max-w-md mx-auto lg:mx-0 text-sm text-muted-foreground sm:text-base lg:text-lg">
                                 Discover your perfect car with CARlimera Services. Reliable, vetted vehicles ready for delivery.
                             </p>
                         </div>
 
-                        {/* Filters Panel */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
-                            className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5 rounded-lg items-end border bg-card p-4 shadow-md text-foreground"
-                        >
-                            <motion.div
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.96 }}
-                                transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                            >
-                                <SmoothButton className="rounded-full"
-                                              onClick={() => navigate("/cars")}>
-                                    Browse All Cars
-                                </SmoothButton>
-                            </motion.div>
-                        </motion.div>
+                        {/* CTA Button */}
+                        <div>
+                            <SmoothButton className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                                          onClick={() => navigate("/cars")}>
+                                Browse All Cars
+                            </SmoothButton>
+                            <p className="mt-4 text-center lg:text-left text-xs text-muted-foreground/80">
+                                Every vehicle DVLA checked · Warranty included
+                            </p>
+                        </div>
 
-                        <p className="mt-4 text-center lg:text-left text-xs text-white/80 lg:text-muted-foreground">
-                            Every vehicle DVLA checked · Warranty included
-                        </p>
                     </motion.div>
 
                     {/* Carousel Half */}
-                    <div className="absolute inset-0 z-10 h-full lg:relative lg:order-2 w-full lg:h-[37.5rem]">
+                    <div className="absolute inset-0 z-10 h-full lg:relative lg:order-2 w-full lg:h-[37.5rem] rounded-lg">
                         <div className="absolute inset-0 bg-brand-dark/40 lg:hidden z-10 pointer-events-none" />
                         <Carousel
                             className="h-full w-full"
@@ -99,14 +88,14 @@ export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
                                 }),
                             ]}
                         >
-                            <CarouselContent className="ml-0 h-full rounded-xl">
+                            <CarouselContent className="ml-0 h-full rounded-lg">
                                 {heroImages.map((src, i) => (
-                                    <CarouselItem key={i} className="h-full pl-0 rounded-xl">
+                                    <CarouselItem key={i} className="h-full pl-0 rounded-lg">
                                         <img
                                             src={src}
                                             alt=""
                                             aria-hidden="true"
-                                            className="h-full w-full object-cover rounded-xl shadow-md"
+                                            className="h-full w-full object-cover rounded-lg shadow-md"
                                         />
                                     </CarouselItem>
                                 ))}
@@ -117,7 +106,7 @@ export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
 
                 {/* Mobile Hero */}
                 <section className="lg:hidden">
-                    <div className="px-4 sm:px-6 pt-14 text-center">
+                    <div className="px-2 pt-18 text-center">
                         <p className="mb-4 text-xs font-bold uppercase tracking-wider text-primary">
                             Are you looking for a car?
                         </p>
@@ -138,12 +127,28 @@ export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
                         </p>
                     </div>
 
-                    <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory px-4 sm:px-6 py-5 -mx-4 sm:-mx-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                        {heroImages.map((src, i) => (
-                            <div key={i} className="relative shrink-0 w-[60%] snap-start rounded-lg overflow-hidden shadow-sm">
-                                <img src={src} alt="" aria-hidden="true" className="h-40 w-full object-cover" />
-                            </div>
-                        ))}
+                    <div className="px-2 pt-6 pb-4">
+                        <Carousel
+                            className="w-full"
+                            opts={{ loop: true, align: "start" }}
+                            plugins={[
+                                Autoplay({
+                                    delay: 3500,
+                                    stopOnInteraction: false,
+                                    stopOnMouseEnter: true,
+                                }),
+                            ]}
+                        >
+                            <CarouselContent className="-ml-3">
+                                {heroImages.map((src, i) => (
+                                    <CarouselItem key={i} className="pl-3 basis-[60%]">
+                                        <div className="relative overflow-hidden rounded-lg shadow-sm">
+                                            <img src={src} alt="" aria-hidden="true" className="h-44 w-full object-cover" />
+                                        </div>
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
+                        </Carousel>
                     </div>
                 </section>
             </div>
@@ -153,8 +158,8 @@ export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
                 {/* Featured Vehicles Section */}
                 <motion.section {...fadeUp}>
                     <div className="mb-4 sm:mb-6">
-                        <h2 className="text-lg font-bold tracking-tight text-foreground sm:text-xl">Our Top Featured Vehicles</h2>
-                        <p className="text-sm text-muted-foreground">Handpicked models checked for ultimate reliability.</p>
+                        <h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl ">Our Top Featured Vehicles</h2>
+                        <p className="text-sm sm:text-base text-muted-foreground my-1">Handpicked models checked for ultimate reliability.</p>
                     </div>
 
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
@@ -166,7 +171,7 @@ export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
                                 viewport={{ once: true, margin: "-80px" }}
                                 transition={{ duration: 0.4, delay: index * 0.08, ease: "easeOut" }}
                             >
-                                <CarCard car={car} />
+                                <CarCard car={car}  onclick={() => navigate(`/cars/${car.id}`)}/>
                             </motion.div>
                         ))}
                     </div>
@@ -176,7 +181,7 @@ export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
                 <Testimonials3 />
 
                 {/* Test Drive Section */}
-                <motion.section {...fadeUp} className="rounded-lg border bg-card py-6 px-4 text-center shadow-md sm:rounded-xl sm:px-8 sm:py-16">
+                <motion.section {...fadeUp} className="rounded-lg border bg-card py-6 px-4 text-center shadow-md sm:px-8 sm:py-16">
                     <p className="mb-2 text-xs font-bold uppercase tracking-widest text-muted-foreground sm:text-sm">
                         Ready for a Test Drive?
                     </p>
