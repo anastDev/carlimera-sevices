@@ -22,7 +22,7 @@ export const AboutPage = () => {
 
             {/* Title + text */}
             <motion.div variants={fadeUp} className="mt-6">
-                <h1 className="mb-4 text-2xl font-semibold text-blue-950">
+                <h1 className="mb-4 text-2xl font-semibold text-foreground">
                     Why Should You Choose CARlimera Services Ltd?
                 </h1>
 

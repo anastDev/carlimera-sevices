@@ -31,7 +31,7 @@ export const ContactPage = () => {
 
             </Breadcrumb>
 
-            <motion.h1 variants={fadeUp} className="my-6 text-3xl font-extrabold text-foreground">Contact Us</motion.h1>
+            <motion.h1 variants={fadeUp} className="my-6 text-3xl font-bold text-foreground">Contact Us</motion.h1>
 
             <motion.div variants={fadeUp} className="w-full">
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-stretch">
