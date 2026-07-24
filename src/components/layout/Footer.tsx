@@ -24,10 +24,10 @@ export const Footer = () => {
                         <div className="space-y-1.5 text-xs text-primary-foreground/70">
                             <p className="leading-relaxed">
                                 <a
-                                    href="https://www.google.com/maps/dir/?api=1&destination=CARlimera+Services+Coventry"
+                                    href="https://maps.app.goo.gl/WSmctXRKcSx4woJH7"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="hover:text-white inline-block"
+                                    className="hover:text-popover inline-block"
                                     title="Navigate to CARlimera Services on Google Maps"
                                 >
                                     Opp 115 Max Road, Coventry, West Midlands, CV6 1EL
@@ -43,7 +43,7 @@ export const Footer = () => {
                                 <span className="text-primary-foreground/40">&middot;</span>
                                 <a
                                     href="mailto:kalimeraservices@gmail.com"
-                                    className="hover:text-white underline underline-offset-2 transition-colors"
+                                    className="hover:text-popover underline underline-offset-2 transition-colors"
                                 >
                                     kalimeraservices@gmail.com
                                 </a>
