@@ -6,7 +6,7 @@ export const NavMobile = ({ routes }: { routes: Array<{ title: string; path: str
     const { pathname } = useLocation();
 
     return (
-        <nav className="lg:hidden fixed top-3 left-3 right-3 z-50">
+        <nav className="lg:hidden fixed top-4 left-3 right-3 z-50">
             <ul className="flex items-center justify-around bg-card border border-border rounded-full py-2.5 shadow-md shadow-brand-dark/10">
                 {routes.map(({ title, path, Icon }) => {
                     const isActive = pathname === path;

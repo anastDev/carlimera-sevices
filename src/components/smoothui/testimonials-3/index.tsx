@@ -37,10 +37,10 @@ export function TestimonialsStars() {
                 : { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
             }
           >
-            <h2 className="font-semibold text-xl text-foreground sm:text-4xl">
+            <h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
                 What early customers say
             </h2>
-            <p className="my-2 text-balance text-xs text-muted-foreground">
+            <p className="my-1 text-balance text-sm sm:text-base text-muted-foreground">
                 We're a small local team, so every single honest review means the world to us.
             </p>
           </motion.div>
@@ -60,7 +60,7 @@ export function TestimonialsStars() {
                 animate={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
                 }
-                className="group rounded-2xl border border-transparent px-4 py-3 duration-200 hover:border-border hover:bg-background/50"
+                className="group rounded-xl border border-transparent px-4 py-3 duration-200 hover:border-border hover:bg-background/50"
                 initial={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }
                 }
@@ -144,7 +144,7 @@ export function TestimonialsStars() {
                   animate={
                     shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
                   }
-                  className="my-4 text-foreground text-sm sm:text-2xl lg:text-4xl"
+                  className="my-4 text-foreground text-base sm:text-lg"
                   initial={
                     shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
                   }
