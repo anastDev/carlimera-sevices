@@ -19,11 +19,19 @@ import {
 import Breadcrumb from "@/components/smoothui/breadcrumb";
 import {useParams} from "react-router";
 import SmoothButton from "@/components/smoothui/smooth-button";
+import {motion} from "framer-motion";
 
 interface CarPageProps {
     cars: Car[];
     onBookViewing: (car: Car) => void;
 }
+
+const fadeUp = {
+    initial: { opacity: 0, y: 24 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-80px" },
+    transition: { duration: 0.5, ease: "easeOut" },
+} as const;
 
 export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
     const [api, setApi] = useState<CarouselApi>();
@@ -49,33 +57,41 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
         <div className="container mx-auto max-w-7xl px-4 pb-10 mt-12 sm:mt-20 sm:px-6 lg:px-8">
 
             {/* Breadcrumb */}
-            <Breadcrumb
-                className="hover:text-primary"
-                items={[
-                    { label: "Home", href: "/" },
-                    { label: "All Cars", href: "/cars" },
-                    { label: `${car?.year} ${car?.make} ${car?.model}`, href: `/cars/${car?.id}`},
-                ]}
-            >
-            </Breadcrumb>
+                <Breadcrumb
+                    className="hover:text-primary"
+                    items={[
+                        { label: "Home", href: "/" },
+                        { label: "All Cars", href: "/cars" },
+                        { label: `${car?.year} ${car?.make} ${car?.model}`, href: `/cars/${car?.id}`},
+                    ]}
+                />
 
             {/* Main Grid Layout */}
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 mt-6">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 mt-4">
                 <div className="lg:col-span-2 space-y-8">
 
                     {/* Header Details */}
-                    <div>
-                        <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl my-3">
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+                    >
+                        <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-4xl my-3">
                             {car!.title}
                         </h1>
-                    </div>
+                    </motion.div>
 
                     {/* Img Gallery */}
-                    <div className="space-y-4">
+                    <motion.div
+                        className="space-y-4"
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+                    >
                         <Carousel setApi={setApi} className="relative w-full max-h-[33rem] group">
 
                             {/* Main Hero Window View */}
-                            <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-secondary shadow-sm border border-border">
+                            <div className="relative aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-lg bg-secondary shadow-sm border border-border">
                                 {car?.images && car?.images.length > 0 ? (
                                     <img
                                         src={car.images[current]}
@@ -88,7 +104,6 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                                     </div>
                                 )}
 
-                                {/* Overlay Navigation Buttons  */}
                                 {car?.images && car?.images.length > 1 && (
                                     <>
                                         <CarouselPrevious
@@ -135,10 +150,15 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                                 </div>
                             )}
                         </Carousel>
-                    </div>
+                    </motion.div>
 
                     {/* Quick Info Grid Badges */}
-                    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 rounded-lg border border-border bg-background p-5 shadow-sm">
+                    <motion.div
+                        className="grid grid-cols-2 gap-4 sm:grid-cols-3 rounded-lg border border-border bg-background p-5 shadow-sm"
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+                    >
                         <div className="flex items-center space-x-3">
                             <div className="rounded-lg bg-accent text-sidebar-primary p-2.5">
                                 <Calendar className="h-5 w-5" />
@@ -198,19 +218,19 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                                 </div>
                             </div>
                         )}
-                    </div>
+                    </motion.div>
 
                     {/* Description Text Frame */}
-                    <div className="space-y-3">
-                        <h2 className="text-xl font-bold text-foreground">Description</h2>
-                        <p className="text-base leading-relaxed text-foreground/80">
+                    <motion.div className="space-y-3" {...fadeUp}>
+                        <h2 className="text-lg sm:text-xl font-bold text-foreground">Description</h2>
+                        <p className="text-sm sm:text-base leading-relaxed text-foreground/80">
                             {car?.description}
                         </p>
-                    </div>
+                    </motion.div>
 
                     {/* Specification Table Module */}
-                    <div className="space-y-4">
-                        <h2 className="text-xl font-bold text-foreground">Technical Specifications</h2>
+                    <motion.div className="space-y-4" {...fadeUp}>
+                        <h2 className="text-lg sm:text-xl font-bold text-foreground">Technical Specifications</h2>
                         <div className="overflow-hidden rounded-lg border border-border bg-background">
                             <dl className="divide-y divide-gray-200">
                                 <div className="grid grid-cols-3 gap-4 px-6 py-4">
@@ -259,11 +279,11 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                                 )}
                             </dl>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Features Checklist Grid */}
-                    <div className="space-y-4">
-                        <h2 className="text-xl font-bold text-foreground flex items-center">
+                    <motion.div className="space-y-4" {...fadeUp}>
+                        <h2 className="text-lg sm:text-xl font-bold text-foreground flex items-center">
                             <Sparkles className="mr-2 h-5 w-5 text-sidebar-primary" />
                             Premium Features & Highlights
                         </h2>
@@ -271,21 +291,28 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                             {car?.features.map((feature, idx) => {
                                 const [title, desc] = feature.split(':');
                                 return (
-                                    <div key={idx} className="flex items-start space-x-3 p-3 rounded-lg border border-border/50 hover:bg-background/80 transition-colors">
+                                    <motion.div
+                                        key={idx}
+                                        className="flex items-start space-x-3 p-3 rounded-lg border border-border/50 hover:bg-background/80 transition-colors"
+                                        initial={{ opacity: 0, y: 12 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true, margin: "-40px" }}
+                                        transition={{ duration: 0.35, delay: (idx % 4) * 0.06, ease: "easeOut" }}
+                                    >
                                         <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-600" />
                                         <div>
                                             <h4 className="font-bold text-sm text-foreground">{title}</h4>
                                             {desc && <p className="text-xs text-muted-foreground mt-0.5">{desc.trim()}</p>}
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 );
                             })}
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Inspection Notice Card */}
-                    <div className="rounded-xl bg-border/30 p-6 space-y-4">
-                        <h3 className="text-lg font-bold text-foreground/80 flex items-center">
+                    <motion.div className="rounded-lg bg-border/30 p-6 space-y-4" {...fadeUp}>
+                        <h3 className="text-lg sm:text-xl font-bold text-foreground/80 flex items-center">
                             <ShieldCheck className="mr-2 h-6 w-6 text-primary/80" />
                             Pre-Inspection & Condition Report
                         </h3>
@@ -298,12 +325,17 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                                 <strong>Verification Notice:</strong> While the exterior presents remarkably well in high-resolution photography, we always recommend an in-person viewing and a test drive to verify the interior trim condition, soft-top mechanism seals, and mechanical history.
                             </span>
                         </div>
-                    </div>
+                    </motion.div>
 
                 </div>
 
                 {/* Pricing Action Panel */}
-                <div className="space-y-6">
+                <motion.div
+                    className="space-y-6"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" }}
+                >
                     <div className="sticky top-10 rounded-lg border border-border bg-background p-6 shadow-md shadow-border lg:mt-24">
                         <div className="mb-4">
                             <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Vehicle Price</span>
@@ -313,15 +345,13 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                             </div>
                         </div>
 
-                        {/* Primary Call to Action */}
                         <SmoothButton
                             onClick={() => cars && cars.length > 0 && onBookViewing(cars[0])}
-                            className="w-full flex justify-center items-center rounded-full bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-3.5 text-base font-bold  shadow-sm  transition-all cursor-pointer"
+                            className="w-full flex justify-center items-center rounded-full bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-5 text-base font-bold  shadow-sm  transition-all cursor-pointer"
                         >
                             Book a Viewing / Test Drive
                         </SmoothButton>
 
-                        {/* Dealer Trust Badges */}
                         <ul className="mt-6 space-y-3.5 border-t border-border pt-6 text-sm text-muted-foreground font-medium">
                             <li className="flex items-center">
                                 <CheckCircle className="mr-3 h-5 w-5 text-sidebar-primary flex-shrink-0" />
@@ -345,7 +375,6 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                             </li>
                         </ul>
 
-                        {/* Timing Module */}
                         <div className="mt-6 rounded-xl bg-background/50 p-4 border border-border">
                             <h4 className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-2">Dealership & Hours</h4>
                             <div className="mt-2.5 flex items-start gap-1.5 text-xs text-muted-foreground font-medium">
@@ -363,7 +392,7 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
             </div>
         </div>

@@ -9,6 +9,7 @@ import type {FilterState} from "@/types/filterState.ts";
 import Breadcrumb from "@/components/smoothui/breadcrumb";
 import Select from "@/components/smoothui/select";
 import MobileSheetFilter from "@/components/MobileSheetFilter.tsx";
+import {useNavigate} from "react-router";
 
 const items = [
     { label: "Home", value: "/" },
@@ -46,6 +47,7 @@ export const InventoryPage = ({ cars }: InventoryPageProps) => {
     const [filters, setFilters] = useState<FilterState>(defaultFilters);
     const [appliedFilters, setAppliedFilters] = useState<FilterState>(defaultFilters);
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+    const navigate = useNavigate();
     const [view, setView] = useState<ViewMode>("grid");
     const [sort, setSort] = useState<SortOption>("default");
 
@@ -114,8 +116,8 @@ export const InventoryPage = ({ cars }: InventoryPageProps) => {
 
             <div className="mb-6 mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex-1 flex-col">
-                    <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
-                        Our Inventory
+                    <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                        Our Cars
                     </h1>
                     <p className="mt-0.5 text-sm text-muted-foreground">
                         {sortedCars.length} {sortedCars.length === 1 ? "car" : "cars"} available
@@ -233,7 +235,7 @@ export const InventoryPage = ({ cars }: InventoryPageProps) => {
                                         exit={{ opacity: 0, scale: 0.96 }}
                                         transition={{ duration: 0.25 }}
                                     >
-                                        <CarCard car={car} view={view} />
+                                        <CarCard car={car} view={view}  onclick={() => navigate(`/cars/${car.id}`)}/>
                                     </motion.div>
                                 ))}
                             </AnimatePresence>

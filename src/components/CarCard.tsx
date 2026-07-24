@@ -10,16 +10,17 @@ import {motion} from "framer-motion";
 interface CarCardProps {
     car: Car;
     view?: "list" | "grid";
+    onclick: () => void;
 }
 
-export const CarCard = ({ car, view = "grid" }: CarCardProps) => {
+export const CarCard = ({ car, view = "grid" , onclick}: CarCardProps) => {
     const hasImage = car.images && car.images.length > 0;
     const navigate = useNavigate();
 
     if (view === "list") {
         return (
-            <Card className="overflow-hidden w-full !rounded-lg border border-border bg-background hover:shadow-md hover:border-primary/50 transition-all duration-300">
-                <CardContent className="p-0 cursor-pointer" onClick={() => navigate(`/cars/${car.id}`)}>
+            <Card onClick={onclick} className="overflow-hidden w-full !rounded-lg border border-border bg-background hover:shadow-md hover:border-primary/50 transition-all duration-300 cursor-pointer">
+                <CardContent className="p-0">
                     <div className="flex flex-row">
                         {/* Image */}
                         <div className="relative w-32 sm:w-48 shrink-0 aspect-[4/3] bg-background border-r border-border overflow-hidden">
@@ -80,7 +81,7 @@ export const CarCard = ({ car, view = "grid" }: CarCardProps) => {
     }
 
     return (
-        <Card className="overflow-hidden h-full w-full !rounded-lg border border-border bg-background hover:shadow-md hover:border-primary/50 transition-all duration-300 transform translate-z-0">
+        <Card onClick={onclick} className="overflow-hidden h-full w-full !rounded-lg border border-border bg-background hover:shadow-md hover:border-primary/50 transition-all duration-300 transform translate-z-0">
             <CardContent className="p-0">
                 <div className="relative aspect-[16/10] w-full bg-background flex items-center justify-center border-b border-border overflow-hidden">
                     {hasImage ? (
