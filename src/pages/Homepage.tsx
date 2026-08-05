@@ -37,7 +37,7 @@ export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
 
     return (
         <div className="min-h-screen">
-            <div className="container mx-auto max-w-7xl mt-4 lg:mt-14 px-4 sm:px-6">
+            <div className="container mx-auto max-w-7xl mt-4 lg:mt-10 px-4 sm:px-6">
 
                 {/* Hero Section */}
                 <section className="relative hidden lg:grid lg:grid-cols-2 gap-16 items-center lg:py-16 overflow-hidden">
@@ -199,7 +199,7 @@ export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
 
 
                 {/* FAQ Section */}
-                <motion.section {...fadeUp} className="border-t border-border pt-2">
+                <motion.section {...fadeUp} className="pt-2">
                     <FaqSection />
                 </motion.section>
 
