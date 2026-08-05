@@ -12,9 +12,12 @@ export interface Car {
     location: string;
     title: string;
     engine: string;
-    drivetrain: string;
     exteriorColor: string;
     interiorColor: string;
+    carWidth: number;
+    carLength: number;
+    engine_location: string;
+    insuranceGroup: string;
     images: string[];
     description: string;
     features: string[];
