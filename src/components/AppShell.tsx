@@ -12,6 +12,7 @@ import CarPage from "@/pages/CarPage.tsx";
 import {toast} from "sonner";
 import type {Car} from "@/types/typesCar.ts";
 import BookingDialog from "@/components/BookingDialog.tsx";
+import {WhatsAppButton} from "@/components/WhatsAppButton.tsx";
 
 interface WrapperProps {
     children: ReactNode;
@@ -68,6 +69,8 @@ export const  AppShell = ()=>  {
                 onOpenChange={setDialogOpen}
                 onConfirm={handleConfirmBooking}
             />
+
+            <WhatsAppButton/>
         </Wrapper>
     );
 }
