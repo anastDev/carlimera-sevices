@@ -15,11 +15,11 @@ export function isPastDay(date: Date, today: Date): boolean {
     return d < t;
 }
 
-export function formatHour(hour: number): string {
-    const period = hour >= 12 ? "PM" : "AM";
-    const displayHour = hour > 12 ? hour - 12 : hour;
-    return `${displayHour}:00 ${period}`;
-}
+// export function formatHour(hour: number): string {
+//     const period = hour >= 12 ? "PM" : "AM";
+//     const displayHour = hour > 12 ? hour - 12 : hour;
+//     return `${displayHour}:00 ${period}`;
+// }
 
 export function getMonthGrid(monthCursor: Date): (Date | null)[] {
     const year = monthCursor.getFullYear();
