@@ -238,10 +238,6 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                                     <dd className="col-span-2 text-sm text-foreground font-medium">{car?.engine}</dd>
                                 </div>
                                 <div className="grid grid-cols-3 gap-4 px-6 py-4">
-                                    <dt className="text-sm font-semibold text-foreground/80">Drivetrain</dt>
-                                    <dd className="col-span-2 text-sm text-foreground font-medium">{car?.drivetrain}</dd>
-                                </div>
-                                <div className="grid grid-cols-3 gap-4 px-6 py-4">
                                     <dt className="text-sm font-semibold text-foreground/80">Exterior Color</dt>
                                     <dd className="col-span-2 text-sm text-foreground font-medium">{car?.exteriorColor}</dd>
                                 </div>

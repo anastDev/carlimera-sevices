@@ -1,11 +1,12 @@
 import type {Car} from "@/types/typesCar.ts";
-import { Button } from "@/components/ui/button.tsx";
 import {CardContent} from "@/components/ui/card.tsx";
 import {Card} from "@radix-ui/themes";
-import {ArrowUpRight, CarIcon, Fuel, Milestone, Settings} from "lucide-react";
+import {CarIcon, Fuel, Info, Milestone, Settings} from "lucide-react";
 import {useNavigate} from "react-router";
-import {card} from "@/utils/transitions.ts";
-import {motion} from "framer-motion";
+import {FaPerson} from "react-icons/fa6";
+import {IoShieldCheckmark} from "react-icons/io5";
+import SmoothButton from "@/components/smoothui/smooth-button";
+import {Separator} from "@base-ui/react";
 
 interface CarCardProps {
     car: Car;
@@ -41,24 +42,40 @@ export const CarCard = ({ car, view = "grid" , onclick}: CarCardProps) => {
                         {/* Content */}
                         <div className="flex flex-1 items-center justify-between gap-3 px-4 py-3 min-w-0">
                             <div className="min-w-0">
-                                <h3 className="text-sm sm:text-base font-medium text-foreground truncate">
+                                <h3 className="text-sm sm:text-lg font-medium text-foreground truncate">
                                     {car.year} {car.make} {car.model}
                                 </h3>
-                                <p className="text-xs text-muted-foreground truncate">{car.engine}</p>
+                                <p className="text-sm text-muted-foreground truncate">{car.engine}</p>
 
-                                <div className="flex flex-row items-center gap-3 text-xs text-primary pt-4">
-                                    <span className="flex items-center gap-1">
-                                        <Settings className="h-3.5 w-3.5" />
-                                        {car.transmission}
-                                    </span>
-                                    <span className="flex items-center gap-1">
-                                        <Fuel className="h-3.5 w-3.5" />
-                                        {car.fuelType}
-                                    </span>
-                                    <span className="hidden sm:flex items-center gap-1">
-                                        <Milestone className="h-3.5 w-3.5" />
-                                        {car.mileage.toLocaleString()} mi
-                                    </span>
+                                <div className="flex flex-wrap gap-2 my-4">
+                                    <div className="inline-flex items-center gap-1.5 rounded-full py-1.5 text-xs text-primary">
+                                        <Settings className="h-3.5 w-3.5" aria-hidden="true" />Transmission: <span className="font-semibold">{car.transmission}</span>
+                                    </div>
+                                    <Separator orientation="vertical"/>
+                                    <div className="inline-flex items-center gap-1.5 rounded-full py-1.5 text-xs text-primary">
+                                        <Fuel className="h-3.5 w-3.5" aria-hidden="true" />
+                                        Fuel: <span className="font-semibold">{car.fuelType}</span>
+                                    </div>
+                                    <Separator orientation="vertical" className="text-primary" />
+                                    <div className="inline-flex items-center gap-1.5 rounded-full  py-1.5 text-xs text-primary">
+                                        <Milestone className="h-3.5 w-3.5" aria-hidden="true" />
+                                        Mileage: <span className="font-semibold">{car.mileage.toLocaleString()} mi</span>
+                                    </div>
+                                    <Separator orientation="vertical" className="text-primary" />
+                                    <div className="inline-flex items-center gap-1.5 rounded-full  py-1.5 text-xs text-primary">
+                                        <FaPerson className="h-3.5 w-3.5" aria-hidden="true" />
+                                        Owner{car.prevOwners > 1 ? "s" : ""}: <span className="font-semibold">{car.prevOwners}</span>
+                                    </div>
+                                    <Separator orientation="vertical" className="text-primary" />
+                                    <div className="inline-flex items-center gap-1.5 rounded-full  py-1.5 text-xs text-primary">
+                                        <IoShieldCheckmark className="h-3.5 w-3.5" aria-hidden="true" />
+                                        Key{car.keys! > 1 ? "s" : ""}: <span className="font-semibold">{car.keys}</span>
+                                    </div>
+                                    <Separator orientation="vertical" className="text-primary" />
+                                    <div className="inline-flex items-center gap-1.5 rounded-full  py-1.5 text-xs text-primary">
+                                        <IoShieldCheckmark className="h-3.5 w-3.5" aria-hidden="true" />
+                                        Insurance Group: <span className="font-semibold">insurance</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -66,12 +83,15 @@ export const CarCard = ({ car, view = "grid" , onclick}: CarCardProps) => {
                                 <p className="text-base sm:text-lg font-extrabold text-foreground whitespace-nowrap">
                                     £{car.price.toLocaleString()}
                                 </p>
-                                <Button
+                                <SmoothButton
                                     onClick={() => navigate(`/cars/${car.id}`)}
-                                    className="h-9 w-9 p-0 rounded-full bg-primary/90 hover:bg-primary/60 shadow-sm shrink-0"
+                                    className="px-4 bg-primary/90 rounded-lg hover:bg-primary/60 shadow-sm shrink-0"
                                 >
-                                    <ArrowUpRight className="h-4 w-4 text-primary-foreground" />
-                                </Button>
+                                   <div className="flex flex-row justify-center items-center gap-3">
+                                       <div>More</div>
+                                       <Info className="h-5 w-5 text-primary-foreground" />
+                                   </div>
+                                </SmoothButton>
                             </div>
                         </div>
                     </div>
@@ -81,23 +101,18 @@ export const CarCard = ({ car, view = "grid" , onclick}: CarCardProps) => {
     }
 
     return (
-        <Card onClick={onclick} className="overflow-hidden h-full w-full !rounded-lg border border-border bg-background hover:shadow-md hover:border-primary/50 transition-all duration-300 transform translate-z-0">
+        <Card
+            onClick={() => navigate(`/cars/${car.id}`)}
+            className="overflow-hidden h-full w-full !rounded-lg border border-border bg-background hover:shadow-md hover:border-primary/50 transition-all duration-300 transform translate-z-0 cursor-pointer"
+        >
             <CardContent className="p-0">
                 <div className="relative aspect-[16/10] w-full bg-background flex items-center justify-center border-b border-border overflow-hidden">
                     {hasImage ? (
-                        <div className="relative h-full w-full">
-                            <img
-                                src={car.images?.[0]}
-                                alt={car.title}
-                                className="h-full w-full object-cover object-center rounded-t-lg"
-                            />
-                            <Button
-                                onClick={() => navigate(`/cars/${car.id}`)}
-                                className="absolute top-3 right-3 h-10 w-10 p-0 rounded-full bg-primary/90 backdrop-blur hover:bg-primary/60 shadow-md"
-                            >
-                                <ArrowUpRight className="h-4 w-4 text-primary-foreground" />
-                            </Button>
-                        </div>
+                        <img
+                            src={car.images?.[0]}
+                            alt={car.title}
+                            className="h-full w-full object-cover object-center rounded-t-lg"
+                        />
                     ) : (
                         <div className="flex h-full w-full flex-col items-center justify-center text-muted-foreground gap-2 rounded-t-lg">
                             <CarIcon size={32} className="text-gray-400" aria-hidden="true" />
@@ -106,21 +121,49 @@ export const CarCard = ({ car, view = "grid" , onclick}: CarCardProps) => {
                     )}
                 </div>
 
-                <motion.div className="p-5 space-y-4" variants={card} whileHover="hover">
+                <div className="px-4 py-1 space-y-4">
                     <div>
-                        <h3 className="text-base font-medium text-foreground">{car.year} {car.make} {car.model}</h3>
+                        <h3 className="text-lg font-medium text-foreground mt-1">{car.year} {car.make} {car.model}</h3>
                         <p className="text-sm text-muted-foreground my-0.5 line-clamp-1">{car.engine}</p>
                         <p className="text-sm text-muted-foreground">MOT {car.motExpiry}</p>
-                        <div className="flex flex-row justify-between text-xs my-4">
-                            <p className="text-teal-600 flex flex-col items-center"><Settings className="h-4 w-4" />{car.transmission}</p>
-                            <p className="text-teal-600 flex flex-col items-center"><Fuel className="h-4 w-4" />{car.fuelType}</p>
-                            <p className="text-teal-600 flex flex-col items-center"><Milestone className="h-4 w-4" />{car.mileage.toLocaleString()} mi</p>
+
+                        <div className="flex flex-wrap gap-2 my-4">
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
+                                <Settings className="h-3.5 w-3.5" aria-hidden="true" />Transmission: <span className="font-semibold">{car.transmission}</span>
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
+                                <Fuel className="h-3.5 w-3.5" aria-hidden="true" />
+                                Fuel: <span className="font-semibold">{car.fuelType}</span>
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
+                                <Milestone className="h-3.5 w-3.5" aria-hidden="true" />
+                                Mileage: <span className="font-semibold">{car.mileage.toLocaleString()} mi</span>
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
+                                <FaPerson className="h-3.5 w-3.5" aria-hidden="true" />
+                                Owner{car.prevOwners > 1 ? "s" : ""}: <span className="font-semibold">{car.prevOwners}</span>
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
+                                <IoShieldCheckmark className="h-3.5 w-3.5" aria-hidden="true" />
+                               Key{car.keys! > 1 ? "s" : ""}: <span className="font-semibold">{car.keys}</span>
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
+                                <IoShieldCheckmark className="h-3.5 w-3.5" aria-hidden="true" />
+                               Insurance Group: <span className="font-semibold">insurance</span>
+                            </span>
                         </div>
+
                         <p className="text-lg font-extrabold text-foreground mt-4">
                             £{car.price.toLocaleString()}
                         </p>
                     </div>
-                </motion.div>
+                </div>
+
+                <div className="w-full px-4 pb-4 mt-2">
+                    <SmoothButton className="w-full pointer-events-none">
+                        <Info className="h-4 w-4" /> View details
+                    </SmoothButton>
+                </div>
             </CardContent>
         </Card>
     );
