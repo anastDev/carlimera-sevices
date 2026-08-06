@@ -9,7 +9,6 @@ import {cars} from "@/data/carData.ts";
 import Header from "@/components/layout/header/Header.tsx";
 import InventoryPage from "@/pages/InventoryPage.tsx";
 import CarPage from "@/pages/CarPage.tsx";
-import {toast} from "sonner";
 import type {Car} from "@/types/typesCar.ts";
 import BookingDialog from "@/components/BookingDialog.tsx";
 import {WhatsAppButton} from "@/components/WhatsAppButton.tsx";
@@ -37,11 +36,6 @@ export const  AppShell = ()=>  {
         setDialogOpen(true);
     };
 
-    const handleConfirmBooking = ( dateId: string, timeId: string) => {
-        toast("Booking confirmed!",{
-            description: `${dateId} ${timeId}`,
-        });
-    };
 
     return (
         <Wrapper>
@@ -67,7 +61,6 @@ export const  AppShell = ()=>  {
                 car={bookingCar}
                 open={dialogOpen}
                 onOpenChange={setDialogOpen}
-                onConfirm={handleConfirmBooking}
             />
 
             <WhatsAppButton/>

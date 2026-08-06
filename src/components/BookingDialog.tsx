@@ -37,7 +37,6 @@ import {getMonthGrid, isPastDay, isSameDay, toDateId} from "@/utils/formatTime.t
 import SmoothButton from "@/components/smoothui/smooth-button";
 import BookingSuccessOverlay from "@/components/BookingConfirmationOverlay.tsx";
 
-
 const bookingFormSchema = z.object({
     fullName: z.string().trim().min(2, "Enter your full name"),
     email: z.string().trim().email("Enter a valid email address"),
@@ -53,22 +52,10 @@ const bookingFormSchema = z.object({
 
 type BookingFormValues = z.infer<typeof bookingFormSchema>;
 
-interface ContactInfo {
-    fullName: string;
-    email: string;
-    phone: string;
-}
-
 interface BookingDialogProps {
     car: Car | null;
     open: boolean;
     onOpenChange: (open: boolean) => void;
-    onConfirm: (
-        carId: string,
-        dateIso: string,
-        time: string,
-        contact: ContactInfo,
-    ) => void;
 }
 
 const WEEKDAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -81,7 +68,6 @@ export const BookingDialog = ({
                                   car,
                                   open,
                                   onOpenChange,
-                                  onConfirm,
                               }: BookingDialogProps) => {
     const today = useMemo(() => new Date(), []);
     const [monthCursor, setMonthCursor] = useState(
@@ -158,7 +144,7 @@ export const BookingDialog = ({
         setSelectedTime(null);
     };
 
-    const handleConfirm = async (values: BookingFormValues) => {
+    const handleConfirm = async () => {
         if (!car) return;
 
         if (!selectedDate || !selectedTime) {
@@ -167,10 +153,8 @@ export const BookingDialog = ({
         }
 
         try {
-            onConfirm(car.id, toDateId(selectedDate), selectedTime, values);
             setIsConfirmed(true);
         } catch (err) {
-            console.error("Booking confirmation error:", err);
             toast.error(
                 err instanceof Error
                     ? err.message

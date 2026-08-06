@@ -61,9 +61,9 @@ export const BookingSuccessOverlay = ({
                 <SmoothButton
                     type="button"
                     onClick={onDone}
-                    className="mt-6 w-full bg-primary text-primary-foreground hover:bg-primary/90 py-3.5 sm:py-4 rounded-xl text-sm font-bold shadow-md transition-all cursor-pointer"
+                    className="mt-6 w-full bg-primary text-primary-foreground hover:bg-primary/90 py-3.5 sm:py-4 rounded-lg text-sm font-bold shadow-md transition-all cursor-pointer"
                 >
-                    Back to browsing
+                    Go Back
                 </SmoothButton>
             </div>
         </div>
