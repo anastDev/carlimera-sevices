@@ -117,8 +117,10 @@ export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
                             Reliable, vetted vehicles ready for delivery from a small local Coventry team.
                         </p>
 
-                        <SmoothButton className="rounded-full"
-                                      onClick={() => navigate("/cars")}>
+                        <SmoothButton
+                           className="cursor-pointer"
+                            onClick={() => navigate("/cars")}
+                        >
                             Browse All Cars
                         </SmoothButton>
 
@@ -192,7 +194,7 @@ export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
                         See how your favorite car feels on the road before making any big decisions.
                     </p>
 
-                    <SmoothButton className="rounded-lg" onClick={() => cars && cars.length > 0 && onBookViewing(cars[0])}>
+                    <SmoothButton onClick={() => cars && cars.length > 0 && onBookViewing(cars[0])}>
                         Book a Test Drive
                     </SmoothButton>
                 </motion.section>

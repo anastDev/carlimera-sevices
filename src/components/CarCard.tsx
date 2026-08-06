@@ -105,7 +105,8 @@ export const CarCard = ({ car, view = "grid" , onclick}: CarCardProps) => {
             onClick={() => navigate(`/cars/${car.id}`)}
             className="overflow-hidden h-full w-full !rounded-lg border border-border bg-background hover:shadow-md hover:border-primary/50 transition-all duration-300 transform translate-z-0 cursor-pointer"
         >
-            <CardContent className="p-0">
+            <CardContent className="p-0 flex flex-col h-full">
+                {/* Img Section */}
                 <div className="relative aspect-[16/10] w-full bg-background flex items-center justify-center border-b border-border overflow-hidden">
                     {hasImage ? (
                         <img
@@ -121,7 +122,8 @@ export const CarCard = ({ car, view = "grid" , onclick}: CarCardProps) => {
                     )}
                 </div>
 
-                <div className="px-4 py-1 space-y-4">
+                {/* Main Details Body */}
+                <div className="px-4 py-4 flex flex-col flex-1 justify-between">
                     <div>
                         <h3 className="text-lg font-medium text-foreground mt-1">{car.year} {car.make} {car.model}</h3>
                         <p className="text-sm text-muted-foreground my-0.5 line-clamp-1">{car.engine}</p>
@@ -153,12 +155,14 @@ export const CarCard = ({ car, view = "grid" , onclick}: CarCardProps) => {
                             </span>
                         </div>
 
+                        {/* Price of the vehicle */}
                         <p className="text-lg font-extrabold text-foreground mt-4">
                             £{car.price.toLocaleString()}
                         </p>
                     </div>
                 </div>
 
+                {/* Footer Button */}
                 <div className="w-full px-4 pb-4 mt-2">
                     <SmoothButton className="w-full pointer-events-none">
                         <Info className="h-4 w-4" /> View details

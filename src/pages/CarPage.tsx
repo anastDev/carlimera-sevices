@@ -343,7 +343,7 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
 
                         <SmoothButton
                             onClick={() => cars && cars.length > 0 && onBookViewing(cars[0])}
-                            className="w-full flex justify-center items-center rounded-full bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-5 text-base font-bold  shadow-sm  transition-all cursor-pointer"
+                            className="w-full flex justify-center items-center bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-5 text-base font-bold  shadow-sm  transition-all cursor-pointer"
                         >
                             Book a Viewing / Test Drive
                         </SmoothButton>
