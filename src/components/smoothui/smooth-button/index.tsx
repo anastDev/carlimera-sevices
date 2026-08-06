@@ -230,4 +230,3 @@ function SmoothButton({
 }
 
 export default SmoothButton;
-export { smoothButtonVariants };
