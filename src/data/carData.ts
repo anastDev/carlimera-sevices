@@ -6,7 +6,7 @@ export const cars: Car[] = [
         "make": "BMW",
         "model": "X5 xDrive40i",
         "year": 2020,
-        "price": 48900,
+        "price": 2500,
         "mileage": 42000,
         "transmission": "8-speed Steptronic",
         "fuelType": "Petrol",
@@ -22,8 +22,7 @@ export const cars: Car[] = [
         "engine_location": "Front",
         "insuranceGroup": "44",
         "images": [
-            "https://pixnio.com/free-images/2017/03/24/2017-03-24-09-03-24-1200x800.jpg",
-            "https://pixnio.com/free-images/2017/03/24/2017-03-24-09-02-56-1200x800.jpg"
+            "https://commons.wikimedia.org/wiki/Special:FilePath/BMW_G05_X5_xDrive40i_M_Sport_Mineral_White_Metallic_(8).jpg"
         ],
         "description": "Excellent condition, full BMW service history, panoramic sunroof, laser headlights, adaptive air suspension. One previous owner.",
         "features": [
@@ -50,7 +49,7 @@ export const cars: Car[] = [
         "make": "Porsche",
         "model": "911 Carrera 4S",
         "year": 2019,
-        "price": 109500,
+        "price": 5000,
         "mileage": 28000,
         "transmission": "7-speed PDK",
         "fuelType": "Petrol",
@@ -66,8 +65,7 @@ export const cars: Car[] = [
         "engine_location": "Rear",
         "insuranceGroup": "50",
         "images": [
-            "https://pixnio.com/free-images/2019/11/13/2019-11-13-07-30-13-1200x800.jpg",
-            "https://pixnio.com/free-images/2019/11/13/2019-11-13-07-30-27-1200x800.jpg"
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Porsche_992_911_Carrera_4S_SportDesign_Package_GT_Silver_Metallic_(2).jpg"
         ],
         "description": "Gorgeous 911 in excellent condition, Porsche approved warranty, ceramic brakes, sport exhaust, adaptive sports seats.",
         "features": [
@@ -94,7 +92,7 @@ export const cars: Car[] = [
         "make": "Tesla",
         "model": "Model 3 Performance",
         "year": 2021,
-        "price": 45990,
+        "price": 3500,
         "mileage": 32000,
         "transmission": "Single-speed",
         "fuelType": "Electric",
@@ -110,8 +108,7 @@ export const cars: Car[] = [
         "engine_location": "Underfloor",
         "insuranceGroup": "42",
         "images": [
-            "https://pixnio.com/free-images/2020/10/13/2020-10-13-10-54-57-1200x800.jpg",
-            "https://pixnio.com/free-images/2020/10/13/2020-10-13-10-55-10-1200x800.jpg"
+            "https://commons.wikimedia.org/wiki/Special:FilePath/2019_Tesla_Model_3_Performance_AWD_Front.jpg"
         ],
         "description": "Well-maintained, full self-driving computer, glass roof, premium sound, heated seats, still under Tesla warranty.",
         "features": [
@@ -138,7 +135,7 @@ export const cars: Car[] = [
         "make": "Mercedes-Benz",
         "model": "E 300 de",
         "year": 2021,
-        "price": 44950,
+        "price": 6700,
         "mileage": 38000,
         "transmission": "9G-Tronic",
         "fuelType": "Plug-in Hybrid",
@@ -154,8 +151,7 @@ export const cars: Car[] = [
         "engine_location": "Front",
         "insuranceGroup": "46",
         "images": [
-            "https://pixnio.com/free-images/2017/03/27/2017-03-27-08-38-46-1200x800.jpg",
-            "https://pixnio.com/free-images/2017/03/27/2017-03-27-08-38-22-1200x800.jpg"
+            "https://commons.wikimedia.org/wiki/Special:FilePath/2018_Mercedes-Benz_E_300_(W_213)_sedan_(2018-11-02)_01.jpg"
         ],
         "description": "Great condition, electric range ~50 km, AMG styling, panoramic roof, Burmester sound, full service history.",
         "features": [
@@ -182,7 +178,7 @@ export const cars: Car[] = [
         "make": "Audi",
         "model": "Q7 50 TDI",
         "year": 2019,
-        "price": 39900,
+        "price": 3900,
         "mileage": 58000,
         "transmission": "8-speed Tiptronic",
         "fuelType": "Diesel",
@@ -198,8 +194,7 @@ export const cars: Car[] = [
         "engine_location": "Front",
         "insuranceGroup": "47",
         "images": [
-            "https://pixnio.com/free-images/2017/03/26/2017-03-26-19-26-19-1200x800.jpg",
-            "https://pixnio.com/free-images/2017/03/26/2017-03-26-19-25-43-1200x800.jpg"
+            "https://commons.wikimedia.org/wiki/Special:FilePath/2018_Audi_Q7_(4M_MY18)_3.0_TDI_quattro_wagon_(2018-11-02).jpg"
         ],
         "description": "Well-maintained family SUV, full Audi service history, panoramic roof, virtual cockpit, Matrix LED lights.",
         "features": [
@@ -226,7 +221,7 @@ export const cars: Car[] = [
         "make": "Volvo",
         "model": "XC90 T8 Recharge",
         "year": 2020,
-        "price": 52900,
+        "price": 8100,
         "mileage": 35000,
         "transmission": "8-speed Geartronic",
         "fuelType": "Plug-in Hybrid",
@@ -242,8 +237,7 @@ export const cars: Car[] = [
         "engine_location": "Front",
         "insuranceGroup": "45",
         "images": [
-            "https://pixnio.com/free-images/2017/03/24/2017-03-24-10-46-21-1200x800.jpg",
-            "https://pixnio.com/free-images/2017/03/24/2017-03-24-10-45-57-1200x800.jpg"
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Volvo_XC90_Recharge_T8_AWD_R_Design_SPA_Crystal_White.jpg"
         ],
         "description": "Stunning condition, full Volvo service history, panoramic roof, adaptive air suspension, premium audio system.",
         "features": [
