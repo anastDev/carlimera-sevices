@@ -30,7 +30,7 @@ export const updateUserSchema = z.object({
 
 export type UpdateUser = z.infer<typeof updateUserSchema>;
 
-export const formFieldSchema = z.object({
+export const bookingFormSchema = z.object({
     fullName: z.string(),
     email: z.email('Invalid email address').min(1, {error: "Email is required"}),
     phoneNumber: z.string()
@@ -39,4 +39,12 @@ export const formFieldSchema = z.object({
         .regex(/^[0-9+\s()-]+$/, "Phone number can only contain digits, spaces, +, -, ()"),
 });
 
-export type BookingFormValues = z.infer<typeof formFieldSchema>;
+export type BookingFormValues = z.infer<typeof bookingFormSchema>;
+
+export const contactFormSchema = z.object({
+    fullName: z.string(),
+    email: z.email('Invalid email address').min(1, {error: "Email is required"}),
+    message: z.string().min(5, "Message must be at least 5 characters"),
+})
+
+export type ContactFormValues = z.infer<typeof contactFormSchema>;

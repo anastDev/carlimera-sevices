@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import {
     Calendar,
     CarIcon,
@@ -36,21 +35,7 @@ import type {Car} from "@/types/typesCar.ts";
 import {getMonthGrid, isPastDay, isSameDay, toDateId} from "@/utils/formatTime.ts";
 import SmoothButton from "@/components/smoothui/smooth-button";
 import BookingSuccessOverlay from "@/components/BookingConfirmationOverlay.tsx";
-
-const bookingFormSchema = z.object({
-    fullName: z.string().trim().min(2, "Enter your full name"),
-    email: z.string().trim().email("Enter a valid email address"),
-    phone: z
-        .string()
-        .trim()
-        .min(7, "Enter a valid phone number")
-        .regex(
-            /^[0-9+\s()-]+$/,
-            "Phone number can only contain digits, spaces, +, -, ()",
-        ),
-});
-
-type BookingFormValues = z.infer<typeof bookingFormSchema>;
+import {bookingFormSchema, type BookingFormValues} from "@/schemas/user.schema.ts";
 
 interface BookingDialogProps {
     car: Car | null;
@@ -93,7 +78,7 @@ export const BookingDialog = ({
         defaultValues: {
             fullName: "",
             email: "",
-            phone: "",
+            phoneNumber: "",
         },
     });
     const contactValues = useWatch({ control });
@@ -318,7 +303,7 @@ export const BookingDialog = ({
                                     />
 
                                     <Controller
-                                        name="phone"
+                                        name="phoneNumber"
                                         control={control}
                                         render={({ field, fieldState }) => (
                                             <Field

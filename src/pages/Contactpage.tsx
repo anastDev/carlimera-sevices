@@ -1,11 +1,20 @@
-import {type ChangeEvent, useState} from "react";
+import { useState} from "react";
 import { Button } from "@/components/ui/button.tsx";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {MapPin, Phone, Mail, CalendarDays, Clock} from "lucide-react";
+import {MapPin, Phone, Mail, CalendarDays, Clock, User} from "lucide-react";
 import { motion } from "framer-motion";
 import Breadcrumb from "@/components/smoothui/breadcrumb";
 import {container, fadeUp} from "@/utils/transitions.ts";
+import {Controller, useForm} from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {contactFormSchema, type ContactFormValues} from "@/schemas/user.schema.ts";
+import {
+    Field,
+    FieldError,
+    FieldGroup,
+} from "@/components/ui/field";
+import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/input-group.tsx";
+
 
 const items = [
     {label: "Home", value: "/"},
@@ -15,10 +24,25 @@ const items = [
 export const ContactPage = () => {
     const [submitted, setSubmitted] = useState(false);
 
-    const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const {
+        control,
+        register,
+        handleSubmit,
+        reset,
+    } = useForm<ContactFormValues>({
+        resolver: zodResolver(contactFormSchema),
+        defaultValues: {
+            fullName: "",
+            email: "",
+            message: ""
+        }
+    })
+
+    const onHandleSubmit = (data: ContactFormValues) => {
+        console.log(data);
         setSubmitted(true);
-    };
+        reset();
+    }
 
     return (
         <motion.div
@@ -26,9 +50,9 @@ export const ContactPage = () => {
             initial="hidden"
             animate="visible"
             className="container mx-auto max-w-7xl px-4 pb-10 mt-12 sm:mt-20 sm:px-6 lg:px-8">
+
             {/* Breadcrumb */}
             <Breadcrumb items={items} className="hover:text-primary">
-
             </Breadcrumb>
 
             <motion.h1 variants={fadeUp} className="my-6 text-3xl font-bold text-foreground">Contact Us</motion.h1>
@@ -102,17 +126,86 @@ export const ContactPage = () => {
 
                     {/* Contact Form */}
                     <div className="lg:col-span-5 h-full">
-                        <form onSubmit={handleSubmit}
+                        <form onSubmit={handleSubmit(onHandleSubmit)}
                               className="bg-background p-6 rounded-lg border border-border shadow-sm h-full flex flex-col">
                             <h3 className="text-lg font-bold text-foreground mb-4">Send your inquiry</h3>
 
-                            <div className="flex flex-col gap-4 flex-1 justify-between">
+                            <div className="flex flex-col flex-1 justify-between">
                                 <div className="flex flex-col gap-4">
-                                    <Input placeholder="Your name" required
-                                           className="bg-gray-50 border-gray-300 focus:border-teal-700 focus:ring-teal-700"/>
-                                    <Input type="email" placeholder="Email Address" required
-                                           className="bg-gray-50 border-gray-300 focus:border-teal-700 focus:ring-teal-700"/>
+                                    <FieldGroup>
+                                        <Controller
+                                            name="fullName"
+                                            control={control}
+                                            render={({ field, fieldState }) => (
+                                                <Field
+                                                    data-invalid={
+                                                        fieldState.invalid
+                                                    }
+                                                >
+                                                    <InputGroup>
+                                                        <InputGroupAddon>
+                                                            <User className="h-4 w-4 text-muted-foreground" />
+                                                        </InputGroupAddon>
+                                                        <InputGroupInput
+                                                            {...field}
+                                                            id="name"
+                                                            placeholder="Your name"
+                                                            aria-invalid={
+                                                                fieldState.invalid
+                                                            }
+                                                            autoComplete="off"
+                                                            required
+                                                        />
+                                                    </InputGroup>
+                                                    {fieldState.invalid && (
+                                                        <FieldError
+                                                            errors={[
+                                                                fieldState.error,
+                                                            ]}
+                                                        />
+                                                    )}
+                                                </Field>
+                                            )}
+                                        />
+
+                                        <Controller
+                                            name="email"
+                                            control={control}
+                                            render={({ field, fieldState }) => (
+                                                <Field
+                                                    data-invalid={
+                                                        fieldState.invalid
+                                                    }
+                                                >
+                                                    <InputGroup>
+                                                        <InputGroupAddon>
+                                                            <Mail className="h-4 w-4 text-muted-foreground" />
+                                                        </InputGroupAddon>
+                                                        <InputGroupInput
+                                                            {...field}
+                                                            id="email"
+                                                            type="email"
+                                                            placeholder="Email Address"
+                                                            aria-invalid={
+                                                                fieldState.invalid
+                                                            }
+                                                            autoComplete="off"
+                                                            required
+                                                        />
+                                                    </InputGroup>
+                                                    {fieldState.invalid && (
+                                                        <FieldError
+                                                            errors={[
+                                                                fieldState.error,
+                                                            ]}
+                                                        />
+                                                    )}
+                                                </Field>
+                                            )}
+                                        />
+                                    </FieldGroup>
                                     <Textarea placeholder="Message" rows={6}
+                                        {...register("message")}
                                               className="bg-gray-50 border-gray-300 focus:border-teal-700 focus:ring-teal-700 flex-1 min-h-[120px]"
                                               required/>
                                 </div>
