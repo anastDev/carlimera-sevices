@@ -40,332 +40,169 @@ export { parseSmoothUIMeta } from "./smoothui-schema";
  * - Mixed components: any combination of fields
  */
 export interface Person {
-  avatar: string;
-  bio?: string;
-  company?: string;
-  content?: string;
-  experience?: string;
-  location?: string;
-  name: string;
-  role: string;
-  social?: {
-    twitter?: string;
-    linkedin?: string;
-    github?: string;
-    website?: string;
-  };
-  // Testimonial specific fields
+  review?: string;
+  fullName: string;
   stars?: number;
 }
 
 export const peopleData: Person[] = [
   {
-    name: "Eduardo Calvo",
-    role: "CEO & Founder",
-    bio: "Passionate about building products that make a difference. Leading the vision for innovative user experiences.",
-    avatar:
-      "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631",
-    location: "Spain",
-    experience: "8+ years of experience",
-    company: "SmoothUI",
-    social: {
-      twitter: "https://twitter.com/educalvolpz",
-      linkedin: "https://linkedin.com/in/educlopez",
-      github: "https://github.com/educlopez",
-      website: "https://educalvolopez.com",
-    },
-    stars: 5,
-    content:
-      "SmoothUI has revolutionized how we build user interfaces. The animations are buttery smooth and the developer experience is incredible.",
+    fullName: "Hannah Fearon",
+      stars: 5,
+      review:
+      "Do not hesitate to trust this dealer. I have had such a great experience buying from them. My car had some issues when it was only just within warranty. Not only did they come and collect my car from Nottingham, they fixed the issues and a couple of other things that I had broken that weren't covered by the warranty. I would definitely recommend to anyone, and will certainly be buying my next car from them.",
   },
-  {
-    name: "Drew Cano",
-    role: "Head of Design",
-    bio: "Creating beautiful and intuitive user experiences that users love. Passionate about design systems and accessibility.",
-    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar.jpg",
-    location: "San Francisco, CA",
-    experience: "7+ years of experience",
-    company: "Design Studio",
-    social: {
-      twitter: "https://twitter.com/educalvolpz",
-      linkedin: "https://linkedin.com/in/educlopez",
-      github: "https://github.com/educlopez",
-      website: "https://educalvolopez.com",
+    {
+        fullName: "Emmanuel Arhinful",
+        stars: 5,
+        review:
+            "CARlimera offers an outstanding services. I experienced a huge and terrible experiences from a car a previously bought and sold it out of frustrations was going through daily. Meeting CARlimera was a very good chance and a place to be. I've had not a single problem using my first car I bought from them over 5 Months now and have recently gotten another one for a colleague at work. They sell good cars with no issues and are very trustworthy. Excellent service delivery and I highly recommend them to anyone who needs a car..",
     },
-    stars: 5,
-    content:
-      "The design system is incredibly well thought out. Every component feels intentional and polished.",
-  },
-  {
-    name: "Marcus Johnson",
-    role: "Lead Developer",
-    bio: "Building scalable solutions for modern applications. Expert in React, TypeScript, and cloud architecture.",
-    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-1.jpg",
-    location: "Austin, TX",
-    experience: "10+ years of experience",
-    company: "TechCorp",
-    social: {
-      twitter: "https://twitter.com/educalvolpz",
-      linkedin: "https://linkedin.com/in/educlopez",
-      github: "https://github.com/educlopez",
-      website: "https://educalvolopez.com",
+    {
+        fullName: "Samuel Pernouto",
+        stars: 5,
+        review:
+            "Got my first car in a really great price. The team made sure I got a new MOT . Been happy with my purchase . Would definitely recommend to a friend.",
     },
-    stars: 5,
-    content:
-      "Best UI library I've used. The TypeScript support is excellent and the components are highly customizable.",
-  },
-  {
-    name: "Emily Rodriguez",
-    role: "Product Manager",
-    bio: "Driving product strategy and user research to create products that truly solve user problems.",
-    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-2.jpg",
-    location: "New York, NY",
-    experience: "6+ years of experience",
-    company: "ProductCo",
-    social: {
-      twitter: "https://twitter.com/educalvolpz",
-      linkedin: "https://linkedin.com/in/educlopez",
-      github: "https://github.com/educlopez",
-      website: "https://educalvolopez.com",
+    {
+        fullName: "Saeed Abdul muomin",
+        stars: 5,
+        review:
+            "CARlimera is one in a million,had an amazing service and quality moment while getting my new car. I will recommend everyone getting a car go through CARlimera if they can,the cars are well looked after and ready to go,test driving and viewings are just phone call away,very patient and very honest Car Dealership.\n" +
+            "CARlimera Services is the Best .",
     },
-    stars: 4,
-    content:
-      "Our users love the smooth interactions. It's made our product feel premium and professional.",
-  },
-  {
-    name: "Mollie Hall",
-    role: "CTO",
-    bio: "Full-stack engineer with expertise in distributed systems and team leadership. Building the future of technology.",
-    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-3.jpg",
-    location: "Seattle, WA",
-    experience: "12+ years of experience",
-    company: "InnovateTech",
-    social: {
-      twitter: "https://twitter.com/educalvolpz",
-      linkedin: "https://linkedin.com/in/educlopez",
-      github: "https://github.com/educlopez",
-      website: "https://educalvolopez.com",
+    {
+        fullName: "Maria Cocula",
+        stars: 5,
+        review:
+            "I was very happy with my purchase of the Ford Fiesta and with the overall service provided by the CARlimera. The process was smooth, professional, and trustworthy from start to finish. I can definitely recommend them to anyone looking for a reliable car.",
     },
-    stars: 5,
-    content:
-      "The performance is outstanding. Our bundle size stayed the same while getting beautiful animations.",
-  },
-  {
-    name: "Alec Whitten",
-    role: "UX Researcher",
-    bio: "Understanding user behavior and needs to inform design decisions. Passionate about creating inclusive experiences.",
-    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-4.jpg",
-    location: "Toronto, Canada",
-    experience: "5+ years of experience",
-    company: "ResearchLab",
-    social: {
-      twitter: "https://twitter.com/educalvolpz",
-      linkedin: "https://linkedin.com/in/educlopez",
-      github: "https://github.com/educlopez",
-      website: "https://educalvolopez.com",
+    {
+        fullName: "Morenikeji Balogun",
+        stars: 5,
+        review:
+            "Recently reached out to the team to make enquiries about a car i intended to purchase. The team were professional, ready to answer and polite in their approach. The car was delivered in 24hrs and i was updated each step of the way even on a Sunday. The only way to really thank them is to leave a 5star review. Thank you for such a pleasant experience. I'll definitely be back.",
     },
-    stars: 5,
-    content:
-      "The accessibility features are top-notch. Every component follows WCAG guidelines perfectly.",
-  },
-  {
-    name: "Alisa Hester",
-    role: "Frontend Engineer",
-    bio: "Specializing in React, animations, and performance optimization. Creating smooth user experiences.",
-    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-5.jpg",
-    location: "London, UK",
-    experience: "4+ years of experience",
-    company: "WebStudio",
-    social: {
-      twitter: "https://twitter.com/educalvolpz",
-      linkedin: "https://linkedin.com/in/educlopez",
-      github: "https://github.com/educlopez",
-      website: "https://educalvolopez.com",
-    },
-  },
-  {
-    name: "Johnny Bell",
-    role: "Backend Engineer",
-    bio: "Building robust APIs and microservices. Expert in Node.js, Python, and cloud infrastructure.",
-    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-6.jpg",
-    location: "Barcelona, Spain",
-    experience: "6+ years of experience",
-    company: "BackendPro",
-    social: {
-      twitter: "https://twitter.com/educalvolpz",
-      linkedin: "https://linkedin.com/in/educlopez",
-      github: "https://github.com/educlopez",
-      website: "https://educalvolopez.com",
-    },
-  },
-  {
-    name: "Mia Ward",
-    role: "DevOps Engineer",
-    bio: "Automating deployments and ensuring system reliability. Passionate about infrastructure as code.",
-    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-7.jpg",
-    location: "Berlin, Germany",
-    experience: "8+ years of experience",
-    company: "CloudOps",
-    social: {
-      twitter: "https://twitter.com/educalvolpz",
-      linkedin: "https://linkedin.com/in/educlopez",
-      github: "https://github.com/educlopez",
-      website: "https://educalvolopez.com",
-    },
-  },
-  {
-    name: "Josh Knight",
-    role: "Marketing Director",
-    bio: "Driving growth through strategic marketing and community building. Expert in developer relations.",
-    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-8.jpg",
-    location: "Singapore",
-    experience: "7+ years of experience",
-    company: "GrowthCo",
-    social: {
-      twitter: "https://twitter.com/educalvolpz",
-      linkedin: "https://linkedin.com/in/educlopez",
-      github: "https://github.com/educlopez",
-      website: "https://educalvolopez.com",
-    },
-  },
-
-  {
-    name: "Kelly Myer",
-    role: "Creator of Sand/UI",
-    bio: "Building beautiful and accessible UI components for React developers.",
-    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-9.jpg",
-    location: "Remote",
-    experience: "5+ years of experience",
-    company: "sand/ui",
-    social: {
-      twitter: "https://twitter.com/educalvolpz",
-      linkedin: "https://linkedin.com/in/educlopez",
-      github: "https://github.com/educlopez",
-      website: "https://educalvolopez.com",
-    },
-    stars: 5,
-    content: "SmoothUI is my go-to for fast, beautiful UIs.",
-  },
 ];
 
 // Get people who have testimonials (stars and content)
 export const testimonialsData: Person[] = peopleData.filter(
-  (person) => person.stars && person.content
+  (person) => person.stars && person.review
 );
-
-interface ImageKitOptions {
-  format?: "auto" | "webp" | "jpg" | "jpeg" | "png" | "avif";
-  height?: number;
-  quality?: number;
-  transformations?: string;
-  width?: number;
-}
+//
+// interface ImageKitOptions {
+//   format?: "auto" | "webp" | "jpg" | "jpeg" | "png" | "avif";
+//   height?: number;
+//   quality?: number;
+//   transformations?: string;
+//   width?: number;
+// }
 
 /**
  * Build transformation string from options
- */
-function buildTransformations(options?: ImageKitOptions): string {
-  if (options?.transformations) {
-    return options.transformations;
-  }
-
-  const parts: string[] = [];
-
-  if (options?.width) {
-    parts.push(`w-${options.width}`);
-  }
-  if (options?.height) {
-    parts.push(`h-${options.height}`);
-  }
-
-  const quality = options?.quality ?? 80;
-  parts.push(`q-${quality}`);
-
-  const format = options?.format ?? "auto";
-  parts.push(`f-${format}`);
-
-  return parts.join(",");
-}
+//  */
+// function buildTransformations(options?: ImageKitOptions): string {
+//   if (options?.transformations) {
+//     return options.transformations;
+//   }
+//
+//   const parts: string[] = [];
+//
+//   if (options?.width) {
+//     parts.push(`w-${options.width}`);
+//   }
+//   if (options?.height) {
+//     parts.push(`h-${options.height}`);
+//   }
+//
+//   const quality = options?.quality ?? 80;
+//   parts.push(`q-${quality}`);
+//
+//   const format = options?.format ?? "auto";
+//   parts.push(`f-${format}`);
+//
+//   return parts.join(",");
+// }
 
 /**
  * Process full URL and add transformations
  */
-function processFullUrl(imagePath: string, transformations: string): string {
-  const url = new URL(imagePath);
-  url.searchParams.delete("updatedAt");
-  const baseUrl = url.origin + url.pathname;
-
-  if (!transformations) {
-    return baseUrl;
-  }
-  return `${baseUrl}?tr=${transformations}`;
-}
+// function processFullUrl(imagePath: string, transformations: string): string {
+//   const url = new URL(imagePath);
+//   url.searchParams.delete("updatedAt");
+//   const baseUrl = url.origin + url.pathname;
+//
+//   if (!transformations) {
+//     return baseUrl;
+//   }
+//   return `${baseUrl}?tr=${transformations}`;
+// }
 
 /**
  * Build local path URL
  */
-function buildLocalPathUrl(imagePath: string, transformations: string): string {
-  const endpoint =
-      import.meta.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT ||
-      import.meta.env.IMAGEKIT_URL_ENDPOINT ||
-    "https://ik.imagekit.io/16u211libb";
+// function buildLocalPathUrl(imagePath: string, transformations: string): string {
+//   const endpoint =
+//       import.meta.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT ||
+//       import.meta.env.IMAGEKIT_URL_ENDPOINT ||
+//     "https://ik.imagekit.io/16u211libb";
+//
+//   const cleanPath = imagePath.startsWith("/") ? imagePath.slice(1) : imagePath;
+//
+//   const imageKitPath = cleanPath.startsWith("images/")
+//     ? `smoothui/${cleanPath.replace("images/", "")}`
+//     : `smoothui/${cleanPath}`;
+//
+//   const baseUrl = `${endpoint}/${imageKitPath}`;
+//
+//   if (transformations) {
+//     return `${baseUrl}?tr=${transformations}`;
+//   }
+//
+//   return baseUrl;
+// }
+//
+// /**
+//  * Get ImageKit URL for an image with optimized transformations
+//  * Converts local image paths (/images/...) to ImageKit URLs with bandwidth optimization
+//  * @param imagePath - Local image path (e.g., "/images/avatar.jpg") or already full URL
+//  * @param options - Optional transformation options
+//  * @param options.width - Image width in pixels
+//  * @param options.height - Image height in pixels
+//  * @param options.quality - Image quality (1-100, default: 80)
+//  * @param options.format - Image format (auto, webp, jpg, png, etc.)
+//  * @param options.transformations - Raw transformation string (overrides other options)
+//  * @returns Full ImageKit URL with optimized transformations
+//  */
+// export function getImageKitUrl(
+//   imagePath: string,
+//   options?: ImageKitOptions
+// ): string {
+//   const transformations = buildTransformations(options);
+//
+//   if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+//     return processFullUrl(imagePath, transformations);
+//   }
+//
+//   return buildLocalPathUrl(imagePath, transformations);
+// }
 
-  const cleanPath = imagePath.startsWith("/") ? imagePath.slice(1) : imagePath;
-
-  const imageKitPath = cleanPath.startsWith("images/")
-    ? `smoothui/${cleanPath.replace("images/", "")}`
-    : `smoothui/${cleanPath}`;
-
-  const baseUrl = `${endpoint}/${imageKitPath}`;
-
-  if (transformations) {
-    return `${baseUrl}?tr=${transformations}`;
-  }
-
-  return baseUrl;
-}
-
-/**
- * Get ImageKit URL for an image with optimized transformations
- * Converts local image paths (/images/...) to ImageKit URLs with bandwidth optimization
- * @param imagePath - Local image path (e.g., "/images/avatar.jpg") or already full URL
- * @param options - Optional transformation options
- * @param options.width - Image width in pixels
- * @param options.height - Image height in pixels
- * @param options.quality - Image quality (1-100, default: 80)
- * @param options.format - Image format (auto, webp, jpg, png, etc.)
- * @param options.transformations - Raw transformation string (overrides other options)
- * @returns Full ImageKit URL with optimized transformations
- */
-export function getImageKitUrl(
-  imagePath: string,
-  options?: ImageKitOptions
-): string {
-  const transformations = buildTransformations(options);
-
-  if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
-    return processFullUrl(imagePath, transformations);
-  }
-
-  return buildLocalPathUrl(imagePath, transformations);
-}
-
-/**
- * Helper function to get avatar URL with optimized size and quality
- * @param avatar - Avatar image path or URL
- * @param size - Avatar size in pixels (default: 40, will be doubled for retina)
- * @returns Optimized ImageKit URL for avatar
- */
-export function getAvatarUrl(avatar: string, size = 40): string {
-  // Double the size for retina displays, use higher quality for avatars
-  const retinaSize = size * 2;
-  return getImageKitUrl(avatar, {
-    width: retinaSize,
-    height: retinaSize,
-    quality: 85, // Higher quality for faces
-    format: "auto",
-  });
-}
+// /**
+//  * Helper function to get avatar URL with optimized size and quality
+//  * @param avatar - Avatar image path or URL
+//  * @param size - Avatar size in pixels (default: 40, will be doubled for retina)
+//  * @returns Optimized ImageKit URL for avatar
+//  */
+// export function getAvatarUrl(avatar: string, size = 40): string {
+//   // Double the size for retina displays, use higher quality for avatars
+//   const retinaSize = size * 2;
+//   return getImageKitUrl(avatar, {
+//     width: retinaSize,
+//     height: retinaSize,
+//     quality: 85, // Higher quality for faces
+//     format: "auto",
+//   });
+// }
 
 // Helper function to get team member data (people without testimonials or all people)
 export function getTeamMembers(
@@ -377,7 +214,7 @@ export function getTeamMembers(
   }
   // Return people who don't have testimonials for team display
   return peopleData
-    .filter((person) => !(person.stars && person.content))
+    .filter((person) => !(person.stars && person.review))
     .slice(0, count);
 }
 
@@ -392,11 +229,11 @@ export function getAllPeople(): Person[] {
 }
 
 // Helper function to get people by role
-export function getPeopleByRole(role: string): Person[] {
-  return peopleData.filter((person) =>
-    person.role.toLowerCase().includes(role.toLowerCase())
-  );
-}
+// export function getPeopleByRole(role: string): Person[] {
+//   return peopleData.filter((person) =>
+//     person.role.toLowerCase().includes(role.toLowerCase())
+//   );
+// }
 
 // Helper function to get people with testimonials
 export function getPeopleWithTestimonials(): Person[] {

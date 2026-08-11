@@ -206,13 +206,13 @@ export const ContactPage = () => {
                                     </FieldGroup>
                                     <Textarea placeholder="Message" rows={6}
                                         {...register("message")}
-                                              className="bg-gray-50 border-gray-300 focus:border-teal-700 focus:ring-teal-700 flex-1 min-h-[120px]"
+                                              className="bg-gray-50 mb-2 border-gray-300 focus:border-teal-700 focus:ring-teal-700 flex-1 min-h-[7.5rem]"
                                               required/>
                                 </div>
 
                                 <div className="space-y-4 mt-auto">
                                     <Button type="submit"
-                                            className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-5 rounded-xl font-bold transition-colors cursor-pointer shadow-sm">
+                                            className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-5 rounded-lg font-bold transition-colors cursor-pointer shadow-sm">
                                         Send
                                     </Button>
                                     {submitted && (
@@ -229,7 +229,7 @@ export const ContactPage = () => {
             </motion.div>
 
             {/* Embedded Map Container */}
-            <motion.div variants={fadeUp} className="overflow-hidden rounded-xl mt-8 shadow-sm">
+            <motion.div variants={fadeUp} className="overflow-hidden rounded-lg mt-8 shadow-sm">
                 <iframe
                     className="h-90 w-full border-0"
                     referrerPolicy="strict-origin-when-cross-origin"

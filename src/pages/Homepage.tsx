@@ -17,10 +17,10 @@ import toyota from "../assets/toyota.jpg";
 import {motion} from "framer-motion";
 import Testimonials3 from "@/components/smoothui/testimonials-3";
 import SmoothButton from "@/components/smoothui/smooth-button";
+import SpotlightCards from "@/components/kokonutui/spotlight-cards.tsx";
 
 interface HomePageProps {
     cars: Car[];
-   onBookViewing: (car: Car) => void;
 }
 
 const heroImages: string[] = [fiat, mazda, nissan, peugeot, toyota];
@@ -32,7 +32,7 @@ const fadeUp = {
     transition: { duration: 0.5, ease: "easeOut" },
 } as const;
 
-export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
+export const HomePage = ({ cars, }: HomePageProps) => {
     const navigate = useNavigate();
 
     return (
@@ -75,7 +75,7 @@ export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
                     </motion.div>
 
                     {/* Carousel Half */}
-                    <div className="absolute inset-0 z-10 h-full lg:relative lg:order-2 w-full lg:h-[37.5rem] rounded-lg">
+                    <div className="absolute inset-0 z-10 h-full lg:relative lg:order-2 w-full lg:h-[38rem] rounded-lg">
                         <div className="absolute inset-0 bg-brand-dark/40 lg:hidden z-10 pointer-events-none" />
                         <Carousel
                             className="h-full w-full"
@@ -159,13 +159,13 @@ export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
 
                 {/* Featured Vehicles Section */}
                 <motion.section {...fadeUp}>
-                    <div className="mb-4 sm:mb-6">
-                        <h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl ">Our Top Featured Vehicles</h2>
+                    <div className="mb-4">
+                        <h2 className="text-lg font-bold tracking-tight text-foreground sm:text-2xl ">Our Top Featured Vehicles</h2>
                         <p className="text-sm sm:text-base text-muted-foreground my-1">Handpicked models checked for ultimate reliability.</p>
                     </div>
 
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-                        {cars && cars.slice(0, 3).map((car, index) => (
+                        {cars && cars.slice(0, 4).map((car, index) => (
                             <motion.div
                                 key={car.id}
                                 initial={{ opacity: 0, y: 20 }}
@@ -182,23 +182,8 @@ export const HomePage = ({ cars, onBookViewing }: HomePageProps) => {
                 {/* Customer Reviews Section */}
                 <Testimonials3 />
 
-                {/* Test Drive Section */}
-                <motion.section {...fadeUp} className="rounded-lg border bg-card py-6 px-4 text-center shadow-md sm:px-8 sm:py-16">
-                    <p className="mb-2 text-xs font-bold uppercase tracking-widest text-muted-foreground sm:text-sm">
-                        Ready for a Test Drive?
-                    </p>
-                    <h2 className="mb-3 text-lg font-extrabold tracking-tight text-primary sm:text-2xl lg:text-4xl">
-                        Get Behind the Wheel Today.
-                    </h2>
-                    <p className="mx-auto mb-6 max-w-md text-sm text-muted-foreground sm:mb-8 sm:text-base">
-                        See how your favorite car feels on the road before making any big decisions.
-                    </p>
-
-                    <SmoothButton onClick={() => cars && cars.length > 0 && onBookViewing(cars[0])}>
-                        Book a Test Drive
-                    </SmoothButton>
-                </motion.section>
-
+                {/* Spotlight Cards*/}
+                <SpotlightCards/>
 
                 {/* FAQ Section */}
                 <motion.section {...fadeUp} className="pt-2">

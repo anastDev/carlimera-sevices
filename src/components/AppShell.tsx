@@ -43,7 +43,7 @@ export const  AppShell = ()=>  {
 
             <main className="container mx-auto max-w-7xl px-4 pb-16 pt-10 sm:px-6 lg:px-8">
                 <Routes>
-                    <Route path="/" element={<HomePage cars={cars} onBookViewing={handleBookViewing}/>} />
+                    <Route path="/" element={<HomePage cars={cars}/>} />
 
                     <Route path="about" element={<AboutPage />} />
                     <Route path="contact" element={<ContactPage />} />
