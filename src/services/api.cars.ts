@@ -31,7 +31,7 @@ export async function createCarWithImages(
     formData.append("car_json", JSON.stringify({ ...values, features }));
     files.forEach((file) => formData.append("files", file));
 
-    const res = await apiFetch("/cars/", {
+    const res = await apiFetch("/cars/with-images", {
         method: "POST",
         requiresAuth: true,
         body: formData,
