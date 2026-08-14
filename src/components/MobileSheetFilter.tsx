@@ -16,10 +16,11 @@ interface MobileSheetFilterProps {
     fuelTypes: string[];
     transmissions: string[];
     mobileSheetTrigger: ReactNode;
+    priceBounds: [number, number];
 }
 
 export const MobileSheetFilter = (
-    {mobileSheetTrigger, mobileFilterControl, filters, setFilters, openChange, categories, onreset, onsearch, years, makes, fuelTypes, transmissions}
+    {mobileSheetTrigger, mobileFilterControl, filters, setFilters, openChange, categories, onreset, onsearch, years, makes, fuelTypes, transmissions, priceBounds}
     : MobileSheetFilterProps) => {
     return (
         <Sheet open={mobileFilterControl} onOpenChange={openChange}>
@@ -38,6 +39,7 @@ export const MobileSheetFilter = (
                         makes={makes}
                         fuelTypes={fuelTypes}
                         transmissions={transmissions}
+                        priceBounds={priceBounds}
                     />
                 </div>
             </SheetContent>

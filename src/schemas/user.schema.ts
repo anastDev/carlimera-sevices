@@ -5,8 +5,7 @@ export const userSchema = z.object({
     password:z.string().min(5,{error: 'Password must be at least 5 characters'}),
     fullName: z.string(),
     email: z.email('Invalid email address').min(1, {error: "Email is required"}),
-    phoneType: z.enum(['phone', 'home', 'work']).optional().or(z.literal("")),
-    phoneNumber: z.string().optional(),
+    phoneNumber: z.string(),
 });
 
 export type User = z.infer<typeof userSchema>;
@@ -24,8 +23,7 @@ export const updateUserSchema = z.object({
         .or(z.literal('')),
 
     fullName: z.string(),
-    phoneType: z.enum(['phone', 'home', 'work']).optional().or(z.literal("")),
-    phoneNumber: z.string().optional(),
+    phoneNumber: z.string(),
 });
 
 export type UpdateUser = z.infer<typeof updateUserSchema>;

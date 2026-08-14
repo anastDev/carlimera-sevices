@@ -12,11 +12,11 @@ export interface Car {
     location: string;
     title: string;
     engine: string;
-    exteriorColor: string;
-    interiorColor: string;
+    exteriorColor?: string;
+    interiorColor?: string;
     carWidth: number;
     carLength: number;
-    engine_location: string;
+    engineLocation: string;
     insuranceGroup: string;
     images: string[];
     description: string;
@@ -31,6 +31,8 @@ export interface Car {
     warranty: string;
     keys: number | undefined;
     serviceHistory: string;
+    videoUrl?: string;
+    createdAt: string;
 }
 
 export interface DateOption {

@@ -10,6 +10,8 @@ import Breadcrumb from "@/components/smoothui/breadcrumb";
 import Select from "@/components/smoothui/select";
 import MobileSheetFilter from "@/components/MobileSheetFilter.tsx";
 import {useNavigate} from "react-router";
+import {Button} from "@/components/ui/button.tsx";
+import Loader from "@/components/kokonutui/loader.tsx";
 
 const items = [
     { label: "Home", value: "/" },
@@ -18,10 +20,12 @@ const items = [
 
 interface InventoryPageProps {
     cars: Car[];
+    isLoading?: boolean;
+    error?: string | null;
 }
 
-const DEFAULT_PRICE_MIN = 1100;
-const DEFAULT_PRICE_MAX = 16500;
+const DEFAULT_PRICE_MIN = 0;
+const DEFAULT_PRICE_MAX = 25000;
 
 const defaultFilters: FilterState = {
     category: "All",
@@ -43,7 +47,7 @@ const sortLabels: Record<SortOption, string> = {
     "desc": "Price: Desc",
 };
 
-export const InventoryPage = ({ cars }: InventoryPageProps) => {
+export const InventoryPage = ({ cars, isLoading, error }: InventoryPageProps) => {
     const [filters, setFilters] = useState<FilterState>(defaultFilters);
     const [appliedFilters, setAppliedFilters] = useState<FilterState>(defaultFilters);
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -59,6 +63,17 @@ export const InventoryPage = ({ cars }: InventoryPageProps) => {
     const makes = useMemo(() => ["All", ...new Set(cars.map((c) => c.make))], [cars]);
     const fuelTypes = useMemo(() => ["All", ...new Set(cars.map((c) => c.fuelType))], [cars]);
     const transmissions = useMemo(() => ["All", ...new Set(cars.map((c) => c.transmission))], [cars]);
+
+    const priceBounds = useMemo((): [number, number] => {
+        if (cars.length === 0) return [DEFAULT_PRICE_MIN, DEFAULT_PRICE_MAX];
+
+        const prices = cars.map((c) => Number(c.price));
+
+        return [
+            Math.floor(Math.min(...prices) / 500) * 500,
+            Math.ceil(Math.max(...prices) / 500) * 500,
+        ];
+    }, [cars]);
 
     const filteredCars = useMemo(() => {
         return cars.filter((car) => {
@@ -97,14 +112,15 @@ export const InventoryPage = ({ cars }: InventoryPageProps) => {
     };
 
     const handleReset = () => {
-        setFilters(defaultFilters);
-        setAppliedFilters(defaultFilters);
+        const reset = {...defaultFilters, priceRange: priceBounds};
+        setFilters(reset);
+        setAppliedFilters(reset);
     };
 
     const activeFilterCount = Object.entries(appliedFilters).filter(([key, value]) => {
         if (key === "priceRange") {
             const [min, max] = value as [number, number];
-            return min !== DEFAULT_PRICE_MIN || max !== DEFAULT_PRICE_MAX;
+            return min !== priceBounds[0] || max !== priceBounds[1];
         }
         if (key === "title") return Boolean(value);
         return value !== "All";
@@ -185,6 +201,7 @@ export const InventoryPage = ({ cars }: InventoryPageProps) => {
                             makes={makes}
                             fuelTypes={fuelTypes}
                             transmissions={transmissions}
+                            priceBounds={priceBounds}
                             />
                     </div>
                 </div>
@@ -204,18 +221,35 @@ export const InventoryPage = ({ cars }: InventoryPageProps) => {
                             makes={makes}
                             fuelTypes={fuelTypes}
                             transmissions={transmissions}
+                            priceBounds={priceBounds}
                         />
                     </div>
                 </aside>
 
                 <div className="lg:col-span-3">
-                    {sortedCars.length === 0 ? (
+                    {isLoading ? (
+                        <div
+                            className={view === "grid" ? "grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6" : "flex flex-col gap-4"}
+                            aria-busy="true"
+                        >
+                            {Array.from({ length: 4 }).map((_, i) => (
+                                <div key={i} className="h-80 animate-pulse rounded-lg border border-border bg-muted" />
+                            ))}
+                            <Loader/>
+                            <span className="sr-only">Loading vehicles</span>
+                        </div>
+                    ) : error ? (
+                        <div className="flex min-h-[18.75rem] flex-col items-center justify-center rounded-lg border border-dashed border-border p-8 text-center">
+                            <p className="mb-1 text-base font-medium text-foreground">We couldn't load our vehicles.</p>
+                            <p className="text-sm text-muted-foreground">{error}</p>
+                        </div>
+                    ) : sortedCars.length === 0 ? (
                         <div className="flex min-h-[18.75rem] flex-col items-center justify-center rounded-lg border border-dashed border-border p-8 text-center">
                             <p className="mb-1 text-base font-medium text-foreground">No cars match those filters.</p>
                             <p className="mb-4 text-sm text-muted-foreground">Try widening your search or resetting all filters.</p>
-                            <SmoothButton variant="outline" onClick={handleReset} className="border-border">
+                            <Button variant="outline" onClick={handleReset} className="border-border">
                                 Reset all
-                            </SmoothButton>
+                            </Button>
                         </div>
                     ) : (
                         <div

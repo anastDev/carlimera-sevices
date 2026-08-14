@@ -1,25 +1,22 @@
 import { useState} from "react";
 import {
     Calendar,
-    CheckCircle, Clock,
+    CheckCircle, ChevronLeft, ChevronRight, Clock,
     Fuel, Info, Key, Layers,
-    Milestone, NotepadText,
+    Milestone, NotepadText, Play,
     Settings,
     ShieldCheck,
     Sparkles, UserCheck
 } from "lucide-react";
 import type {Car} from "@/types/typesCar.ts";
 import {
-    Carousel, type CarouselApi,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
+    Carousel, type CarouselApi, CarouselContent, CarouselItem,
 } from "@/components/ui/carousel";
 import Breadcrumb from "@/components/smoothui/breadcrumb";
-import {useParams} from "react-router";
+import {Link, useParams} from "react-router";
 import SmoothButton from "@/components/smoothui/smooth-button";
 import {motion} from "framer-motion";
+import {toEmbedUrl, toThumbnailUrl} from "@/utils/video.ts";
 
 interface CarPageProps {
     cars: Car[];
@@ -33,26 +30,51 @@ const fadeUp = {
     transition: { duration: 0.5, ease: "easeOut" },
 } as const;
 
+type Slide =
+    | { type: "image"; url: string }
+    | { type: "video"; url: string };
+
 export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
     const [api, setApi] = useState<CarouselApi>();
     const { id } = useParams<{ id: string }>();
     const [current, setCurrent] = useState(0);
 
     const car = cars.find((car) => car.id === id);
-    const imageCount = car!.images?.length ?? 0;
+
+    if (!car) {
+        return (
+            <div className="container mx-auto max-w-7xl px-4 py-20 text-center">
+                <h1 className="text-xl font-semibold text-foreground">Car not found</h1>
+                <p className="mt-2 text-sm text-muted-foreground">
+                    This listing may have been removed.
+                </p>
+                <Link to="/cars" className="mt-4 inline-block text-teal-700 hover:underline">
+                    Browse all cars
+                </Link>
+            </div>
+        );
+    }
+
+    const embedUrl = car.videoUrl ? toEmbedUrl(car.videoUrl) : null;
+
+    const slides: Slide[] = [
+        ...(car.images ?? []).map((url) => ({ type: "image" as const, url })),
+        ...(embedUrl ? [{ type: "video" as const, url: embedUrl }] : []),
+    ];
+
+    const slideCount = slides.length;
 
     const handlePrev = () => {
-        const next = (current - 1 + imageCount) % imageCount;
+        const next = (current - 1 + slideCount) % slideCount;
         setCurrent(next);
         api?.scrollTo(next);
     };
 
     const handleNext = () => {
-        const next = (current + 1) % imageCount;
+        const next = (current + 1) % slideCount;
         setCurrent(next);
         api?.scrollTo(next);
     };
-
     return (
         <div className="container mx-auto max-w-7xl px-4 pb-10 mt-12 sm:mt-20 sm:px-6 lg:px-8">
 
@@ -88,40 +110,60 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
                     >
-                        <Carousel setApi={setApi} className="relative w-full max-h-[33rem] group">
-
-                            {/* Main Hero Window View */}
-                            <div className="relative aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-lg bg-secondary shadow-sm border border-border">
-                                {car?.images && car?.images.length > 0 ? (
-                                    <img
-                                        src={car.images[current]}
-                                        alt={`${car.make} ${car.model}`}
-                                        className="h-full w-full object-cover object-center transition-opacity duration-300"
-                                    />
-                                ) : (
+                        <Carousel setApi={setApi} className="relative w-full group">
+                            <div className="relative aspect-[4/3] sm:aspect-[3/2] overflow-hidden rounded-lg bg-secondary shadow-sm border border-border">
+                                {slideCount === 0 ? (
                                     <div className="flex h-full w-full items-center justify-center bg-secondary text-muted-foreground font-medium">
                                         No images available
                                     </div>
+                                ) : slides[current].type === "video" ? (
+                                    <iframe
+                                        src={slides[current].url}
+                                        title={`${car.make} ${car.model} walkaround`}
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        className="h-full w-full"
+                                    />
+                                ) : (
+                                    <img
+                                        src={slides[current].url}
+                                        alt={`${car.make} ${car.model}`}
+                                        className="h-full w-full object-contain object-center transition-opacity duration-300"
+                                    />
                                 )}
 
-                                {car?.images && car?.images.length > 1 && (
+                                {slideCount > 1 && slides[current].type !== "video" && (
                                     <>
-                                        <CarouselPrevious
+                                        <button
+                                            type="button"
                                             onClick={handlePrev}
-                                            className="absolute left-4 top-10 -translate-y-1/2 h-10 w-10 bg-secondary/80 text-foreground backdrop-blur-sm hover:bg-secondary  border-none shadow-md transition-opacity duration-200 opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer"
-                                        />
-                                        <CarouselNext
+                                            aria-label="Previous"
+                                            className="absolute left-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center
+                                                justify-center rounded-full bg-secondary/80 text-foreground backdrop-blur-sm
+                                                shadow-md transition-opacity duration-200 opacity-0 group-hover:opacity-100
+                                                focus:opacity-100 hover:bg-secondary cursor-pointer"
+                                        >
+                                            <ChevronLeft className="h-5 w-5" />
+                                        </button>
+                                        <button
+                                            type="button"
                                             onClick={handleNext}
-                                            className="absolute right-4 top-10 -translate-y-1/2 h-10 w-10 bg-secondary/80 text-foreground backdrop-blur-sm hover:bg-secondary  border-none shadow-md transition-opacity duration-200 opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer"
-                                        />
+                                            aria-label="Next"
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center
+                                                justify-center rounded-full bg-secondary/80 text-foreground backdrop-blur-sm
+                                                shadow-md transition-opacity duration-200 opacity-0 group-hover:opacity-100
+                                                focus:opacity-100 hover:bg-secondary cursor-pointer"
+                                        >
+                                            <ChevronRight className="h-5 w-5" />
+                                        </button>
                                     </>
                                 )}
                             </div>
 
-                            {car?.images && car?.images.length > 1 && (
+                            {slideCount > 1 && (
                                 <div className="mx-auto max-w-xs px-4 mt-4">
                                     <CarouselContent className="-ml-2">
-                                        {car.images.map((imgUrl, index) => (
+                                        {slides.map((slide, index) => (
                                             <CarouselItem key={index} className="pl-2 basis-24">
                                                 <button
                                                     type="button"
@@ -129,19 +171,34 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                                                         setCurrent(index);
                                                         api?.scrollTo(index);
                                                     }}
-                                                    className={`group relative aspect-square w-full overflow-hidden rounded-lg border-2 bg-background transition-all ${
+                                                    aria-label={
+                                                        slide.type === "video"
+                                                            ? "Video walkaround"
+                                                            : `Photo ${index + 1}`
+                                                    }
+                                                    className={`group relative aspect-square w-full overflow-hidden rounded-lg
+                                                        border-2 bg-background transition-all ${
                                                         current === index
                                                             ? "border-ring ring-2 ring-background"
                                                             : "border-transparent hover:border-muted-foreground"
                                                     }`}
                                                 >
-                                                    <img
-                                                        src={imgUrl}
-                                                        alt={`${car.make} ${car.model} view ${index + 1}`}
-                                                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                                    />
-                                                    {current !== index && (
-                                                        <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
+                                                    {slide.type === "video" ? (
+                                                        <div className="relative h-full w-full">
+                                                            <img
+                                                                src={toThumbnailUrl(car.videoUrl!)!}
+                                                                alt=""
+                                                                className="h-full w-full object-cover"
+                                                            />
+                                                            <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                                                                <Play className="h-6 w-6 fill-white text-white" />
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <img src={slide.url} alt="" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                                                    )}
+                                                    {current !== index && slide.type !== "video" && (
+                                                        <div className="absolute inset-0 bg-black/5 transition-colors group-hover:bg-transparent" />
                                                     )}
                                                 </button>
                                             </CarouselItem>
@@ -213,7 +270,7 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                                 <div>
                                     <p className="text-xs text-gray-600 font-semibold uppercase tracking-wider">Layout</p>
                                     <p className="text-sm font-bold text-foreground">
-                                        {car.doors || car.doors || "—"} Doors / {car.seats || car.seats || "—"} Seats
+                                        {car.doors || "—"} Doors / { car.seats || "—"} Seats
                                     </p>
                                 </div>
                             </div>
@@ -239,15 +296,15 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                                 </div>
                                 <div className="grid grid-cols-3 gap-4 px-6 py-4">
                                     <dt className="text-sm font-semibold text-foreground/80">Exterior Color</dt>
-                                    <dd className="col-span-2 text-sm text-foreground font-medium">{car?.exteriorColor}</dd>
+                                    <dd className="col-span-2 text-sm text-foreground font-medium">{car?.exteriorColor ? car.exteriorColor : "-"}</dd>
                                 </div>
                                 <div className="grid grid-cols-3 gap-4 px-6 py-4">
                                     <dt className="text-sm font-semibold text-foreground/80">Interior Material</dt>
-                                    <dd className="col-span-2 text-sm text-foreground font-medium">{car?.interiorColor}</dd>
+                                    <dd className="col-span-2 text-sm text-foreground font-medium">{car?.interiorColor ? car.interiorColor : "-"}</dd>
                                 </div>
                                 <div className="grid grid-cols-3 gap-4 px-6 py-4">
                                     <dt className="text-sm font-semibold text-foreground/80">Top Speed</dt>
-                                    <dd className="col-span-2 text-sm text-foreground font-medium">{car?.topSpeed} mph</dd>
+                                    <dd className="col-span-2 text-sm text-foreground font-medium">{car?.topSpeed ? car.topSpeed : "-"} mph</dd>
                                 </div>
                                 {( car?.prevOwners !== undefined) && (
                                     <div className="grid grid-cols-3 gap-4 px-6 py-4">
@@ -342,7 +399,7 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                         </div>
 
                         <SmoothButton
-                            onClick={() => cars && cars.length > 0 && onBookViewing(cars[0])}
+                            onClick={() => cars && cars.length > 0 && onBookViewing(car)}
                             className="w-full flex justify-center items-center bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-5 text-base font-bold  shadow-sm  transition-all cursor-pointer"
                         >
                             Book a Viewing / Test Drive

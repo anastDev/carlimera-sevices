@@ -4,9 +4,6 @@ import {Button} from "@/components/ui/button.tsx";
 import FilterField from "@/components/FilterField.tsx";
 import type {FilterState} from "@/types/filterState.ts";
 
-const DEFAULT_PRICE_MIN = 1100;
-const DEFAULT_PRICE_MAX = 16500;
-
 interface FilterPanelProps {
     filters: FilterState;
     setFilters: (filters: FilterState) => void;
@@ -17,6 +14,7 @@ interface FilterPanelProps {
     makes: string[];
     fuelTypes: string[];
     transmissions: string[];
+    priceBounds: [number, number];
 }
 
 export const  FilterPanel = ({
@@ -29,6 +27,7 @@ export const  FilterPanel = ({
                          makes,
                          fuelTypes,
                          transmissions,
+                        priceBounds,
                      }: FilterPanelProps)=>  {
     return (
         <div className="space-y-5">
@@ -76,8 +75,8 @@ export const  FilterPanel = ({
 
             <div>
                 <PriceRangeFilter
-                    min={DEFAULT_PRICE_MIN}
-                    max={DEFAULT_PRICE_MAX}
+                    min={priceBounds[0]}
+                    max={priceBounds[1]}
                     onChange={(range) => setFilters({ ...filters, priceRange: range })}
                 />
             </div>

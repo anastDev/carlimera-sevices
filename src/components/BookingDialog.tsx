@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import {useEffect, useMemo, useState} from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -6,7 +6,7 @@ import {
     CarIcon,
     ChevronLeft,
     ChevronRight,
-    Clock,
+    Clock, Loader2,
     Mail,
     Phone,
     User,
@@ -32,10 +32,12 @@ import {
     InputGroupInput,
 } from "@/components/ui/input-group";
 import type {Car} from "@/types/typesCar.ts";
-import {getMonthGrid, isPastDay, isSameDay, toDateId} from "@/utils/formatTime.ts";
+import {getMonthGrid, isPastDay, isSameDay, toApiDate, toDateId} from "@/utils/formatTime.ts";
 import SmoothButton from "@/components/smoothui/smooth-button";
 import BookingSuccessOverlay from "@/components/BookingConfirmationOverlay.tsx";
 import {bookingFormSchema, type BookingFormValues} from "@/schemas/user.schema.ts";
+import {useAvailableSlots} from "@/hooks/useAvailableSlots.ts";
+import {createAppointment} from "@/services/api.appointment.ts";
 
 interface BookingDialogProps {
     car: Car | null;
@@ -44,10 +46,6 @@ interface BookingDialogProps {
 }
 
 const WEEKDAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const OPEN_HOUR = 9;
-const LAST_SLOT_HOUR = 17;
-const LAST_SLOT_MINUTE = 30;
-const SLOT_INTERVAL_MINUTES = 30;
 
 export const BookingDialog = ({
                                   car,
@@ -58,7 +56,6 @@ export const BookingDialog = ({
     const [monthCursor, setMonthCursor] = useState(
         new Date(today.getFullYear(), today.getMonth(), 1),
     );
-
 
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [selectedTime, setSelectedTime] = useState<string | null>(null);
@@ -81,44 +78,18 @@ export const BookingDialog = ({
             phoneNumber: "",
         },
     });
+
     const contactValues = useWatch({ control });
-    const isContactComplete =
-        bookingFormSchema.safeParse(contactValues).success;
+    const isContactComplete = bookingFormSchema.safeParse(contactValues).success;
 
-    const timeSlots = useMemo(() => {
-        const startMinutes = OPEN_HOUR * 60;
-        const endMinutes = LAST_SLOT_HOUR * 60 + LAST_SLOT_MINUTE;
-
-        const slots: { minutes: number; label: string; disabled: boolean }[] =
-            [];
-        for (
-            let m = startMinutes;
-            m <= endMinutes;
-            m += SLOT_INTERVAL_MINUTES
-        ) {
-            const hour = Math.floor(m / 60);
-            const minute = m % 60;
-
-            const slotTime = new Date(2000, 0, 1, hour, minute);
-            const label = slotTime.toLocaleTimeString(undefined, {
-                hour: "numeric",
-                minute: "2-digit",
-            });
-
-            const isToday = selectedDate
-                ? isSameDay(selectedDate, today)
-                : false;
-            const disabled = isToday
-                ? hour < today.getHours() ||
-                (hour === today.getHours() && minute <= today.getMinutes())
-                : false;
-
-            slots.push({ minutes: m, label, disabled });
-        }
-        return slots;
-    }, [selectedDate, today]);
+    const {
+        availableSlots,
+        isLoading: isLoadingSlots,
+        error: slotsError,
+    } = useAvailableSlots(car?.id, selectedDate);
 
     const monthGrid = useMemo(() => getMonthGrid(monthCursor), [monthCursor]);
+
     const canGoPrevMonth =
         monthCursor.getFullYear() > today.getFullYear() ||
         (monthCursor.getFullYear() === today.getFullYear() &&
@@ -129,29 +100,35 @@ export const BookingDialog = ({
         setSelectedTime(null);
     };
 
-    const handleConfirm = async () => {
-        if (!car) return;
 
-        if (!selectedDate || !selectedTime) {
+    const handleConfirm = async (formValues: BookingFormValues) => {
+        if (!car || !selectedDate || !selectedTime) {
             toast.error("Please pick a date and time for your viewing");
             return;
         }
 
         try {
+            await createAppointment({
+                car_id: car?.id,
+                date: toApiDate(selectedDate),
+                time_slot: selectedTime,
+                full_name: formValues.fullName,
+                email: formValues.email,
+                phone_number: formValues.phoneNumber,
+            });
+
             setIsConfirmed(true);
         } catch (err) {
-            toast.error(
-                err instanceof Error
-                    ? err.message
-                    : "Something went wrong, please try again",
+            toast.error("Something went wrong, please try again",
             );
         }
     };
 
     const handleDone = () => {
-        setIsConfirmed(false);
         onOpenChange(false);
-    }
+
+        setTimeout(() => setIsConfirmed(false), 250);
+    };
 
     useEffect(() => {
         if (open) return;
@@ -169,6 +146,7 @@ export const BookingDialog = ({
         !selectedDate ||
         !selectedTime ||
         !isContactComplete ||
+        isLoadingSlots ||
         isSubmitting;
 
     return (
@@ -207,7 +185,7 @@ export const BookingDialog = ({
                                     <p className="text-sm font-bold leading-tight">
                                         {car?.make ?? "Select a vehicle"}
                                     </p>
-                                    <p className="text-xs text-blue-100 font-medium mt-0.5">
+                                    <p className="text-xs text-accent font-medium mt-0.5">
                                         {car?.price
                                             ? `£${car.price.toLocaleString()}`
                                             : "Price pending"}
@@ -231,11 +209,7 @@ export const BookingDialog = ({
                                         name="fullName"
                                         control={control}
                                         render={({ field, fieldState }) => (
-                                            <Field
-                                                data-invalid={
-                                                    fieldState.invalid
-                                                }
-                                            >
+                                            <Field data-invalid={fieldState.invalid}>
                                                 <FieldLabel htmlFor="fullName">
                                                     Full name
                                                 </FieldLabel>
@@ -247,18 +221,12 @@ export const BookingDialog = ({
                                                         {...field}
                                                         id="fullName"
                                                         placeholder="e.g. John Smith"
-                                                        aria-invalid={
-                                                            fieldState.invalid
-                                                        }
+                                                        aria-invalid={fieldState.invalid}
                                                         autoComplete="off"
                                                     />
                                                 </InputGroup>
                                                 {fieldState.invalid && (
-                                                    <FieldError
-                                                        errors={[
-                                                            fieldState.error,
-                                                        ]}
-                                                    />
+                                                    <FieldError errors={[fieldState.error]} />
                                                 )}
                                             </Field>
                                         )}
@@ -268,11 +236,7 @@ export const BookingDialog = ({
                                         name="email"
                                         control={control}
                                         render={({ field, fieldState }) => (
-                                            <Field
-                                                data-invalid={
-                                                    fieldState.invalid
-                                                }
-                                            >
+                                            <Field data-invalid={fieldState.invalid}>
                                                 <FieldLabel htmlFor="email">
                                                     Email address
                                                 </FieldLabel>
@@ -285,18 +249,12 @@ export const BookingDialog = ({
                                                         id="email"
                                                         type="email"
                                                         placeholder="you@example.com"
-                                                        aria-invalid={
-                                                            fieldState.invalid
-                                                        }
+                                                        aria-invalid={fieldState.invalid}
                                                         autoComplete="off"
                                                     />
                                                 </InputGroup>
                                                 {fieldState.invalid && (
-                                                    <FieldError
-                                                        errors={[
-                                                            fieldState.error,
-                                                        ]}
-                                                    />
+                                                    <FieldError errors={[fieldState.error]} />
                                                 )}
                                             </Field>
                                         )}
@@ -306,11 +264,7 @@ export const BookingDialog = ({
                                         name="phoneNumber"
                                         control={control}
                                         render={({ field, fieldState }) => (
-                                            <Field
-                                                data-invalid={
-                                                    fieldState.invalid
-                                                }
-                                            >
+                                            <Field data-invalid={fieldState.invalid}>
                                                 <FieldLabel htmlFor="phone">
                                                     Phone number
                                                 </FieldLabel>
@@ -323,22 +277,16 @@ export const BookingDialog = ({
                                                         id="phone"
                                                         type="tel"
                                                         placeholder="e.g. 07123 456789"
-                                                        aria-invalid={
-                                                            fieldState.invalid
-                                                        }
+                                                        aria-invalid={fieldState.invalid}
                                                         autoComplete="off"
                                                     />
                                                 </InputGroup>
                                                 {fieldState.invalid ? (
-                                                    <FieldError
-                                                        errors={[
-                                                            fieldState.error,
-                                                        ]}
-                                                    />
+                                                    <FieldError errors={[fieldState.error]} />
                                                 ) : (
                                                     <FieldDescription>
-                                                        We'll only use this to
-                                                        confirm your booking.
+                                                        We'll only use this to confirm your
+                                                        booking.
                                                     </FieldDescription>
                                                 )}
                                             </Field>
@@ -374,13 +322,10 @@ export const BookingDialog = ({
                                             <ChevronLeft className="h-4 w-4" />
                                         </button>
                                         <span className="text-xs font-bold text-foreground">
-                                            {monthCursor.toLocaleDateString(
-                                                undefined,
-                                                {
-                                                    month: "long",
-                                                    year: "numeric",
-                                                },
-                                            )}
+                                            {monthCursor.toLocaleDateString(undefined, {
+                                                month: "long",
+                                                year: "numeric",
+                                            })}
                                         </span>
                                         <button
                                             type="button"
@@ -413,27 +358,21 @@ export const BookingDialog = ({
 
                                     <div className="grid grid-cols-7 gap-2">
                                         {monthGrid.map((date, i) => {
-                                            if (!date)
-                                                return (
-                                                    <div key={`empty-${i}`} />
-                                                );
-                                            const isSunday =
-                                                date.getDay() === 0;
+                                            if (!date) return <div key={`empty-${i}`} />;
+
+                                            const isSunday = date.getDay() === 0;
                                             const disabled =
-                                                isPastDay(date, today) ||
-                                                isSunday;
+                                                isPastDay(date, today) || isSunday;
                                             const isSelected =
-                                                selectedDate &&
-                                                isSameDay(date, selectedDate);
+                                                selectedDate && isSameDay(date, selectedDate);
+
                                             return (
                                                 <SmoothButton
                                                     key={toDateId(date)}
                                                     type="button"
                                                     variant="ghost"
                                                     disabled={disabled}
-                                                    onClick={() =>
-                                                        handleSelectDate(date)
-                                                    }
+                                                    onClick={() => handleSelectDate(date)}
                                                     className={`aspect-square rounded-lg text-xs font-semibold transition-colors duration-150 p-0.5 ${
                                                         disabled
                                                             ? "cursor-not-allowed text-foreground/30"
@@ -452,37 +391,42 @@ export const BookingDialog = ({
 
                             {/* Time Selector */}
                             <div>
-                                <h4 className="text-xs font-bold uppercase tracking-wider text-gray-600 mb-3 flex items-center gap-1.5">
+                                <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-1.5">
                                     <Clock className="h-4 w-4 text-teal-800" />
                                     Select Slot Time
                                 </h4>
+
                                 {!selectedDate ? (
-                                    <p className="text-xs text-gray-400 font-medium">
+                                    <p className="text-xs text-muted-foreground font-medium">
                                         Pick a date to see available times.
+                                    </p>
+                                ) : isLoadingSlots ? (
+                                    <p className="text-xs text-muted-foreground font-medium">
+                                        Loading available times…
+                                    </p>
+                                ) : slotsError ? (
+                                    <p className="text-xs text-destructive font-medium">
+                                        {slotsError}
+                                    </p>
+                                ) : availableSlots.length === 0 ? (
+                                    <p className="text-xs text-muted-foreground font-medium">
+                                        No times available on this date. Try another day.
                                     </p>
                                 ) : (
                                     <div className="max-h-56 overflow-y-auto pr-1">
                                         <div className="grid grid-cols-3 gap-2">
-                                            {timeSlots.map((slot) => (
+                                            {availableSlots.map((slot) => (
                                                 <button
-                                                    key={slot.minutes}
+                                                    key={slot}
                                                     type="button"
-                                                    disabled={slot.disabled}
-                                                    onClick={() =>
-                                                        setSelectedTime(
-                                                            slot.label,
-                                                        )
-                                                    }
+                                                    onClick={() => setSelectedTime(slot)}
                                                     className={`rounded-xl border py-2.5 text-xs font-bold transition-all cursor-pointer ${
-                                                        slot.disabled
-                                                            ? "cursor-not-allowed border-muted-foreground/40 bg-background text-muted-foreground opacity-60 [background-image:linear-gradient(45deg,#f3f4f6_25%,transparent_25%,transparent_50%,#f3f4f6_50%,#f3f4f6_75%,transparent_75%,transparent)] [background-size:12px_12px]"
-                                                            : slot.label ===
-                                                            selectedTime
-                                                                ? "bg-primary text-popover shadow-sm"
-                                                                : "border-muted-foreground/80 bg-background text-foreground hover:text-primary/80 hover:border-primary/80"
+                                                        slot === selectedTime
+                                                            ? "bg-primary text-popover shadow-sm"
+                                                            : "border-muted-foreground/80 bg-background text-foreground hover:text-primary/80 hover:border-primary/80"
                                                     }`}
                                                 >
-                                                    {slot.label}
+                                                    {slot}
                                                 </button>
                                             ))}
                                         </div>
@@ -497,13 +441,12 @@ export const BookingDialog = ({
                                     disabled={isConfirmDisabled}
                                     className="w-full bg-primary text-primary-foreground border border-muted-foreground/80 hover:bg-primary/90 py-6 rounded-xl font-bold shadow-md transition-all cursor-pointer disabled:bg-background disabled:text-muted-foreground disabled:shadow-none"
                                 >
-                                    {isSubmitting
-                                        ? "Confirming"
-                                        : "Confirm Booking Details"}
+                                    {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
+                                    {isSubmitting ? "Confirming" : "Confirm Booking Details"}
                                 </SmoothButton>
                                 <p className="text-[0.60rem] text-muted-foreground text-center mt-3 font-medium italic">
-                                    No deposit needed. We will prepare this
-                                    vehicle for your arrival.
+                                    No deposit needed. We will prepare this vehicle for your
+                                    arrival.
                                 </p>
                             </div>
                         </form>
@@ -523,7 +466,7 @@ export const BookingDialog = ({
                         })
                         : ""
                 }
-                timeLabel={selectedTime ?? ""}
+                timeLabel={selectedTime ? selectedTime : ""}
                 onDone={handleDone}
             />
         </>

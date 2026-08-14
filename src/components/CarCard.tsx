@@ -74,7 +74,7 @@ export const CarCard = ({ car, view = "grid" , onclick}: CarCardProps) => {
                                     <Separator orientation="vertical" className="text-primary" />
                                     <div className="inline-flex items-center gap-1.5 rounded-full  py-1.5 text-xs text-primary">
                                         <IoShieldCheckmark className="h-3.5 w-3.5" aria-hidden="true" />
-                                        Insurance Group: <span className="font-semibold">insurance</span>
+                                        Insurance Group: <span className="font-semibold">{car.insuranceGroup}</span>
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +151,7 @@ export const CarCard = ({ car, view = "grid" , onclick}: CarCardProps) => {
                             </span>
                             <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
                                 <IoShieldCheckmark className="h-3.5 w-3.5" aria-hidden="true" />
-                               Insurance Group: <span className="font-semibold">insurance</span>
+                               Insurance Group: <span className="font-semibold">{car.insuranceGroup}</span>
                             </span>
                         </div>
 

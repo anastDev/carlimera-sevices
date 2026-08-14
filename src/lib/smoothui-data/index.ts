@@ -56,7 +56,7 @@ export const peopleData: Person[] = [
         fullName: "Emmanuel Arhinful",
         stars: 5,
         review:
-            "CARlimera offers an outstanding services. I experienced a huge and terrible experiences from a car a previously bought and sold it out of frustrations was going through daily. Meeting CARlimera was a very good chance and a place to be. I've had not a single problem using my first car I bought from them over 5 Months now and have recently gotten another one for a colleague at work. They sell good cars with no issues and are very trustworthy. Excellent service delivery and I highly recommend them to anyone who needs a car..",
+            "CARlimera offers an outstanding services. I experienced a huge and terrible experiences from a car a previously bought and sold it out of frustrations was going through daily. Meeting CARlimera was a very good chance and a place to be. I've had not a single problem using my first car I bought from them over 5 Months now and have recently gotten another one for a colleague at work. They sell good cars with no issues and are very trustworthy. Excellent services delivery and I highly recommend them to anyone who needs a car..",
     },
     {
         fullName: "Samuel Pernouto",
@@ -68,14 +68,14 @@ export const peopleData: Person[] = [
         fullName: "Saeed Abdul muomin",
         stars: 5,
         review:
-            "CARlimera is one in a million,had an amazing service and quality moment while getting my new car. I will recommend everyone getting a car go through CARlimera if they can,the cars are well looked after and ready to go,test driving and viewings are just phone call away,very patient and very honest Car Dealership.\n" +
+            "CARlimera is one in a million,had an amazing services and quality moment while getting my new car. I will recommend everyone getting a car go through CARlimera if they can,the cars are well looked after and ready to go,test driving and viewings are just phone call away,very patient and very honest Car Dealership.\n" +
             "CARlimera Services is the Best .",
     },
     {
         fullName: "Maria Cocula",
         stars: 5,
         review:
-            "I was very happy with my purchase of the Ford Fiesta and with the overall service provided by the CARlimera. The process was smooth, professional, and trustworthy from start to finish. I can definitely recommend them to anyone looking for a reliable car.",
+            "I was very happy with my purchase of the Ford Fiesta and with the overall services provided by the CARlimera. The process was smooth, professional, and trustworthy from start to finish. I can definitely recommend them to anyone looking for a reliable car.",
     },
     {
         fullName: "Morenikeji Balogun",
