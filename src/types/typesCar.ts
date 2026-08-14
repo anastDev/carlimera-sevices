@@ -11,6 +11,7 @@ export interface Car {
     category: string;
     location: string;
     title: string;
+    subtitle: string;
     engine: string;
     exteriorColor?: string;
     interiorColor?: string;
@@ -27,9 +28,9 @@ export interface Car {
     seats: number;
     emissionClass: string;
     motExpiry: string;
-    prevOwners: number;
+    prevOwners: string;
     warranty: string;
-    keys: number | undefined;
+    keys: string;
     serviceHistory: string;
     videoUrl?: string;
     createdAt: string;

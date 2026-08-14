@@ -9,6 +9,7 @@ const requiredEnum = <T extends readonly [string, ...string[]]>(
 
 export const carFormSchema = z.object({
     title: z.string().trim().min(3, "Title is required"),
+    subtitle: z.string().trim().min(3, "Subtitle is required"),
     make: z.string().trim().min(1, "Make is required"),
     model: z.string().trim().min(1, "Model is required"),
     year: z.coerce
@@ -35,16 +36,12 @@ export const carFormSchema = z.object({
 
     registration: z.string().trim().min(1, "Registration is required"),
     motExpiry: z.string().min(1, "MOT expiry is required"),
-    prevOwners: z.coerce.number().int().min(0, "Can't be negative"),
+    prevOwners: z.string().optional(),
     emissionClass: z.string().trim().min(1, "Emission class is required"),
     insuranceGroup: z.string().trim().min(1, "Insurance group is required"),
     serviceHistory: z.string().trim().min(1, "Service history is required"),
     warranty: z.string().trim().min(1, "Warranty is required"),
-    keys: z
-        .union([z.literal(""), z.coerce.number().int().min(0)])
-        .optional()
-        .transform((value) => (value === "" || value === undefined ? undefined : value)),
-
+    keys: z.string().optional(),
     conditionText: z.string().trim().min(1, "Condition notes are required"),
     description: z.string().trim().min(20, "Give buyers a bit more detail"),
     videoUrl: z

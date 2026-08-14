@@ -101,6 +101,12 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                         <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-4xl my-3">
                             {car!.title}
                         </h1>
+
+                        {car.subtitle && (
+                            <p className="mt-1 text-base font-medium text-muted-foreground">
+                                {car.subtitle}
+                            </p>
+                        )}
                     </motion.div>
 
                     {/* Img Gallery */}
@@ -363,22 +369,24 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                         </div>
                     </motion.div>
 
-                    {/* Inspection Notice Card */}
-                    <motion.div className="rounded-lg bg-border/30 p-6 space-y-4" {...fadeUp}>
-                        <h3 className="text-lg sm:text-xl font-bold text-foreground/80 flex items-center">
-                            <ShieldCheck className="mr-2 h-6 w-6 text-primary/80" />
-                            Pre-Inspection & Condition Report
-                        </h3>
-                        <p className="text-sm text-foreground/80 leading-relaxed">
-                            {car?.conditionText}
-                        </p>
-                        <div className="flex items-start bg-background rounded-lg p-3 text-xs text-foreground/80">
-                            <Info className="mr-2.5 h-5 w-5 flex-shrink-0 text-primary/80 mt-0.5" />
-                            <span>
+                    {car.conditionText !== "-" && (
+                        <motion.div
+                            className="rounded-lg bg-border/30 p-6 space-y-4" {...fadeUp}>
+                            <h3 className="text-lg sm:text-xl font-bold text-foreground/80 flex items-center">
+                                <ShieldCheck className="mr-2 h-6 w-6 text-primary/80" />
+                                Pre-Inspection & Condition Report
+                            </h3>
+                            <p className="text-sm text-foreground/80 leading-relaxed">
+                                {car?.conditionText}
+                            </p>
+                            <div className="flex items-start bg-background rounded-lg p-3 text-xs text-foreground/80">
+                                <Info className="mr-2.5 h-5 w-5 flex-shrink-0 text-primary/80 mt-0.5" />
+                                <span>
                                 <strong>Verification Notice:</strong> While the exterior presents remarkably well in high-resolution photography, we always recommend an in-person viewing and a test drive to verify the interior trim condition, soft-top mechanism seals, and mechanical history.
                             </span>
-                        </div>
-                    </motion.div>
+                            </div>
+                        </motion.div>
+                    )}
 
                 </div>
 
@@ -416,7 +424,7 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                                     <span>Verified {car.serviceHistory}</span>
                                 </li>
                             )}
-                            {(car?.keys && car?.keys > 1) && (
+                            {(car?.keys) && (
                                 <li className="flex items-center">
                                     <Key className="mr-3 h-5 w-5 text-sidebar-primary flex-shrink-0" />
                                     <span>Supplied with operational spare keys</span>

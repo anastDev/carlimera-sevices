@@ -36,27 +36,42 @@ export const CarFormFields = ({
             <section className="flex flex-col gap-4">
                 <h3 className="text-lg font-medium text-foreground">Basic information</h3>
                 <FieldGroup className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div className="sm:col-span-2">
-                        <Field>
-                            <FieldLabel htmlFor="title">Title</FieldLabel>
-                            <Controller
-                                name="title"
-                                control={control}
-                                render={({ field }) => (
-                                    <Input
-                                        {...field}
-                                        id="title"
-                                        aria-invalid={Boolean(errors.title)}
-                                        placeholder="e.g. 2019 BMW 3 Series 320i M Sport"
-                                    />
-                                )}
-                            />
-                            {errors.title && (
-                                <span role="alert" className="text-xs text-red-600">{errors.title.message}</span>
+                    <Field>
+                        <FieldLabel htmlFor="title">Title</FieldLabel>
+                        <Controller
+                            name="title"
+                            control={control}
+                            render={({ field }) => (
+                                <Input
+                                    {...field}
+                                    id="title"
+                                    aria-invalid={Boolean(errors.title)}
+                                    placeholder="e.g. Hyundai ix35"
+                                />
                             )}
-                        </Field>
-                    </div>
-
+                        />
+                        {errors.title && (
+                            <span role="alert" className="text-xs text-red-600">{errors.title.message}</span>
+                        )}
+                    </Field>
+                    <Field>
+                        <FieldLabel htmlFor="title">Subtitle</FieldLabel>
+                        <Controller
+                            name="subtitle"
+                            control={control}
+                            render={({ field }) => (
+                                <Input
+                                    {...field}
+                                    id="subtitle"
+                                    aria-invalid={Boolean(errors.subtitle)}
+                                    placeholder="e.g. 1.7 CRDi Style Euro 5 (s/s) 5dr"
+                                />
+                            )}
+                        />
+                        {errors.subtitle && (
+                            <span role="alert" className="text-xs text-red-600">{errors.subtitle.message}</span>
+                        )}
+                    </Field>
                     <Field>
                         <FieldLabel htmlFor="make">Make</FieldLabel>
                         <Controller
@@ -289,7 +304,7 @@ export const CarFormFields = ({
                     </Field>
 
                     <Field>
-                        <FieldLabel htmlFor="carWidth">Width (m)</FieldLabel>
+                        <FieldLabel htmlFor="carWidth">Width (mm)</FieldLabel>
                         <Controller
                             name="carWidth"
                             control={control}
@@ -303,7 +318,7 @@ export const CarFormFields = ({
                     </Field>
 
                     <Field>
-                        <FieldLabel htmlFor="carLength">Length (m)</FieldLabel>
+                        <FieldLabel htmlFor="carLength">Length (mm)</FieldLabel>
                         <Controller
                             name="carLength"
                             control={control}
@@ -378,7 +393,7 @@ export const CarFormFields = ({
                             name="motExpiry"
                             control={control}
                             render={({ field }) => (
-                                <Input  {...field} id="motExpiry" type="date"  value={(field.value ?? "") as string} aria-invalid={Boolean(errors.motExpiry)} />
+                                <Input  {...field} id="motExpiry"  value={(field.value ?? "") as string} aria-invalid={Boolean(errors.motExpiry)} />
                             )}
                         />
                         {errors.motExpiry && (
@@ -392,7 +407,7 @@ export const CarFormFields = ({
                             name="prevOwners"
                             control={control}
                             render={({ field }) => (
-                                <Input  {...field} id="prevOwners" type="number"  value={(field.value ?? "") as string} aria-invalid={Boolean(errors.prevOwners)} />
+                                <Input  {...field} id="prevOwners" aria-invalid={Boolean(errors.prevOwners)} />
                             )}
                         />
                         {errors.prevOwners && (
@@ -462,7 +477,7 @@ export const CarFormFields = ({
                             name="keys"
                             control={control}
                             render={({ field }) => (
-                                <Input {...field} id="keys" type="number"  value={(field.value ?? "") as string} aria-invalid={Boolean(errors.keys)} />
+                                <Input {...field} id="keys" aria-invalid={Boolean(errors.keys)} />
                             )}
                         />
                         <span className="text-xs text-muted-foreground">Leave blank if unknown</span>
@@ -527,26 +542,6 @@ export const CarFormFields = ({
                     <span className="text-xs text-muted-foreground">Add one at a time</span>
                 </Field>
 
-                <Field>
-                    <FieldLabel htmlFor="videoUrl">Video walkaround</FieldLabel>
-                    <Controller
-                        name="videoUrl"
-                        control={control}
-                        render={({ field }) => (
-                            <Input
-                                {...field}
-                                id="videoUrl"
-                                placeholder="https://www.youtube.com/watch?v=..."
-                                aria-invalid={Boolean(errors.videoUrl)}
-                            />
-                        )}
-                    />
-                    <span className="text-xs text-muted-foreground">Optional — paste a YouTube link</span>
-                    {errors.videoUrl && (
-                        <span role="alert" className="text-xs text-red-600">{errors.videoUrl.message}</span>
-                    )}
-                </Field>
-
                 {features.length > 0 && (
                     <div className="flex flex-wrap gap-2">
                         {features.map((feature) => (
@@ -567,6 +562,26 @@ export const CarFormFields = ({
                         ))}
                     </div>
                 )}
+
+                <Field>
+                    <FieldLabel htmlFor="videoUrl">Video walkaround</FieldLabel>
+                    <Controller
+                        name="videoUrl"
+                        control={control}
+                        render={({ field }) => (
+                            <Input
+                                {...field}
+                                id="videoUrl"
+                                placeholder="https://www.youtube.com/watch?v=..."
+                                aria-invalid={Boolean(errors.videoUrl)}
+                            />
+                        )}
+                    />
+                    <span className="text-xs text-muted-foreground">Optional — paste a YouTube link</span>
+                    {errors.videoUrl && (
+                        <span role="alert" className="text-xs text-red-600">{errors.videoUrl.message}</span>
+                    )}
+                </Field>
             </section>
         </>
     );

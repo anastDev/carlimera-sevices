@@ -26,6 +26,7 @@ const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const toFormValues = (car: Car): CarFormInput =>
     ({
         title: car.title,
+        subtitle: car.subtitle,
         make: car.make,
         model: car.model,
         year: String(car.year),
@@ -46,12 +47,12 @@ const toFormValues = (car: Car): CarFormInput =>
         exteriorColor: car.exteriorColor ?? "",
         interiorColor: car.interiorColor ?? "",
         topSpeed: car.topSpeed != null ? String(car.topSpeed) : "",
-        prevOwners: String(car.prevOwners),
+        prevOwners: car.prevOwners,
         emissionClass: car.emissionClass,
         insuranceGroup: car.insuranceGroup,
         serviceHistory: car.serviceHistory,
         warranty: car.warranty,
-        keys: car.keys != null ? String(car.keys) : "",
+        keys: car.keys,
         conditionText: car.conditionText,
         description: car.description,
         videoUrl: car.videoUrl ?? "",

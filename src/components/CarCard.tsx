@@ -45,6 +45,11 @@ export const CarCard = ({ car, view = "grid" , onclick}: CarCardProps) => {
                                 <h3 className="text-sm sm:text-lg font-medium text-foreground truncate">
                                     {car.year} {car.make} {car.model}
                                 </h3>
+                                {car.subtitle && (
+                                    <p className="truncate text-sm font-medium text-primary">
+                                        {car.subtitle}
+                                    </p>
+                                )}
                                 <p className="text-sm text-muted-foreground truncate">{car.engine}</p>
 
                                 <div className="flex flex-wrap gap-2 my-4">
@@ -64,12 +69,12 @@ export const CarCard = ({ car, view = "grid" , onclick}: CarCardProps) => {
                                     <Separator orientation="vertical" className="text-primary" />
                                     <div className="inline-flex items-center gap-1.5 rounded-full  py-1.5 text-xs text-primary">
                                         <FaPerson className="h-3.5 w-3.5" aria-hidden="true" />
-                                        Owner{car.prevOwners > 1 ? "s" : ""}: <span className="font-semibold">{car.prevOwners}</span>
+                                        Owner{car.prevOwners === "1" ? "s" : ""}: <span className="font-semibold">{car.prevOwners}</span>
                                     </div>
                                     <Separator orientation="vertical" className="text-primary" />
                                     <div className="inline-flex items-center gap-1.5 rounded-full  py-1.5 text-xs text-primary">
                                         <IoShieldCheckmark className="h-3.5 w-3.5" aria-hidden="true" />
-                                        Key{car.keys! > 1 ? "s" : ""}: <span className="font-semibold">{car.keys}</span>
+                                        Key{car.keys! === "1" ? "s" : ""}: <span className="font-semibold">{car.keys}</span>
                                     </div>
                                     <Separator orientation="vertical" className="text-primary" />
                                     <div className="inline-flex items-center gap-1.5 rounded-full  py-1.5 text-xs text-primary">
@@ -143,11 +148,11 @@ export const CarCard = ({ car, view = "grid" , onclick}: CarCardProps) => {
                             </span>
                             <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
                                 <FaPerson className="h-3.5 w-3.5" aria-hidden="true" />
-                                Owner{car.prevOwners > 1 ? "s" : ""}: <span className="font-semibold">{car.prevOwners}</span>
+                                Owner{car.prevOwners === "1" ? "s" : ""}: <span className="font-semibold">{car.prevOwners}</span>
                             </span>
                             <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
                                 <IoShieldCheckmark className="h-3.5 w-3.5" aria-hidden="true" />
-                               Key{car.keys! > 1 ? "s" : ""}: <span className="font-semibold">{car.keys}</span>
+                               Key{car.keys! === "1" ? "s" : ""}: <span className="font-semibold">{car.keys}</span>
                             </span>
                             <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
                                 <IoShieldCheckmark className="h-3.5 w-3.5" aria-hidden="true" />
