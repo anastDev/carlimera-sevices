@@ -47,7 +47,7 @@ export const AboutPage = () => {
             </motion.div>
 
             {/* Trust pillars */}
-            <motion.div variants={container} className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <motion.div variants={fadeUp} className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {trustPillars.map((pillar) => (
                     <motion.div
                         key={pillar.title}
@@ -69,11 +69,11 @@ export const AboutPage = () => {
                 ))}
             </motion.div>
 
-            <div className="mb-4 rounded-lg p-5 text-center">
+            <motion.div variants={fadeUp} className="mb-4 rounded-lg p-5 text-center">
                 <p className="text-lg italic text-foreground">
                     Drive away happy, wherever you are in the UK.
                 </p>
-            </div>
+            </motion.div>
 
             {/* Steps title */}
             <motion.h2
@@ -85,7 +85,7 @@ export const AboutPage = () => {
 
             {/* Grid */}
             <motion.div
-                variants={container}
+                variants={fadeUp}
                 className="mb-2 grid grid-cols-1 gap-4 sm:grid-cols-3"
             >
                 {steps.map((step) => (
