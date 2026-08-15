@@ -233,7 +233,7 @@ export const ContactPage = () => {
                 <iframe
                     className="h-90 w-full border-0"
                     referrerPolicy="strict-origin-when-cross-origin"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2433.24375657295!2d-1.537277522133567!3d52.42038087203514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48774c08fbaff867%3A0xb66d3518ab6782c2!2sCARlimera%20Services!5e0!3m2!1sel!2sse!4v1784721329039!5m2!1sel!2sse"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2433.2437565793844!2d-1.5372828877522882!3d52.420380871918546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48774c08fbaff867%3A0xb66d3518ab6782c2!2sCARlimera%20Services!5e0!3m2!1sen!2sse!4v1786794072049!5m2!1sen!2sse"
                     title="CARlimera Services location"
                 />
             </motion.div>
