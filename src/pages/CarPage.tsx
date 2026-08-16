@@ -442,7 +442,7 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                                 <Clock className="h-4 w-4 text-sidebar-primary flex-shrink-0 mt-0.5" />
                                 <div className="space-y-1">
                                     <div className="flex justify-between border-b border-primary/30 pb-1.5">
-                                        <span className="text-primary pr-10">Monday – Friday</span>
+                                        <span className="text-primary pr-10">Monday – Saturday</span>
                                         <span className="text-primary font-semibold">9:00 AM – 6:00 PM</span>
                                     </div>
                                     <div className="flex justify-between pb-1">
