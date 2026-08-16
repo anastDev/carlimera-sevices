@@ -40,9 +40,10 @@ export const bookingFormSchema = z.object({
 export type BookingFormValues = z.infer<typeof bookingFormSchema>;
 
 export const contactFormSchema = z.object({
-    fullName: z.string(),
-    email: z.email('Invalid email address').min(1, {error: "Email is required"}),
-    message: z.string().min(5, "Message must be at least 5 characters"),
+    fullName: z.string().trim().min(2, "full name is required"),
+    email: z.email('Invalid email address'),
+    message: z.string().trim().min(10, "Message must be at least 5 characters"),
+    website: z.string().optional(),
 })
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;

@@ -1,7 +1,7 @@
 import { useState} from "react";
 import { Button } from "@/components/ui/button.tsx";
 import { Textarea } from "@/components/ui/textarea";
-import {MapPin, Phone, Mail, CalendarDays, Clock, User} from "lucide-react";
+import {MapPin, Phone, Mail, CalendarDays, Clock, User, Loader2} from "lucide-react";
 import { motion } from "framer-motion";
 import Breadcrumb from "@/components/smoothui/breadcrumb";
 import {container, fadeUp} from "@/utils/transitions.ts";
@@ -14,6 +14,7 @@ import {
     FieldGroup,
 } from "@/components/ui/field";
 import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/input-group.tsx";
+import {sendContactMessage} from "@/services/api.contact.ts";
 
 
 const items = [
@@ -23,25 +24,45 @@ const items = [
 
 export const ContactPage = () => {
     const [submitted, setSubmitted] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
 
     const {
         control,
         register,
         handleSubmit,
         reset,
+        formState: { isSubmitting },
     } = useForm<ContactFormValues>({
         resolver: zodResolver(contactFormSchema),
         defaultValues: {
             fullName: "",
             email: "",
-            message: ""
+            message: "",
+            website: ""
         }
     })
 
-    const onHandleSubmit = (data: ContactFormValues) => {
-        console.log(data);
-        setSubmitted(true);
-        reset();
+    const onHandleSubmit = async (data: ContactFormValues) => {
+        setSubmitError(null);
+        setSubmitted(false);
+
+        try {
+            await sendContactMessage({
+                fullName: data.fullName,
+                email: data.email,
+                message: data.message,
+                website: data.website,
+            });
+
+            setSubmitted(true);
+            reset();
+        } catch (err) {
+            setSubmitError(
+                err instanceof Error
+                    ? err.message
+                    : "We couldn't send your message. Please email or call us directly."
+            );
+        }
     }
 
     return (
@@ -112,7 +133,9 @@ export const ContactPage = () => {
                                     <span className="font-semibold text-foreground">9:00 AM – 6:00 PM</span>
                                 </div>
                                 <div className="flex justify-between py-2">
-                                    <span>Saturday</span>
+                                    {/* Was "Saturday" twice — the row above already covers it,
+                                        and the booking slots exclude Sundays */}
+                                    <span>Sunday</span>
                                     <span className="font-semibold text-foreground">Closed</span>
                                 </div>
                             </div>
@@ -205,19 +228,44 @@ export const ContactPage = () => {
                                         />
                                     </FieldGroup>
                                     <Textarea placeholder="Message" rows={6}
-                                        {...register("message")}
+                                              {...register("message")}
                                               className="bg-gray-50 mb-2 border-gray-300 focus:border-teal-700 focus:ring-teal-700 flex-1 min-h-[7.5rem]"
                                               required/>
+
+                                    {/* Honeypot */}
+                                    <div className="absolute -left-[9999px]" aria-hidden="true">
+                                        <label htmlFor="website">Website</label>
+                                        <input
+                                            {...register("website")}
+                                            id="website"
+                                            type="text"
+                                            tabIndex={-1}
+                                            autoComplete="off"
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className="space-y-4 mt-auto">
                                     <Button type="submit"
-                                            className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-5 rounded-lg font-bold transition-colors cursor-pointer shadow-sm">
-                                        Send
+                                            disabled={isSubmitting}
+                                            className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-5 rounded-lg font-bold transition-colors cursor-pointer shadow-sm disabled:cursor-not-allowed disabled:opacity-60">
+                                        {isSubmitting ? (
+                                            <span className="flex items-center justify-center gap-2">
+                                                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                                                Sending…
+                                            </span>
+                                        ) : (
+                                            "Send"
+                                        )}
                                     </Button>
                                     {submitted && (
                                         <p className="text-sm font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-center">
                                             Thank you! Your message has been sent. We'll reply as soon as possible.
+                                        </p>
+                                    )}
+                                    {submitError && (
+                                        <p role="alert" className="text-sm font-semibold text-red-800 bg-red-50 border border-red-200 rounded-lg p-3 text-center">
+                                            {submitError}
                                         </p>
                                     )}
                                 </div>
@@ -235,6 +283,7 @@ export const ContactPage = () => {
                     referrerPolicy="strict-origin-when-cross-origin"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2433.2437565793844!2d-1.5372828877522882!3d52.420380871918546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48774c08fbaff867%3A0xb66d3518ab6782c2!2sCARlimera%20Services!5e0!3m2!1sen!2sse!4v1786794072049!5m2!1sen!2sse"
                     title="CARlimera Services location"
+                    loading="lazy"
                 />
             </motion.div>
         </motion.div>
