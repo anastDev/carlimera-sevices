@@ -7,6 +7,7 @@ export interface AppointmentApiResponse {
     id: string;
     car_id: string;
     car_title?: string;
+    registration_plate?:string;
     date: string;
     time_slot: string;
     full_name: string;

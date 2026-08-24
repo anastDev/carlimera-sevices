@@ -110,6 +110,15 @@ export const AppointmentsPanel = ({ onDecisionMade }: AppointmentsPanelProps) =>
                                         {appointment.car_title ?? appointment.car_id}
                                     </span>
                                     <span className="flex items-center gap-1.5">
+                                        <CarIcon className="h-4 w-4 shrink-0" aria-hidden="true" />
+                                        {appointment.car_title}
+                                        {appointment.registration_plate && (
+                                            <span className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs uppercase tracking-wide">
+                                                {appointment.registration_plate}
+                                            </span>
+                                        )}
+                                    </span>
+                                    <span className="flex items-center gap-1.5">
                                         <Calendar className="h-4 w-4 shrink-0" aria-hidden="true" />
                                         {appointment.date}
                                     </span>
