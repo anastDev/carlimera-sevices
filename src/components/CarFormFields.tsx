@@ -379,11 +379,33 @@ export const CarFormFields = ({
                             name="registration"
                             control={control}
                             render={({ field }) => (
-                                <Input  {...field} id="registration"  value={(field.value ?? "") as string} placeholder="e.g. AB19 CDE" aria-invalid={Boolean(errors.registration)} />
+                                <Input  {...field} id="registration"  value={(field.value ?? "") as string} aria-invalid={Boolean(errors.registration)} />
                             )}
                         />
                         {errors.registration && (
                             <span role="alert" className="text-xs text-red-600">{errors.registration.message}</span>
+                        )}
+                    </Field>
+
+                    <Field>
+                        <FieldLabel htmlFor="registrationPlate">Registration plate</FieldLabel>
+                        <Controller
+                            name="registrationPlate"
+                            control={control}
+                            render={({ field }) => (
+                                <Input
+                                    {...field}
+                                    id="registrationPlate"
+                                    placeholder="e.g. AB19 CDE"
+                                    className="uppercase"
+                                    aria-invalid={Boolean(errors.registrationPlate)}
+                                />
+                            )}
+                        />
+                        {errors.registrationPlate && (
+                            <span role="alert" className="text-xs text-red-600">
+            {errors.registrationPlate.message}
+        </span>
                         )}
                     </Field>
 

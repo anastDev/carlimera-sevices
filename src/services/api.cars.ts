@@ -1,5 +1,5 @@
 import type { CarFormOutput} from "@/schemas/car.schema.ts";
-import type {Car} from "@/types/typesCar.ts";
+import type {Car, CarStatus} from "@/types/typesCar.ts";
 import type {MultipleImgsUploadApiResponse} from "@/types/typesImages.ts";
 import {apiFetch, errorFrom} from "@/utils/apiFetch";
 
@@ -98,4 +98,24 @@ export async function deleteCarImage(
     if (!res.ok) throw await errorFrom(res, "Couldn't delete this photo.");
 
     return res.json();
+}
+
+export async function updateCarStatus(carId: string, status: CarStatus): Promise<Car> {
+    const res = await apiFetch(`/cars/${carId}/status`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        requiresAuth: true,
+        body: JSON.stringify({ status }),
+    });
+
+    if (!res.ok) throw await errorFrom(res, "Couldn't update this car's status.");
+    return res.json();
+}
+
+export async function getAllCars(): Promise<Car[]> {
+    const res = await apiFetch("/cars/all", { requiresAuth: true });
+    if (!res.ok) throw await errorFrom(res, "Couldn't load listings.");
+
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
 }

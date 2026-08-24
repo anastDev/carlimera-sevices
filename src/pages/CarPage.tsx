@@ -267,7 +267,6 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                                 <p className="text-[0.85rem] font-bold text-foreground capitalize">{car?.fuelType}</p>
                             </div>
                         </div>
-
                         {(car?.doors || car?.seats) && (
                             <div className="flex items-center space-x-3">
                                 <div className="rounded-lg bg-accent text-sidebar-primary p-2.5 ">
@@ -312,6 +311,16 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
                                     <dt className="text-sm font-semibold text-foreground/80">Top Speed</dt>
                                     <dd className="col-span-2 text-sm text-foreground font-medium">{car?.topSpeed ? car.topSpeed : "-"} mph</dd>
                                 </div>
+                                {car.registrationPlate && (
+                                    <div className="grid grid-cols-3 gap-4 px-6 py-4">
+                                        <dt className="text-sm font-semibold text-foreground/80">
+                                            Registration Plate
+                                        </dt>
+                                        <dd className="col-span-2 text-sm font-medium text-foreground">
+                                            {car.registrationPlate}
+                                        </dd>
+                                    </div>
+                                )}
                                 {( car?.prevOwners !== undefined) && (
                                     <div className="grid grid-cols-3 gap-4 px-6 py-4">
                                         <dt className="text-sm font-semibold text-foreground/80">Previous Owners</dt>

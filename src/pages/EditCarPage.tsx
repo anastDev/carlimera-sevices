@@ -42,6 +42,7 @@ const toFormValues = (car: Car): CarFormInput =>
         carWidth: car.carWidth != null ? String(car.carWidth) : "",
         carLength: car.carLength != null ? String(car.carLength) : "",
         registration: car.registration,
+        registrationPlate: car.registrationPlate != null ? String(car.registrationPlate) : "",
         motExpiry: car.motExpiry,
         location: car.location ?? "",
         exteriorColor: car.exteriorColor ?? "",

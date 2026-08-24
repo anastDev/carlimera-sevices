@@ -1,3 +1,5 @@
+export type CarStatus = "available" | "reserved" | "sold";
+
 export interface Car {
     id: string;
     make: string;
@@ -25,6 +27,7 @@ export interface Car {
     conditionText: string;
     doors: number;
     registration: string;
+    registrationPlate: string;
     seats: number;
     emissionClass: string;
     motExpiry: string;
@@ -33,7 +36,9 @@ export interface Car {
     keys: string;
     serviceHistory: string;
     videoUrl?: string;
+    status: CarStatus;
     createdAt: string;
+    soldAt?: string;
 }
 
 export interface DateOption {

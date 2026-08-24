@@ -43,6 +43,7 @@ const DEFAULT_VALUES: CarFormInput = {
         exteriorColor: "",
         interiorColor: "",
         registration: "",
+        registrationPlate: "",
         motExpiry: "",
         prevOwners: "",
         emissionClass: "",
