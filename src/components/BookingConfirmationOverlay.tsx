@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 interface BookingSuccessOverlayProps {
     open: boolean;
     carLabel: string;
+    plateLabel?: string;
     dateLabel: string;
     timeLabel: string;
     onDone: () => void;
@@ -13,13 +14,11 @@ interface BookingSuccessOverlayProps {
 export const BookingSuccessOverlay = ({
                                           open,
                                           carLabel,
+                                          plateLabel,
                                           dateLabel,
                                           timeLabel,
                                           onDone,
                                       }: BookingSuccessOverlayProps) => {
-
-    if (!open) return null;
-
     return (
         <AnimatePresence>
             {open && (
@@ -45,17 +44,32 @@ export const BookingSuccessOverlay = ({
                             Booking Request Received
                         </h2>
 
-                        {/* Featured Selection Card/Badge */}
-                        <div className="mt-3 inline-flex flex-wrap items-center justify-center gap-1.5 rounded-lg bg-muted/50 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-foreground border border-border/50">
-                            <span>{carLabel}</span>
-                            <span className="text-primary">{dateLabel}</span>
-                            <span className="text-muted-foreground">at</span>
-                            <span className="text-primary">{timeLabel}</span>
+                        {/* Featured Selection Card */}
+                        <div className="mt-3 inline-flex flex-col items-center gap-1.5 rounded-lg bg-muted/50 px-3.5 py-2 text-xs sm:text-sm font-semibold text-foreground border border-border/50">
+                            <div className="flex flex-wrap items-center justify-center gap-1.5">
+                                <span>{carLabel}</span>
+                                {plateLabel && (
+                                    <span className="text-muted-foreground">·</span>
+                                )}
+                                {plateLabel && (
+                                    <span className="text-muted-foreground">{plateLabel}</span>
+                                )}
+                            </div>
+                            <div className="flex flex-wrap items-center justify-center gap-1.5">
+                                <span className="text-primary">{dateLabel}</span>
+                                <span className="text-muted-foreground">at</span>
+                                <span className="text-primary">{timeLabel}</span>
+                            </div>
                         </div>
 
                         {/* Sub-status with Icon */}
                         <div className="mt-2 flex flex-col items-center justify-center text-xs sm:text-sm text-muted-foreground font-medium">
-                            <img className="w-35 shrink-0 text-primary" src="/carlimera-logo.png" aria-hidden="true"  alt="CARlimera services logo"/>
+                            <img
+                                className="w-35 shrink-0 text-primary"
+                                src="/carlimera-logo.png"
+                                aria-hidden="true"
+                                alt="CARlimera services logo"
+                            />
                             <div>We're checking availability for your requested slot.</div>
                         </div>
 

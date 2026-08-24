@@ -457,6 +457,7 @@ export const BookingDialog = ({
             <BookingSuccessOverlay
                 open={isConfirmed}
                 carLabel={car?.title ?? "Your vehicle"}
+                plateLabel={car?.registrationPlate ?? ""}
                 dateLabel={
                     selectedDate
                         ? selectedDate.toLocaleDateString(undefined, {
