@@ -19,7 +19,7 @@ import {sendContactMessage} from "@/services/api.contact.ts";
 
 const items = [
     {label: "Home", value: "/"},
-    {label: "Contact"}
+    {label: "Contact Us"}
 ];
 
 export const ContactPage = () => {

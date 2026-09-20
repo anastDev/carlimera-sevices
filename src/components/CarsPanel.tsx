@@ -86,7 +86,6 @@ export const CarsPanel = () => {
     };
 
     const startEditing = (car: Car) => {
-        // Both are needed: editingCar is which car, view is what renders
         setEditingCar(car);
         setView("edit");
     };
@@ -140,7 +139,6 @@ export const CarsPanel = () => {
                             </button>
                         </div>
 
-                        {/* overflow-x-auto keeps four filters on one row on narrow screens */}
                         <div className="mb-5 flex gap-1 overflow-x-auto rounded-lg border border-border bg-muted/40 p-1 text-sm">
                             {STATUS_FILTERS.map((filter) => (
                                 <button
@@ -204,8 +202,6 @@ export const CarsPanel = () => {
                                                             <div className="h-10 w-14 rounded-md bg-muted" />
                                                         )}
                                                         <div className="flex min-w-0 flex-col">
-                                                            {/* truncate stops a long model name pushing
-                                                                    the actions column off the edge */}
                                                             <span className="max-w-[180px] truncate font-medium text-foreground">
                                                                     {car.year} {car.make} {car.model}
                                                                 </span>
@@ -219,9 +215,6 @@ export const CarsPanel = () => {
                                                 </td>
 
                                                 <td className="px-4 py-3">
-                                                    {/* A select rather than a button — there are three
-                                                            states, so a toggle can't express them, and this
-                                                            doubles as the status badge */}
                                                     <div className="flex items-center gap-2">
                                                         <select
                                                             value={car.status ?? "available"}
@@ -287,7 +280,7 @@ export const CarsPanel = () => {
                                     </table>
                                 </div>
 
-                                {/* Mobile card list — same data, stacked */}
+                                {/* Mobile card list */}
                                 <div className="flex flex-col gap-3 sm:hidden">
                                     {visibleCars.map((car) => (
                                         <article
@@ -303,8 +296,6 @@ export const CarsPanel = () => {
                                             ) : (
                                                 <div className="h-14 w-20 shrink-0 rounded-md bg-muted" />
                                             )}
-                                            {/* min-w-0 is what lets truncate work inside a flex
-                                                child — without it it won't shrink below content */}
                                             <div className="min-w-0 flex-1">
                                                 <p className="truncate font-medium text-foreground">
                                                     {car.year} {car.make} {car.model}

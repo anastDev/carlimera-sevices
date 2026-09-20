@@ -18,7 +18,7 @@ export const staticRoutes = [
     },
     {
         title: "Contact",
-        path: "/contact",
+        path: "/contact-us",
         Icon: Mail,
     },
 ];

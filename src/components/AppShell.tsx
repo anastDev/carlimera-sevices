@@ -50,7 +50,7 @@ export const  AppShell = ()=>  {
                     <Route path="/" element={<HomePage cars={cars}/>} />
 
                     <Route path="about" element={<AboutPage />} />
-                    <Route path="contact" element={<ContactPage />} />
+                    <Route path="contact-us" element={<ContactPage />} />
                     <Route path="admin" element={<AdminPanel/>}/>
 
                     <Route path="cars">
