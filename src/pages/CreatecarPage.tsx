@@ -18,8 +18,7 @@ interface CreateCarPageProps {
     onCreated?: () => void;
 }
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
-const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
 const DEFAULT_VALUES: CarFormInput = {
         title: "",
@@ -60,6 +59,7 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
     const [imageError, setImageError] = useState<string | null>(null);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [submitSuccess, setSubmitSuccess] = useState(false);
+    const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
 
     const {
         control,
@@ -88,12 +88,15 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
         const valid: StagedImage[] = [];
 
         for (const file of files) {
-            if (!ACCEPTED_TYPES.includes(file.type)) {
+            const isImage =
+                file.type.startsWith("image/") || /\.(heic|heif)$/i.test(file.name);
+
+            if (!isImage) {
                 setImageError(`"${file.name}" isn't a supported image type.`);
                 continue;
             }
             if (file.size > MAX_FILE_SIZE) {
-                setImageError(`"${file.name}" is over the 10MB limit.`);
+                setImageError(`"${file.name}" is over the 50MB limit.`);
                 continue;
             }
             valid.push({ file, previewUrl: URL.createObjectURL(file) });
@@ -113,6 +116,7 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
         setSubmitError(null);
         setImageError(null);
         setSubmitSuccess(false);
+        setProgress(null);
 
         if (images.length === 0) {
             setImageError("Add at least one photo before publishing this listing.");
@@ -124,16 +128,19 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
                 values,
                 features,
                 images.map((img) => img.file),
+                (done, total) => setProgress({ done, total }),
             );
 
             reset();
             setFeatures([]);
             images.forEach((img) => URL.revokeObjectURL(img.previewUrl));
             setImages([]);
+            setProgress(null);
             setSubmitSuccess(true);
 
             onCreated?.();
         } catch (err) {
+            setProgress(null);
             setSubmitError(err instanceof Error ? err.message : "Something went wrong.");
         }
     };
@@ -200,9 +207,17 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
                         </p>
                     )}
 
-                    <Button type="submit" disabled={isSubmitting || images.length === 0} className="gap-2 sm:w-fit py-5 px-4">
+                    <Button
+                        type="submit"
+                        disabled={isSubmitting || images.length === 0}
+                        className="gap-2 sm:w-fit py-5 px-4"
+                    >
                         {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
-                        {isSubmitting ? "Creating listing…" : "Create listing"}
+                        {!isSubmitting
+                            ? "Create listing"
+                            : progress
+                                ? `Uploading photo ${progress.done} of ${progress.total}…`
+                                : "Preparing photos…"}
                     </Button>
                 </div>
             </form>
