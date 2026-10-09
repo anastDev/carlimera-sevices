@@ -17,6 +17,7 @@ import {Link, useParams} from "react-router";
 import SmoothButton from "@/components/smoothui/smooth-button";
 import {motion} from "framer-motion";
 import {toEmbedUrl, toThumbnailUrl} from "@/utils/video.ts";
+// import {getVisitorId} from "@/utils/visitor.ts";
 
 interface CarPageProps {
     cars: Car[];
@@ -56,7 +57,6 @@ export const CarPage = ({cars, onBookViewing}: CarPageProps) => {
     }
 
     const embedUrl = car.videoUrl ? toEmbedUrl(car.videoUrl) : null;
-
     const slides: Slide[] = [
         ...(car.images ?? []).map((url) => ({ type: "image" as const, url })),
         ...(embedUrl ? [{ type: "video" as const, url: embedUrl }] : []),

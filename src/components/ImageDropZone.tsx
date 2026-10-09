@@ -8,7 +8,15 @@ interface StagedImage {
     previewUrl: string;
 }
 
-const ACCEPTED_TYPES = ["image/jpeg", "images/jpg", "image/png", "image/pdf"];
+const ACCEPTED_TYPES = [
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+    "image/heic",
+    "image/heif",
+    ".heic",
+    ".heif",
+];
 
 interface ImageDropzoneProps {
     images: StagedImage[];
@@ -64,7 +72,7 @@ export const ImageDropzone = ({ images, onAdd, onRemove, error }: ImageDropzoneP
                     <p className="text-sm font-medium text-gray-700">
                         Drag and drop or <span className="text-teal-600 underline">browse</span>
                     </p>
-                    <p className="mt-1 text-xs text-gray-400">JPG, PNG or WEBP, up to 10MB each</p>
+                    <p className="mt-1 text-xs text-gray-400">JPG, PNG, WEBP or HEIC — photos are resized automatically</p>
                 </div>
                 <Input
                     ref={inputRef}

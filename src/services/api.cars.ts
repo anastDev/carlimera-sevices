@@ -2,6 +2,7 @@ import type { CarFormOutput} from "@/schemas/car.schema.ts";
 import type {Car, CarStatus} from "@/types/typesCar.ts";
 import type {MultipleImgsUploadApiResponse} from "@/types/typesImages.ts";
 import {apiFetch, errorFrom} from "@/utils/apiFetch";
+import {prepareImages} from "@/utils/imagePrep.ts";
 
 export async function getCars(): Promise<Car[]> {
     const res = await apiFetch("/cars/");
@@ -22,14 +23,20 @@ export async function getCarById(carId: string): Promise<Car> {
 }
 
 
+const BATCH_SIZE = 5;
+
 export async function createCarWithImages(
     values: CarFormOutput,
     features: string[],
     files: File[],
+    onProgress?: (done: number, total: number) => void,
 ): Promise<Car> {
+    const prepared = await prepareImages(files);
+    const [first, ...rest] = prepared;
+
     const formData = new FormData();
     formData.append("car_json", JSON.stringify({ ...values, features }));
-    files.forEach((file) => formData.append("files", file));
+    formData.append("files", first);
 
     const res = await apiFetch("/cars/with-images", {
         method: "POST",
@@ -38,6 +45,47 @@ export async function createCarWithImages(
     });
 
     if (!res.ok) throw await errorFrom(res, "Couldn't create this listing.");
+
+    const car: Car = await res.json();
+    onProgress?.(1, prepared.length);
+
+    if (rest.length > 0) {
+        await sendImagesInBatches(car.id, rest, (done) =>
+            onProgress?.(done + 1, prepared.length),
+        );
+    }
+
+    return car;
+}
+
+async function sendImagesInBatches(
+    carId: string,
+    prepared: File[],
+    onProgress?: (done: number, total: number) => void,
+): Promise<void> {
+    for (let i = 0; i < prepared.length; i += BATCH_SIZE) {
+        const batch = prepared.slice(i, i + BATCH_SIZE);
+        await uploadMultipleCarImgs(carId, batch);
+        onProgress?.(Math.min(i + BATCH_SIZE, prepared.length), prepared.length);
+    }
+}
+
+export async function uploadMultipleCarImgs(
+    carId: string,
+    files: File[],
+): Promise<MultipleImgsUploadApiResponse> {
+    const prepared = await prepareImages(files);
+
+    const formData = new FormData();
+    prepared.forEach((file) => formData.append("files", file));
+
+    const res = await apiFetch(`/cars/${carId}/images/upload/multiple`, {
+        method: "POST",
+        requiresAuth: true,
+        body: formData,
+    });
+
+    if (!res.ok) throw await errorFrom(res, "The photos failed to upload.");
 
     return res.json();
 }
@@ -62,24 +110,6 @@ export async function deleteCar(carId: string): Promise<{ message: string }> {
     });
 
     if (!res.ok) throw await errorFrom(res, "Couldn't delete this listing.");
-
-    return res.json();
-}
-
-export async function uploadMultipleCarImgs(
-    carId: string,
-    files: File[],
-): Promise<MultipleImgsUploadApiResponse> {
-    const formData = new FormData();
-    files.forEach((file) => formData.append("files", file));
-
-    const res = await apiFetch(`/cars/${carId}/images/upload/multiple`, {
-        method: "POST",
-        requiresAuth: true,
-        body: formData,
-    });
-
-    if (!res.ok) throw await errorFrom(res, "The photos failed to upload.");
 
     return res.json();
 }
