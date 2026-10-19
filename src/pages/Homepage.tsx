@@ -18,12 +18,22 @@ import {motion} from "framer-motion";
 import Testimonials3 from "@/components/smoothui/testimonials-3";
 import SmoothButton from "@/components/smoothui/smooth-button";
 import SpotlightCards from "@/components/kokonutui/spotlight-cards.tsx";
+import Seo from "@/components/Seo.tsx";
 
 interface HomePageProps {
     cars: Car[];
 }
 
-const heroImages: string[] = [fiat, mazda, nissan, peugeot, toyota];
+const heroImages = [
+    { src: fiat, alt: "White Fiat 500 parked on a city street" },
+    { src: mazda, alt: "Red Mazda hatchback on an open road" },
+    { src: nissan, alt: "Grey Nissan SUV in front of a modern building" },
+    { src: peugeot, alt: "Blue Peugeot hatchback at sunset" },
+    { src: toyota, alt: "Silver Toyota saloon on a motorway" },
+];
+
+const HEADLINE = "Find Your Next Vehicle Today.";
+const EYEBROW = "Are you looking for a car?";
 
 const fadeUp = {
     initial: { opacity: 0, y: 24 },
@@ -32,49 +42,56 @@ const fadeUp = {
     transition: { duration: 0.5, ease: "easeOut" },
 } as const;
 
-export const HomePage = ({ cars, }: HomePageProps) => {
+
+const imageLoading = (index: number) =>
+    index === 0
+        ? ({ loading: "eager", fetchPriority: "high" } as const)
+        : ({ loading: "lazy" } as const);
+
+export const HomePage = ({ cars }: HomePageProps) => {
     const navigate = useNavigate();
 
     return (
         <div className="min-h-screen">
+            <Seo
+                title={HEADLINE}
+                description="Quality used cars in Coventry from a local, family-run dealership. DVLA checked, warranty included, flexible finance and UK-wide delivery."
+                path="/"
+            />
+
             <div className="container mx-auto max-w-7xl mt-4 lg:mt-10 px-4 sm:px-6">
 
-                {/* Hero Section */}
+                {/* Desktop Hero */}
                 <section className="relative hidden lg:grid lg:grid-cols-2 gap-16 items-center lg:py-16 overflow-hidden">
 
-                    {/* Text & Filter Half  */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="relative order-2 flex flex-col justify-center z-20 p-6 sm:p-12 lg:p-0 lg:pr-8 lg:order-1 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent lg:bg-none text-white lg:text-inherit mt-56 sm:mt-72 lg:mt-0"
-                    >
+                    {/* Text */}
+                    <div className="relative order-2 flex flex-col justify-center z-20 p-6 sm:p-12 lg:p-0 lg:pr-8 lg:order-1 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent lg:bg-none text-white lg:text-inherit mt-56 sm:mt-72 lg:mt-0">
                         <div className="text-center lg:text-left">
                             <p className="mb-3 text-xs font-bold uppercase tracking-wider text-primary">
-                                Are you looking for a car?
+                                {EYEBROW}
                             </p>
                             <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-                                Find Your Next Vehicle Today.
+                                {HEADLINE}
                             </h1>
                             <p className="mb-8 max-w-md mx-auto lg:mx-0 text-sm text-muted-foreground sm:text-base lg:text-lg">
                                 Discover your perfect car with CARlimera Services. Reliable, vetted vehicles ready for delivery.
                             </p>
                         </div>
 
-                        {/* CTA Button */}
                         <div>
-                            <SmoothButton className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-                                          onClick={() => navigate("/cars")}>
+                            <SmoothButton
+                                className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                                onClick={() => navigate("/cars")}
+                            >
                                 Browse All Cars
                             </SmoothButton>
                             <p className="mt-4 text-center lg:text-left text-xs text-muted-foreground/80">
                                 Every vehicle DVLA checked · Warranty included
                             </p>
                         </div>
+                    </div>
 
-                    </motion.div>
-
-                    {/* Carousel Half */}
+                    {/* Carousel */}
                     <div className="absolute inset-0 z-10 h-full lg:relative lg:order-2 w-full lg:h-[38rem] rounded-lg">
                         <div className="absolute inset-0 bg-brand-dark/40 lg:hidden z-10 pointer-events-none" />
                         <Carousel
@@ -89,12 +106,12 @@ export const HomePage = ({ cars, }: HomePageProps) => {
                             ]}
                         >
                             <CarouselContent className="ml-0 h-full rounded-lg">
-                                {heroImages.map((src, i) => (
-                                    <CarouselItem key={i} className="h-full pl-0 rounded-lg">
+                                {heroImages.map((image, i) => (
+                                    <CarouselItem key={image.src} className="h-full pl-0 rounded-lg">
                                         <img
-                                            src={src}
-                                            alt=""
-                                            aria-hidden="true"
+                                            src={image.src}
+                                            alt={image.alt}
+                                            {...imageLoading(i)}
                                             className="h-full w-full object-cover rounded-lg shadow-md"
                                         />
                                     </CarouselItem>
@@ -108,19 +125,16 @@ export const HomePage = ({ cars, }: HomePageProps) => {
                 <section className="lg:hidden">
                     <div className="px-2 pt-18 text-center">
                         <p className="mb-4 text-xs font-bold uppercase tracking-wider text-primary">
-                            Are you looking for a car?
+                            {EYEBROW}
                         </p>
                         <h1 className="mb-3 text-3xl font-extrabold leading-tight tracking-tight text-brand-dark">
-                            Find Your Next Vehicle Today.
+                            {HEADLINE}
                         </h1>
                         <p className="mb-5 text-sm text-muted-foreground">
-                            Reliable, vetted vehicles ready for delivery from a small local Coventry team.
+                            Discover your perfect car with CARlimera Services. Reliable, vetted vehicles ready for delivery.
                         </p>
 
-                        <SmoothButton
-                           className="cursor-pointer"
-                            onClick={() => navigate("/cars")}
-                        >
+                        <SmoothButton className="cursor-pointer" onClick={() => navigate("/cars")}>
                             Browse All Cars
                         </SmoothButton>
 
@@ -142,10 +156,15 @@ export const HomePage = ({ cars, }: HomePageProps) => {
                             ]}
                         >
                             <CarouselContent className="-ml-3">
-                                {heroImages.map((src, i) => (
-                                    <CarouselItem key={i} className="pl-3 basis-[60%]">
+                                {heroImages.map((image, i) => (
+                                    <CarouselItem key={image.src} className="pl-3 basis-[60%]">
                                         <div className="relative overflow-hidden rounded-lg shadow-sm">
-                                            <img src={src} alt="" aria-hidden="true" className="h-44 w-full object-cover" />
+                                            <img
+                                                src={image.src}
+                                                alt={image.alt}
+                                                {...imageLoading(i)}
+                                                className="h-44 w-full object-cover"
+                                            />
                                         </div>
                                     </CarouselItem>
                                 ))}
@@ -157,15 +176,19 @@ export const HomePage = ({ cars, }: HomePageProps) => {
 
             <div className="container mx-auto max-w-7xl px-4 sm:px-6 space-y-10 py-6 sm:space-y-16 sm:py-10 mt-10">
 
-                {/* Featured Vehicles Section */}
+                {/* Featured Vehicles */}
                 <motion.section {...fadeUp}>
                     <div className="mb-4">
-                        <h2 className="text-lg font-bold tracking-tight text-foreground sm:text-2xl ">Our Top Featured Vehicles</h2>
-                        <p className="text-sm sm:text-base text-muted-foreground my-1">Handpicked models checked for ultimate reliability.</p>
+                        <h2 className="text-lg font-bold tracking-tight text-foreground sm:text-2xl">
+                            Featured Used Cars
+                        </h2>
+                        <p className="text-sm sm:text-base text-muted-foreground my-1">
+                            Handpicked models checked for reliability.
+                        </p>
                     </div>
 
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-                        {cars && cars.slice(0, 4).map((car, index) => (
+                        {cars?.slice(0, 4).map((car, index) => (
                             <motion.div
                                 key={car.id}
                                 initial={{ opacity: 0, y: 20 }}
@@ -173,23 +196,19 @@ export const HomePage = ({ cars, }: HomePageProps) => {
                                 viewport={{ once: true, margin: "-80px" }}
                                 transition={{ duration: 0.4, delay: index * 0.08, ease: "easeOut" }}
                             >
-                                <CarCard car={car}  onclick={() => navigate(`/cars/${car.id}`)}/>
+                                <CarCard car={car} />
                             </motion.div>
                         ))}
                     </div>
                 </motion.section>
 
-                {/* Customer Reviews Section */}
                 <Testimonials3 />
 
-                {/* Spotlight Cards*/}
-                <SpotlightCards/>
+                <SpotlightCards />
 
-                {/* FAQ Section */}
                 <motion.section {...fadeUp} className="pt-2">
                     <FaqSection />
                 </motion.section>
-
             </div>
         </div>
     );

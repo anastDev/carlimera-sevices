@@ -17,6 +17,7 @@ import { motion } from "motion/react";
 // import { useRef, useMotionValue, useSpring, useTransform } from "motion/react";
 // import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import {Link} from "react-router";
 
 // Hover tilt/glow/dim animation is disabled below (not used) — kept as comments
 // instead of deleted, so it's easy to switch back on later if you change your mind.
@@ -34,6 +35,7 @@ export interface SpotlightItem {
     title: string;
     description: string;
     color: string;
+    href?: string;
 }
 
 const DEFAULT_ITEMS: SpotlightItem[] = [
@@ -46,8 +48,9 @@ const DEFAULT_ITEMS: SpotlightItem[] = [
     {
         icon: TruckIcon,
         title: "Nationwide Delivery",
-        description: "Delivered straight to your door, anywhere in the UK.",
+        description: "Delivered straight to your door, anywhere in the UK. First 10 miles free.",
         color: "oklch(0.362 0.056 213.118)",
+        href: "/delivery",
     },
     {
         icon: Users,
@@ -181,6 +184,15 @@ function Card({
                 <p className="text-[0.781rem] text-muted-foreground leading-relaxed ">
                     {item.description}
                 </p>
+
+                {item.href && (
+                    <Link
+                        to={item.href}
+                        className="mt-1 text-xs font-semibold text-primary underline underline-offset-2 hover:text-primary/80"
+                    >
+                        Estimate delivery cost →
+                    </Link>
+                )}
             </div>
 
             {/* Accent bottom line — pure CSS group-hover animation, disabled

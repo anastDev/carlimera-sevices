@@ -1,5 +1,7 @@
 import {z} from 'zod';
 
+const UK_POSTCODE = /^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/i;
+
 export const userSchema = z.object({
     username: z.string().min(3, {error: 'Username must be at least 3 characters'}),
     password:z.string().min(5,{error: 'Password must be at least 5 characters'}),
@@ -35,6 +37,13 @@ export const bookingFormSchema = z.object({
         .trim()
         .min(7, "Enter a valid phone number")
         .regex(/^[0-9+\s()-]+$/, "Phone number can only contain digits, spaces, +, -, ()"),
+    postcode: z
+        .string()
+        .trim()
+        .optional()
+        .refine((value) => !value || UK_POSTCODE.test(value), {
+            message: "Enter a UK postcode, e.g. CV6 1EL",
+        }),
 });
 
 export type BookingFormValues = z.infer<typeof bookingFormSchema>;

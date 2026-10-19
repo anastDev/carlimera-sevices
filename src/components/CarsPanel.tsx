@@ -8,6 +8,7 @@ import EditCarPage from "@/pages/EditCarPage.tsx";
 import { motion, AnimatePresence } from "framer-motion";
 import {getAllCars, updateCarStatus} from "@/services/api.cars.ts";
 import {formatListedDate} from "@/utils/dates.ts";
+import ExportReportButton from "@/components/ExportButton.tsx";
 
 type CarsView = "list" | "create" | "edit";
 type StatusFilter = CarStatus | "all";
@@ -121,22 +122,26 @@ export const CarsPanel = () => {
 
                 {view === "list" && (
                     <motion.div key="list" {...viewTransition}>
-                        <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                            <p className="text-sm text-muted-foreground">
+                        <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                            <p className="text-sm text-muted-foreground lg:pt-2">
                                 {visibleCars.length} car{visibleCars.length !== 1 ? "s" : ""}
                                 {statusFilter !== "all" && ` ${statusFilter}`}
                             </p>
 
-                            <button
-                                type="button"
-                                onClick={() => setView("create")}
-                                className="flex w-fit cursor-pointer items-center gap-1.5 rounded-lg
-                                    bg-teal-600 px-4 py-2 text-sm font-medium text-white
-                                    transition-colors hover:bg-teal-700"
-                            >
-                                <Plus className="h-4 w-4" aria-hidden="true" />
-                                Add car
-                            </button>
+                            <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
+                                <ExportReportButton />
+
+                                <button
+                                    type="button"
+                                    onClick={() => setView("create")}
+                                    className="flex w-fit shrink-0 cursor-pointer items-center gap-1.5 rounded-lg
+                bg-teal-600 px-4 py-2 text-sm font-medium text-white
+                transition-colors hover:bg-teal-700"
+                                >
+                                    <Plus className="h-4 w-4" aria-hidden="true" />
+                                    Add car
+                                </button>
+                            </div>
                         </div>
 
                         <div className="mb-5 flex gap-1 overflow-x-auto rounded-lg border border-border bg-muted/40 p-1 text-sm">

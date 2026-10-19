@@ -26,7 +26,7 @@ export interface Car {
     features: string[];
     conditionText: string;
     doors: number;
-    registration: string;
+    registration?: string;
     registrationPlate: string;
     seats: number;
     emissionClass: string;

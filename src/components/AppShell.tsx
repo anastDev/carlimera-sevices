@@ -18,6 +18,7 @@ import CancelBookingPage from "@/pages/CancelBookingPage.tsx";
 import ConsentBanner from "@/components/ConsentBanner.tsx";
 import PrivacyPolicy from "@/pages/PrivacyPolicy.tsx";
 import NotFound from "@/pages/NotFound.tsx";
+import DeliveryPage from "@/pages/DeliveryPage.tsx";
 
 interface WrapperProps {
     children: ReactNode;
@@ -37,6 +38,8 @@ export const  AppShell = ()=>  {
     const [bookingCar, setBookingCar] = useState<Car | null>(null);
     const [dialogOpen, setDialogOpen] = useState(false);
     const {cars, isLoading, error} = useCars();
+    const { pathname } = useLocation();
+    const isAdminArea = pathname.startsWith("/admin");
 
     const handleBookViewing = (car: Car) => {
         setBookingCar(car);
@@ -56,10 +59,21 @@ export const  AppShell = ()=>  {
                     <Route path="contact-us" element={<ContactPage />} />
                     <Route path="contact" element={<Navigate to="/contact-us" replace />} />
                     <Route path="privacy" element={<PrivacyPolicy />} />
+                    <Route path="delivery" element={<DeliveryPage/>}/>
 
                     <Route path="cars">
                         <Route index element={<InventoryPage cars={cars} isLoading={isLoading} error={error} />} />
-                        <Route path=":id" element={<CarPage cars={cars} onBookViewing={handleBookViewing} />} />
+                        <Route
+                            path=":id"
+                            element={
+                                <CarPage
+                                    cars={cars}
+                                    isLoading={isLoading}
+                                    error={error}
+                                    onBookViewing={handleBookViewing}
+                                />
+                            }
+                        />
                     </Route>
 
                     <Route path="booking/cancel/:token" element={<CancelBookingPage />} />
@@ -82,7 +96,7 @@ export const  AppShell = ()=>  {
                 onOpenChange={setDialogOpen}
             />
 
-            <WhatsAppButton/>
+            {!isAdminArea && <WhatsAppButton />}
         </Wrapper>
     );
 }

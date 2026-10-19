@@ -9,9 +9,9 @@ import type {FilterState} from "@/types/filterState.ts";
 import Breadcrumb from "@/components/smoothui/breadcrumb";
 import Select from "@/components/smoothui/select";
 import MobileSheetFilter from "@/components/MobileSheetFilter.tsx";
-import {useNavigate} from "react-router";
 import {Button} from "@/components/ui/button.tsx";
 import Loader from "@/components/kokonutui/loader.tsx";
+import Seo from "@/components/Seo.tsx";
 
 const items = [
     { label: "Home", value: "/" },
@@ -51,7 +51,6 @@ export const InventoryPage = ({ cars, isLoading, error }: InventoryPageProps) =>
     const [filters, setFilters] = useState<FilterState>(defaultFilters);
     const [appliedFilters, setAppliedFilters] = useState<FilterState>(defaultFilters);
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-    const navigate = useNavigate();
     const [view, setView] = useState<ViewMode>("grid");
     const [sort, setSort] = useState<SortOption>("default");
 
@@ -128,6 +127,12 @@ export const InventoryPage = ({ cars, isLoading, error }: InventoryPageProps) =>
 
     return (
         <div className="container mx-auto max-w-7xl px-4 pb-10 mt-12 sm:mt-20 sm:px-6 lg:px-8">
+            <Seo
+                title="Used Cars for Sale in Coventry"
+                description="Browse our current stock of quality used cars in Coventry. Every car DVLA checked with warranty, flexible finance and UK-wide delivery."
+                path="/cars"
+            />
+
             <Breadcrumb items={items} className="hover:text-primary" />
 
             <div className="mb-6 mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -269,7 +274,7 @@ export const InventoryPage = ({ cars, isLoading, error }: InventoryPageProps) =>
                                         exit={{ opacity: 0, scale: 0.96 }}
                                         transition={{ duration: 0.25 }}
                                     >
-                                        <CarCard car={car} view={view}  onclick={() => navigate(`/cars/${car.id}`)}/>
+                                        <CarCard car={car} view={view}/>
                                     </motion.div>
                                 ))}
                             </AnimatePresence>

@@ -25,6 +25,7 @@ export interface Appointment {
     full_name: string
     email: string;
     phone_number: string;
+    postcode?: string;
 }
 
 export type AppointmentStatus = "pending" | "confirmed" | "declined" | "cancelled";

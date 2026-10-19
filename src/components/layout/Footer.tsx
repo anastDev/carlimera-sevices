@@ -67,6 +67,12 @@ export const Footer = () => {
                               <Link to="/contact-us" className="text-primary-foreground/70 hover:text-primary transition-colors">
                                   Contact Us
                               </Link>
+                              <Link to="/privacy" className="text-primary-foreground/70 hover:text-primary transition-colors">
+                                  Privacy policy
+                              </Link>
+                              <Link to="/delivery" className="text-primary-foreground/70 hover:text-primary transition-colors">
+                                  Estimate Delivery Cost
+                              </Link>
                           </nav>
 
                           <p className="flex flex-row items-center space-x-2">
@@ -84,6 +90,7 @@ export const Footer = () => {
                                   className="text-xs font-semibold text-primary-foreground/70 hover:text-primary transition-colors"
                                   href="https://www.autotrader.co.uk/dealers/warwickshire/coventry/carlimera-services-10035432?channel=cars"
                                   title="Find us on AutoTrader UK"
+                                  rel="noopener noreferrer"
                                   target="_blank"
                               >
                                   <Car />

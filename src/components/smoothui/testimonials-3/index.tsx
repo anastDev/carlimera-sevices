@@ -174,7 +174,7 @@ export function TestimonialsStars() {
                                     </div>
                                 </div>
 
-                                {/* Review Section */}
+                                {/* Review PolicySection */}
                                 <motion.p
                                     animate={
                                         shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }

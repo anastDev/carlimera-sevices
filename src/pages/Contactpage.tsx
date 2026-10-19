@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/field";
 import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/input-group.tsx";
 import {sendContactMessage} from "@/services/api.contact.ts";
+import Seo from "@/components/Seo.tsx";
 
 
 const items = [
@@ -72,6 +73,12 @@ export const ContactPage = () => {
             animate="visible"
             className="container mx-auto max-w-7xl px-4 pb-10 mt-12 sm:mt-20 sm:px-6 lg:px-8">
 
+            <Seo
+                title="Contact Us – Visit Our Coventry Dealership"
+                description="Find CARlimera Services at Opp 115 Max Road, Coventry CV6 1EL. Call 07469 292183 or send us a message. Open Monday to Saturday, 9am to 6pm."
+                path="/contact-us"
+            />
+
             {/* Breadcrumb */}
             <Breadcrumb items={items} className="hover:text-primary">
             </Breadcrumb>
@@ -88,7 +95,7 @@ export const ContactPage = () => {
                                 className="flex items-start gap-3 p-3 rounded-lg bg-background border border-border shadow-sm">
                                 <MapPin size={24} className="mt-0.5 text-primary flex-shrink-0"/>
                                 <div>
-                                    <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Address</h4>
+                                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Address</p>
                                     <p className="text-sm text-foreground/80 font-medium mt-1">CARlimera Services Ltd,
                                         Opp 115 Max Road, Coventry CV6 1EL</p>
                                 </div>
@@ -123,10 +130,10 @@ export const ContactPage = () => {
 
                         {/* Business Hours */}
                         <div className="rounded-lg shadow-sm bg-border/30 p-5 space-y-4">
-                            <h3 className="text-base font-bold text-foreground/80 flex items-center">
+                            <h2 className="text-base font-bold text-foreground/80 flex items-center">
                                 <Clock className="mr-2 h-5 w-5 text-primary/80"/>
                                 Business Hours
-                            </h3>
+                            </h2>
                             <div className="divide-y divide-border/60 text-sm font-medium text-muted-foreground">
                                 <div className="flex justify-between py-2">
                                     <span>Monday – Saturday</span>
@@ -151,7 +158,7 @@ export const ContactPage = () => {
                     <div className="lg:col-span-5 h-full">
                         <form onSubmit={handleSubmit(onHandleSubmit)}
                               className="bg-background p-6 rounded-lg border border-border shadow-sm h-full flex flex-col">
-                            <h3 className="text-lg font-bold text-foreground mb-4">Send your inquiry</h3>
+                            <h2 className="text-lg font-bold text-foreground mb-4">Send your inquiry</h2>
 
                             <div className="flex flex-col flex-1 justify-between">
                                 <div className="flex flex-col gap-4">
@@ -173,10 +180,11 @@ export const ContactPage = () => {
                                                             {...field}
                                                             id="name"
                                                             placeholder="Your name"
+                                                            aria-label="Your name"
                                                             aria-invalid={
                                                                 fieldState.invalid
                                                             }
-                                                            autoComplete="off"
+                                                            autoComplete="name"
                                                             required
                                                         />
                                                     </InputGroup>
@@ -209,10 +217,11 @@ export const ContactPage = () => {
                                                             id="email"
                                                             type="email"
                                                             placeholder="Email Address"
+                                                            aria-label="Email address"
                                                             aria-invalid={
                                                                 fieldState.invalid
                                                             }
-                                                            autoComplete="off"
+                                                            autoComplete="email"
                                                             required
                                                         />
                                                     </InputGroup>
@@ -228,6 +237,7 @@ export const ContactPage = () => {
                                         />
                                     </FieldGroup>
                                     <Textarea placeholder="Message" rows={6}
+                                              aria-label="Message"
                                               {...register("message")}
                                               className="bg-gray-50 mb-2 border-gray-300 focus:border-teal-700 focus:ring-teal-700 flex-1 min-h-[7.5rem]"
                                               required/>

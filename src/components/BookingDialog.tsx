@@ -7,7 +7,7 @@ import {
     ChevronLeft,
     ChevronRight,
     Clock, Loader2,
-    Mail,
+    Mail, MapPin,
     Phone,
     User,
 } from "lucide-react";
@@ -76,6 +76,7 @@ export const BookingDialog = ({
             fullName: "",
             email: "",
             phoneNumber: "",
+            postcode: ""
         },
     });
 
@@ -109,12 +110,13 @@ export const BookingDialog = ({
 
         try {
             await createAppointment({
-                car_id: car?.id,
+                car_id: car.id,
                 date: toApiDate(selectedDate),
                 time_slot: selectedTime,
                 full_name: formValues.fullName,
                 email: formValues.email,
                 phone_number: formValues.phoneNumber,
+                postcode: formValues.postcode || undefined,
             });
 
             setIsConfirmed(true);
@@ -187,7 +189,7 @@ export const BookingDialog = ({
                                     </p>
                                     <p className="text-xs text-accent font-medium mt-0.5">
                                         {car?.price
-                                            ? `£${car.price.toLocaleString()}`
+                                            ? `£${car.price.toLocaleString("en-GB")}`
                                             : "Price pending"}
                                     </p>
                                 </div>
@@ -222,7 +224,7 @@ export const BookingDialog = ({
                                                         id="fullName"
                                                         placeholder="e.g. John Smith"
                                                         aria-invalid={fieldState.invalid}
-                                                        autoComplete="off"
+                                                        autoComplete="name"
                                                     />
                                                 </InputGroup>
                                                 {fieldState.invalid && (
@@ -250,7 +252,7 @@ export const BookingDialog = ({
                                                         type="email"
                                                         placeholder="you@example.com"
                                                         aria-invalid={fieldState.invalid}
-                                                        autoComplete="off"
+                                                        autoComplete="email"
                                                     />
                                                 </InputGroup>
                                                 {fieldState.invalid && (
@@ -278,7 +280,7 @@ export const BookingDialog = ({
                                                         type="tel"
                                                         placeholder="e.g. 07123 456789"
                                                         aria-invalid={fieldState.invalid}
-                                                        autoComplete="off"
+                                                        autoComplete="tel"
                                                     />
                                                 </InputGroup>
                                                 {fieldState.invalid ? (
@@ -287,6 +289,39 @@ export const BookingDialog = ({
                                                     <FieldDescription>
                                                         We'll only use this to confirm your
                                                         booking.
+                                                    </FieldDescription>
+                                                )}
+                                            </Field>
+                                        )}
+                                    />
+
+                                    <Controller
+                                        name="postcode"
+                                        control={control}
+                                        render={({ field, fieldState }) => (
+                                            <Field data-invalid={fieldState.invalid}>
+                                                <FieldLabel htmlFor="postcode">
+                                                    Postcode{" "}
+                                                    <span className="font-normal text-muted-foreground">(optional)</span>
+                                                </FieldLabel>
+                                                <InputGroup>
+                                                    <InputGroupAddon>
+                                                        <MapPin className="h-4 w-4 text-muted-foreground" />
+                                                    </InputGroupAddon>
+                                                    <InputGroupInput
+                                                        {...field}
+                                                        id="postcode"
+                                                        placeholder="e.g. CV6 1EL"
+                                                        aria-invalid={fieldState.invalid}
+                                                        autoComplete="postal-code"
+                                                        className="uppercase"
+                                                    />
+                                                </InputGroup>
+                                                {fieldState.invalid ? (
+                                                    <FieldError errors={[fieldState.error]} />
+                                                ) : (
+                                                    <FieldDescription>
+                                                        Helps us understand which areas our customers come from. We only keep the first half.
                                                     </FieldDescription>
                                                 )}
                                             </Field>
@@ -322,10 +357,10 @@ export const BookingDialog = ({
                                             <ChevronLeft className="h-4 w-4" />
                                         </button>
                                         <span className="text-xs font-bold text-foreground">
-                                            {monthCursor.toLocaleDateString(undefined, {
-                                                month: "long",
-                                                year: "numeric",
-                                            })}
+                                           {monthCursor.toLocaleDateString("en-GB", {
+                                               month: "long",
+                                               year: "numeric",
+                                           })}
                                         </span>
                                         <button
                                             type="button"
@@ -460,7 +495,7 @@ export const BookingDialog = ({
                 plateLabel={car?.registrationPlate ?? ""}
                 dateLabel={
                     selectedDate
-                        ? selectedDate.toLocaleDateString(undefined, {
+                        ? selectedDate.toLocaleDateString("en-GB", {
                             weekday: "short",
                             month: "short",
                             day: "numeric",

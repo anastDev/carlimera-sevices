@@ -149,3 +149,11 @@ export async function getAllCars(): Promise<Car[]> {
     const data = await res.json();
     return Array.isArray(data) ? data : [];
 }
+
+export async function recordCarView(carId: string, visitorId: string): Promise<void> {
+    await apiFetch(`/cars/${carId}/view`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ visitorId }),
+    });
+}

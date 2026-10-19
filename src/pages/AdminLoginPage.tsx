@@ -44,7 +44,7 @@ export const AdminLoginPage = () => {
     };
 
     return (
-        <div className="mx-auto flex min-h-[60vh] w-full max-w-sm items-center">
+        <div className="mx-auto flex min-h-[60vh] mt-8 lg:mt-20 w-full max-w-sm items-center">
             <div className="w-full rounded-lg border border-gray-200 bg-background p-6 shadow-md">
                 <h1 className="text-xl font-semibold text-foreground">Admin sign in</h1>
                 <p className="mt-1 text-sm text-muted-foreground">

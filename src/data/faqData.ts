@@ -31,6 +31,11 @@ export const faqs = [
     },
     {
         value: "item-7",
+        trigger: "Do you deliver, and how much does it cost?",
+        content: "Yes, anywhere in the UK. The first 10 miles are free and you can get an instant estimate on our delivery page. We'll always confirm the final price by phone.",
+    },
+    {
+        value: "item-8",
         trigger: "Can I test drive a vehicle?",
         content: "Yes, appointments can be arranged."
     },

@@ -3,6 +3,7 @@ import {card, container,  fadeUp} from "@/utils/transitions.ts";
 import Breadcrumb from "@/components/smoothui/breadcrumb";
 import {steps} from "@/data/aboutSteps.ts";
 import {trustPillars} from "@/data/trustPillarsData.ts";
+import Seo from "@/components/Seo.tsx";
 
 const items = [
     {label: "Home", value: "/"},
@@ -18,6 +19,13 @@ export const AboutPage = () => {
             viewport={{ once: true, margin: "-80px" }}
             className="container mx-auto max-w-7xl px-4 pb-10 mt-12 sm:mt-20 sm:px-6 lg:px-8"
         >
+
+            <Seo
+                title="Contact Us – Visit Our Coventry Dealership"
+                description="Find CARlimera Services at Opp 115 Max Road, Coventry CV6 1EL. Call 07469 292183 or send us a message. Open Monday to Saturday, 9am to 6pm."
+                path="/contact-us"
+            />
+
             {/* Breadcrumb */}
             <Breadcrumb items={items} className="hover:text-primary"></Breadcrumb>
 

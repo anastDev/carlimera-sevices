@@ -43,7 +43,7 @@ export const carFormSchema = z.object({
     serviceHistory: z.string().trim().min(1, "Service history is required"),
     warranty: z.string().trim().min(1, "Warranty is required"),
     keys: z.string().optional(),
-    conditionText: z.string().trim().min(1, "Condition notes are required"),
+    conditionText: z.string().trim().optional(),
     description: z.string().trim().min(20, "Give buyers a bit more detail"),
     videoUrl: z
         .union([z.literal(""), z.string()])

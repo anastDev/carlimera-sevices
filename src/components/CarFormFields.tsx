@@ -373,19 +373,19 @@ export const CarFormFields = ({
                 <h3 className="text-lg font-medium text-foreground">History &amp; condition</h3>
 
                 <FieldGroup className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <Field>
-                        <FieldLabel htmlFor="registration">Registration</FieldLabel>
-                        <Controller
-                            name="registration"
-                            control={control}
-                            render={({ field }) => (
-                                <Input  {...field} id="registration"  value={(field.value ?? "") as string} aria-invalid={Boolean(errors.registration)} />
-                            )}
-                        />
-                        {errors.registration && (
-                            <span role="alert" className="text-xs text-red-600">{errors.registration.message}</span>
-                        )}
-                    </Field>
+                    {/*<Field>*/}
+                    {/*    <FieldLabel htmlFor="registration">Registration</FieldLabel>*/}
+                    {/*    <Controller*/}
+                    {/*        name="registration"*/}
+                    {/*        control={control}*/}
+                    {/*        render={({ field }) => (*/}
+                    {/*            <Input  {...field} id="registration"  value={(field.value ?? "") as string} aria-invalid={Boolean(errors.registration)} />*/}
+                    {/*        )}*/}
+                    {/*    />*/}
+                    {/*    {errors.registration && (*/}
+                    {/*        <span role="alert" className="text-xs text-red-600">{errors.registration.message}</span>*/}
+                    {/*    )}*/}
+                    {/*</Field>*/}
 
                     <Field>
                         <FieldLabel htmlFor="registrationPlate">Registration plate</FieldLabel>
