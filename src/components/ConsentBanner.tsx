@@ -16,35 +16,37 @@ export const ConsentBanner = () => {
         <div
             role="dialog"
             aria-label="Cookie consent"
-            className="fixed bottom-0 inset-x-0 z-50 bg-brand-dark border-t border-footer-foreground/10"
+            className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-brand-dark shadow-[0_-4px_20px_rgba(0,0,0,0.25)]"
+            style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
         >
-            <div className="container mx-auto max-w-7xl px-8 sm:px-14 py-4 flex flex-col sm:flex-row sm:items-center gap-4">
-                <p className="text-sm text-footer-foreground/80 flex-1">
+            <div className="container mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:gap-6 sm:px-6 lg:px-8">
+                <p className="text-sm leading-relaxed text-white/90 sm:flex-1">
                     We use analytics cookies to see which cars people view and improve our site.
                     No ads, no tracking across other sites.{" "}
-                    <Link to="/privacy" className="underline hover:text-primary">
+                    <Link
+                        to="/privacy"
+                        className="font-semibold text-white underline underline-offset-2 hover:text-primary"
+                    >
                         Privacy policy
                     </Link>
                 </p>
 
-                <div className="flex w-full gap-3 sm:w-auto sm:shrink-0">
+                <div className="grid grid-cols-2 gap-3 sm:flex sm:shrink-0">
                     <button
                         type="button"
                         onClick={() => choose(false)}
-                        className="flex-1 rounded-md border border-footer-foreground/30 px-5 py-2.5 text-sm font-semibold text-footer-foreground
-            transition-colors hover:bg-footer-foreground/10
-            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-dark
-            sm:flex-none"
+                        className="min-h-11 rounded-md border border-white/40 px-5 text-sm font-semibold text-white
+                            transition-colors hover:bg-white/10
+                            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                     >
                         Decline
                     </button>
                     <button
                         type="button"
                         onClick={() => choose(true)}
-                        className="flex-1 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground
-            transition-colors hover:bg-primary/90
-            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-dark
-            sm:flex-none"
+                        className="min-h-11 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground
+                            transition-colors hover:bg-primary/90
+                            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                     >
                         Accept
                     </button>
