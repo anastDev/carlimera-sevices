@@ -27,18 +27,24 @@ export const ConsentBanner = () => {
                     </Link>
                 </p>
 
-                <div className="flex gap-3 shrink-0">
+                <div className="flex w-full gap-3 sm:w-auto sm:shrink-0">
                     <button
                         type="button"
                         onClick={() => choose(false)}
-                        className="px-5 py-2 text-sm font-semibold rounded-md border border-footer-foreground/30 text-footer-foreground hover:bg-footer-foreground/10 transition-colors"
+                        className="flex-1 rounded-md border border-footer-foreground/30 px-5 py-2.5 text-sm font-semibold text-footer-foreground
+            transition-colors hover:bg-footer-foreground/10
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-dark
+            sm:flex-none"
                     >
                         Decline
                     </button>
                     <button
                         type="button"
                         onClick={() => choose(true)}
-                        className="px-5 py-2 text-sm font-semibold rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                        className="flex-1 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground
+            transition-colors hover:bg-primary/90
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-dark
+            sm:flex-none"
                     >
                         Accept
                     </button>

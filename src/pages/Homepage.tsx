@@ -42,7 +42,6 @@ const fadeUp = {
     transition: { duration: 0.5, ease: "easeOut" },
 } as const;
 
-
 const imageLoading = (index: number) =>
     index === 0
         ? ({ loading: "eager", fetchPriority: "high" } as const)
@@ -62,21 +61,19 @@ export const HomePage = ({ cars }: HomePageProps) => {
             <div className="container mx-auto max-w-7xl mt-4 lg:mt-10 px-4 sm:px-6">
 
                 {/* Desktop Hero */}
-                <section className="relative hidden lg:grid lg:grid-cols-2 gap-16 items-center lg:py-16 overflow-hidden">
+                <section className="hidden lg:grid lg:grid-cols-2 gap-16 items-center py-16">
 
                     {/* Text */}
-                    <div className="relative order-2 flex flex-col justify-center z-20 p-6 sm:p-12 lg:p-0 lg:pr-8 lg:order-1 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent lg:bg-none text-white lg:text-inherit mt-56 sm:mt-72 lg:mt-0">
-                        <div className="text-center lg:text-left">
-                            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-primary">
-                                {EYEBROW}
-                            </p>
-                            <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-                                {HEADLINE}
-                            </h1>
-                            <p className="mb-8 max-w-md mx-auto lg:mx-0 text-sm text-muted-foreground sm:text-base lg:text-lg">
-                                Discover your perfect car with CARlimera Services. Reliable, vetted vehicles ready for delivery.
-                            </p>
-                        </div>
+                    <div className="relative z-20 order-1 flex flex-col justify-center pr-8">
+                        <p className="mb-3 text-xs font-bold uppercase tracking-wider text-primary">
+                            {EYEBROW}
+                        </p>
+                        <h1 className="mb-4 text-5xl font-extrabold leading-tight tracking-tight text-brand-dark dark:text-foreground">
+                            {HEADLINE}
+                        </h1>
+                        <p className="mb-8 max-w-md text-lg text-muted-foreground">
+                            Discover your perfect car with CARlimera Services. Reliable, vetted vehicles ready for delivery.
+                        </p>
 
                         <div>
                             <SmoothButton
@@ -85,15 +82,14 @@ export const HomePage = ({ cars }: HomePageProps) => {
                             >
                                 Browse All Cars
                             </SmoothButton>
-                            <p className="mt-4 text-center lg:text-left text-xs text-muted-foreground/80">
+                            <p className="mt-4 text-xs text-muted-foreground">
                                 Every vehicle DVLA checked · Warranty included
                             </p>
                         </div>
                     </div>
 
                     {/* Carousel */}
-                    <div className="absolute inset-0 z-10 h-full lg:relative lg:order-2 w-full lg:h-[38rem] rounded-lg">
-                        <div className="absolute inset-0 bg-brand-dark/40 lg:hidden z-10 pointer-events-none" />
+                    <div className="relative order-2 h-[38rem] w-full rounded-lg">
                         <Carousel
                             className="h-full w-full"
                             opts={{ loop: true }}
@@ -112,7 +108,7 @@ export const HomePage = ({ cars }: HomePageProps) => {
                                             src={image.src}
                                             alt={image.alt}
                                             {...imageLoading(i)}
-                                            className="h-full w-full object-cover rounded-lg shadow-md"
+                                            className="h-full w-full object-cover rounded-lg shadow-md dark:shadow-black/40"
                                         />
                                     </CarouselItem>
                                 ))}
@@ -127,7 +123,7 @@ export const HomePage = ({ cars }: HomePageProps) => {
                         <p className="mb-4 text-xs font-bold uppercase tracking-wider text-primary">
                             {EYEBROW}
                         </p>
-                        <h1 className="mb-3 text-3xl font-extrabold leading-tight tracking-tight text-brand-dark">
+                        <h1 className="mb-3 text-3xl font-extrabold leading-tight tracking-tight text-brand-dark dark:text-foreground">
                             {HEADLINE}
                         </h1>
                         <p className="mb-5 text-sm text-muted-foreground">
@@ -158,7 +154,7 @@ export const HomePage = ({ cars }: HomePageProps) => {
                             <CarouselContent className="-ml-3">
                                 {heroImages.map((image, i) => (
                                     <CarouselItem key={image.src} className="pl-3 basis-[60%]">
-                                        <div className="relative overflow-hidden rounded-lg shadow-sm">
+                                        <div className="relative overflow-hidden rounded-lg shadow-sm dark:shadow-black/40">
                                             <img
                                                 src={image.src}
                                                 alt={image.alt}
