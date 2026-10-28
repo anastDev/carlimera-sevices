@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { getTestimonials } from "@/lib/smoothui-data";
-import { Star } from "lucide-react";
+import {Quote, Star} from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 
 const fadeUp = {
@@ -47,104 +47,54 @@ function getInitials(fullName: string): string {
 
 export function TestimonialsStars() {
     const shouldReduceMotion = useReducedMotion();
+    const ease = [0.22, 1, 0.36, 1] as const;
+
     return (
         <motion.section {...fadeUp}>
             <div className="py-8">
                 <div className="container mx-auto w-full max-w-7xl">
                     <motion.div
-                        animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.6, ease }}
                         className="mb-6"
-                        initial={
-                            shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
-                        }
-                        transition={
-                            shouldReduceMotion
-                                ? { duration: 0 }
-                                : { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-                        }
                     >
                         <h2 className="text-lg font-bold tracking-tight text-foreground sm:text-2xl">
                             What early customers say
                         </h2>
-                        <p className="my-1 italic text-xs sm:text-base text-muted-foreground">
+                        <p className="my-1 text-xs sm:text-base text-muted-foreground">
                             We're a small local team, so every single honest review means the world to us.
                         </p>
                     </motion.div>
 
-                    <motion.div
-                        animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
-                        className="grid 3xl:grid-cols-3 3xl:gap-12 gap-6 lg:grid-cols-2"
-                        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-                        transition={
-                            shouldReduceMotion
-                                ? { duration: 0 }
-                                : { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }
-                        }
-                    >
+                    <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
                         {testimonials.map((testimonial, index) => (
-                            <motion.div
-                                animate={
-                                    shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-                                }
-                                className="group flex h-full flex-col rounded-lg border border-transparent px-4 py-3 duration-200 hover:border-border hover:bg-background/50"
-                                initial={
-                                    shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }
-                                }
+                            <motion.figure
                                 key={testimonial.fullName}
+                                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
                                 transition={
-                                    shouldReduceMotion
-                                        ? { duration: 0 }
-                                        : {
-                                            duration: 0.5,
-                                            ease: [0.22, 1, 0.36, 1],
-                                            delay: index * 0.15,
-                                        }
+                                    shouldReduceMotion ? { duration: 0 } : { duration: 0.5, ease, delay: index * 0.15 }
                                 }
-                                whileHover={
-                                    shouldReduceMotion
-                                        ? {}
-                                        : {
-                                            y: -4,
-                                            transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] },
-                                        }
-                                }
+                                whileHover={shouldReduceMotion ? {} : { y: -4, transition: { duration: 0.2, ease } }}
+                                className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card p-5
+                                    shadow-sm transition-colors duration-200 hover:border-primary/40 dark:shadow-black/30"
                             >
+                                {/* Large quote mark  */}
+                                <Quote
+                                    aria-hidden="true"
+                                    className="absolute right-4 top-4 h-10 w-10 text-primary/10 dark:text-primary/15"
+                                    fill="currentColor"
+                                    strokeWidth={0}
+                                />
+
                                 <div className="flex items-center justify-between gap-2">
-                                    <motion.div
-                                        animate={
-                                            shouldReduceMotion
-                                                ? { opacity: 1 }
-                                                : { opacity: 1, scale: 1 }
-                                        }
-                                        className="flex gap-1"
-                                        initial={
-                                            shouldReduceMotion
-                                                ? { opacity: 1 }
-                                                : { opacity: 0, scale: 0.8 }
-                                        }
-                                        transition={
-                                            shouldReduceMotion
-                                                ? { duration: 0 }
-                                                : {
-                                                    duration: 0.4,
-                                                    delay: index * 0.15 + 0.2,
-                                                    ease: [0.22, 1, 0.36, 1],
-                                                }
-                                        }
-                                    >
+                                    <div className="flex gap-1" aria-label={`${testimonial.stars} out of 5 stars`} role="img">
                                         {Array.from({ length: 5 }).map((_, i) => (
                                             <motion.div
-                                                animate={
-                                                    shouldReduceMotion
-                                                        ? { opacity: 1 }
-                                                        : { opacity: 1, scale: 1 }
-                                                }
-                                                initial={
-                                                    shouldReduceMotion
-                                                        ? { opacity: 1 }
-                                                        : { opacity: 0, scale: 0 }
-                                                }
                                                 key={`${testimonial.fullName}-star-${i}`}
+                                                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0 }}
+                                                animate={{ opacity: 1, scale: 1 }}
                                                 transition={
                                                     shouldReduceMotion
                                                         ? { duration: 0 }
@@ -156,80 +106,43 @@ export function TestimonialsStars() {
                                                 }
                                             >
                                                 <Star
+                                                    aria-hidden="true"
                                                     className={cn(
-                                                        "size-4 transition-colors duration-200",
+                                                        "size-4",
                                                         i < (testimonial.stars || 0)
-                                                            ? "fill-yellow-400 stroke-yellow-400"
-                                                            : "fill-transparent stroke-border"
+                                                            ? "fill-amber-400 stroke-amber-400"
+                                                            : "fill-transparent stroke-muted-foreground/40",
                                                     )}
                                                 />
                                             </motion.div>
                                         ))}
-                                    </motion.div>
+                                    </div>
 
-                                    {/* Google Icon */}
-                                    <div className="flex items-center gap-1 text-muted-foreground">
+                                    <div className="flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-muted-foreground">
                                         <GoogleIcon className="size-3" />
-                                        <span className="text-[0.65rem]">Google</span>
+                                        <span className="text-[0.65rem] font-medium">Google</span>
                                     </div>
                                 </div>
 
-                                {/* Review PolicySection */}
-                                <motion.p
-                                    animate={
-                                        shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-                                    }
-                                    className="my-4 text-pretty text-sm text-foreground leading-relaxed"
-                                    initial={
-                                        shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
-                                    }
-                                    transition={
-                                        shouldReduceMotion
-                                            ? { duration: 0 }
-                                            : {
-                                                duration: 0.4,
-                                                delay: index * 0.15 + 0.4,
-                                                ease: [0.22, 1, 0.36, 1],
-                                            }
-                                    }
-                                >
+                                <blockquote className="my-4 text-pretty text-sm leading-relaxed text-foreground">
                                     {testimonial.review}
-                                </motion.p>
+                                </blockquote>
 
-                                {/* Footer */}
-                                <motion.div
-                                    animate={
-                                        shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
-                                    }
-                                    className="mt-auto flex items-center gap-2 pt-2"
-                                    initial={
-                                        shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -10 }
-                                    }
-                                    transition={
-                                        shouldReduceMotion
-                                            ? { duration: 0 }
-                                            : {
-                                                duration: 0.3,
-                                                delay: index * 0.15 + 0.5,
-                                                ease: [0.22, 1, 0.36, 1],
-                                            }
-                                    }
-                                >
+                                <figcaption className="mt-auto flex items-center gap-2.5 border-t border-border pt-3">
                                     <div
                                         aria-hidden="true"
-                                        className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-[0.70rem] font-semibold text-foreground/90 ring-1 ring-foreground/10"
+                                        className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10
+                                            text-[0.72rem] font-bold text-primary ring-1 ring-primary/20"
                                     >
                                         {getInitials(testimonial.fullName)}
                                     </div>
-                                    <div className="min-w-0">
-                                        <div className="truncate font-medium text-foreground/90 text-[0.80rem]">
-                                            {testimonial.fullName}
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            </motion.div>
+                                    <span className="truncate text-[0.85rem] font-semibold text-foreground">
+                                        {testimonial.fullName}
+                                    </span>
+                                </figcaption>
+                            </motion.figure>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </motion.section>

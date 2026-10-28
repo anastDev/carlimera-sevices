@@ -6,6 +6,8 @@ import {Link} from "react-router";
 import {FaPerson} from "react-icons/fa6";
 import {IoShieldCheckmark} from "react-icons/io5";
 import {Separator} from "@base-ui/react";
+import {type ElementType, Fragment} from "react";
+import {cn} from "@/lib/utils.ts";
 
 interface CarCardProps {
     car: Car;
@@ -14,20 +16,51 @@ interface CarCardProps {
 
 const plural = (count: string, word: string) => `${word}${count === "1" ? "" : "s"}`;
 
+interface SpecProps {
+    icon: ElementType;
+    label: string;
+    value: string;
+    pill?: boolean;
+}
+
+
+const Spec = ({ icon: Icon, label, value, pill = false }: SpecProps) => (
+    <span
+        className={cn(
+            "inline-flex items-center gap-1.5 text-xs",
+            pill && "rounded-full border border-primary/15 bg-primary/10 px-3 py-1.5 dark:border-primary/20 dark:bg-primary/[0.08]",
+        )}
+    >
+        <Icon className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+        <span className="text-muted-foreground">{label}:</span>
+        <span className="font-semibold text-foreground">{value}</span>
+    </span>
+);
+
+const carSpecs = (car: Car, mileage: string) => [
+    { icon: Settings, label: "Transmission", value: car.transmission },
+    { icon: Fuel, label: "Fuel", value: car.fuelType },
+    { icon: Milestone, label: "Mileage", value: mileage },
+    { icon: FaPerson, label: plural(car.prevOwners, "Owner"), value: car.prevOwners },
+    { icon: IoShieldCheckmark, label: plural(car.keys, "Key"), value: car.keys },
+    { icon: IoShieldCheckmark, label: "Insurance Group", value: car.insuranceGroup },
+];
+
 export const CarCard = ({ car, view = "grid" }: CarCardProps) => {
     const hasImage = car.images && car.images.length > 0;
     const vehicleName = `${car.year} ${car.make} ${car.model}`;
     const price = `£${car.price.toLocaleString("en-GB")}`;
     const mileage = `${car.mileage.toLocaleString("en-GB")} mi`;
+    const specs = carSpecs(car, mileage);
 
     if (view === "list") {
         return (
-            <Link to={`/cars/${car.id}`} className="block">
-                <Card className="overflow-hidden w-full !rounded-lg border border-border bg-background hover:shadow-md hover:border-primary/50 transition-all duration-300">
+            <Link to={`/cars/${car.id}`} className="block group">
+                <Card className="overflow-hidden w-full !rounded-lg border border-border bg-card hover:shadow-md hover:border-primary/50 transition-all duration-300">
                     <CardContent className="p-0">
                         <div className="flex flex-row">
                             {/* Image */}
-                            <div className="relative w-32 sm:w-48 shrink-0 aspect-[4/3] bg-background border-r border-border overflow-hidden">
+                            <div className="relative w-32 sm:w-48 shrink-0 aspect-[4/3] bg-muted border-r border-border overflow-hidden">
                                 {hasImage ? (
                                     <img
                                         src={car.images[0]}
@@ -38,7 +71,7 @@ export const CarCard = ({ car, view = "grid" }: CarCardProps) => {
                                     />
                                 ) : (
                                     <div className="flex h-full w-full flex-col items-center justify-center text-muted-foreground gap-1">
-                                        <CarIcon size={20} className="text-gray-400" aria-hidden="true" />
+                                        <CarIcon size={20} aria-hidden="true" />
                                         <span className="text-[10px] font-semibold">No Image</span>
                                     </div>
                                 )}
@@ -55,36 +88,13 @@ export const CarCard = ({ car, view = "grid" }: CarCardProps) => {
                                     )}
                                     <p className="text-sm text-muted-foreground truncate">{car.engine}</p>
 
-                                    <div className="flex flex-wrap gap-2 my-4">
-                                        <div className="inline-flex items-center gap-1.5 py-1.5 text-xs text-primary">
-                                            <Settings className="h-3.5 w-3.5" aria-hidden="true" />
-                                            Transmission: <span className="font-semibold">{car.transmission}</span>
-                                        </div>
-                                        <Separator orientation="vertical" />
-                                        <div className="inline-flex items-center gap-1.5 py-1.5 text-xs text-primary">
-                                            <Fuel className="h-3.5 w-3.5" aria-hidden="true" />
-                                            Fuel: <span className="font-semibold">{car.fuelType}</span>
-                                        </div>
-                                        <Separator orientation="vertical" />
-                                        <div className="inline-flex items-center gap-1.5 py-1.5 text-xs text-primary">
-                                            <Milestone className="h-3.5 w-3.5" aria-hidden="true" />
-                                            Mileage: <span className="font-semibold">{mileage}</span>
-                                        </div>
-                                        <Separator orientation="vertical" />
-                                        <div className="inline-flex items-center gap-1.5 py-1.5 text-xs text-primary">
-                                            <FaPerson className="h-3.5 w-3.5" aria-hidden="true" />
-                                            {plural(car.prevOwners, "Owner")}: <span className="font-semibold">{car.prevOwners}</span>
-                                        </div>
-                                        <Separator orientation="vertical" />
-                                        <div className="inline-flex items-center gap-1.5 py-1.5 text-xs text-primary">
-                                            <IoShieldCheckmark className="h-3.5 w-3.5" aria-hidden="true" />
-                                            {plural(car.keys, "Key")}: <span className="font-semibold">{car.keys}</span>
-                                        </div>
-                                        <Separator orientation="vertical" />
-                                        <div className="inline-flex items-center gap-1.5 py-1.5 text-xs text-primary">
-                                            <IoShieldCheckmark className="h-3.5 w-3.5" aria-hidden="true" />
-                                            Insurance Group: <span className="font-semibold">{car.insuranceGroup}</span>
-                                        </div>
+                                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 my-4">
+                                        {specs.map((spec, i) => (
+                                            <Fragment key={spec.label}>
+                                                {i > 0 && <Separator orientation="vertical" className="h-3.5" />}
+                                                <Spec {...spec} />
+                                            </Fragment>
+                                        ))}
                                     </div>
                                 </div>
 
@@ -92,7 +102,12 @@ export const CarCard = ({ car, view = "grid" }: CarCardProps) => {
                                     <p className="text-base sm:text-lg font-extrabold text-foreground whitespace-nowrap">
                                         {price}
                                     </p>
-                                    <span className="inline-flex items-center gap-3 rounded-lg bg-primary/90 px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm">
+                                    <span
+                                        className="inline-flex items-center gap-3 rounded-lg px-4 py-2 text-sm font-semibold shadow-sm transition-colors duration-200
+        bg-primary text-primary-foreground
+        dark:bg-primary/10 dark:text-primary dark:ring-1 dark:ring-inset dark:ring-primary/30 dark:shadow-none
+        dark:group-hover:bg-primary dark:group-hover:text-primary-foreground dark:group-hover:ring-primary"
+                                    >
                                         More
                                         <Info className="h-5 w-5" aria-hidden="true" />
                                     </span>
@@ -106,11 +121,11 @@ export const CarCard = ({ car, view = "grid" }: CarCardProps) => {
     }
 
     return (
-        <Link to={`/cars/${car.id}`} className="block h-full">
-            <Card className="overflow-hidden h-full w-full !rounded-lg border border-border bg-background hover:shadow-md hover:border-primary/50 transition-all duration-300 transform translate-z-0">
+        <Link to={`/cars/${car.id}`} className="group block h-full">
+            <Card className="overflow-hidden h-full w-full !rounded-lg border border-border bg-card hover:shadow-md hover:border-primary/50 transition-all duration-300 transform translate-z-0">
                 <CardContent className="p-0 flex flex-col h-full">
                     {/* Image */}
-                    <div className="relative aspect-[16/10] w-full bg-background flex items-center justify-center border-b border-border overflow-hidden">
+                    <div className="relative aspect-[16/10] w-full bg-muted flex items-center justify-center border-b border-border overflow-hidden">
                         {hasImage ? (
                             <img
                                 src={car.images[0]}
@@ -121,7 +136,7 @@ export const CarCard = ({ car, view = "grid" }: CarCardProps) => {
                             />
                         ) : (
                             <div className="flex h-full w-full flex-col items-center justify-center text-muted-foreground gap-2 rounded-t-lg">
-                                <CarIcon size={32} className="text-gray-400" aria-hidden="true" />
+                                <CarIcon size={32} aria-hidden="true" />
                                 <span className="text-xs font-semibold">Image Pending</span>
                             </div>
                         )}
@@ -135,41 +150,26 @@ export const CarCard = ({ car, view = "grid" }: CarCardProps) => {
                             <p className="text-sm text-muted-foreground">MOT {car.motExpiry}</p>
 
                             <div className="flex flex-wrap gap-2 my-4">
-                                <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
-                                    <Settings className="h-3.5 w-3.5" aria-hidden="true" />
-                                    Transmission: <span className="font-semibold">{car.transmission}</span>
-                                </span>
-                                <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
-                                    <Fuel className="h-3.5 w-3.5" aria-hidden="true" />
-                                    Fuel: <span className="font-semibold">{car.fuelType}</span>
-                                </span>
-                                <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
-                                    <Milestone className="h-3.5 w-3.5" aria-hidden="true" />
-                                    Mileage: <span className="font-semibold">{mileage}</span>
-                                </span>
-                                <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
-                                    <FaPerson className="h-3.5 w-3.5" aria-hidden="true" />
-                                    {plural(car.prevOwners, "Owner")}: <span className="font-semibold">{car.prevOwners}</span>
-                                </span>
-                                <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
-                                    <IoShieldCheckmark className="h-3.5 w-3.5" aria-hidden="true" />
-                                    {plural(car.keys, "Key")}: <span className="font-semibold">{car.keys}</span>
-                                </span>
-                                <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs text-primary">
-                                    <IoShieldCheckmark className="h-3.5 w-3.5" aria-hidden="true" />
-                                    Insurance Group: <span className="font-semibold">{car.insuranceGroup}</span>
-                                </span>
+                                {specs.map((spec) => (
+                                    <Spec key={spec.label} {...spec} pill />
+                                ))}
                             </div>
 
                             <p className="text-lg font-extrabold text-foreground mt-4">{price}</p>
                         </div>
                     </div>
 
-                    {/* Footer — looks like a button, but the whole card is the link */}
+                    {/* Footer */}
                     <div className="w-full px-4 pb-4 mt-2">
-                        <span className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
-                            <Info className="h-4 w-4" aria-hidden="true" /> View details
-                        </span>
+    <span
+        className="flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors duration-200
+            bg-primary text-primary-foreground
+            dark:bg-primary/10 dark:text-primary dark:ring-1 dark:ring-inset dark:ring-primary/30
+            dark:group-hover:bg-primary dark:group-hover:text-primary-foreground dark:group-hover:ring-primary"
+    >
+        <Info className="h-4 w-4" aria-hidden="true" />
+        View details
+    </span>
                     </div>
                 </CardContent>
             </Card>

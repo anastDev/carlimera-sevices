@@ -17,10 +17,9 @@ import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/inpu
 import {sendContactMessage} from "@/services/api.contact.ts";
 import Seo from "@/components/Seo.tsx";
 
-
 const items = [
-    {label: "Home", value: "/"},
-    {label: "Contact Us"}
+    { label: "Home", value: "/" },
+    { label: "Contact Us" },
 ];
 
 export const ContactPage = () => {
@@ -39,9 +38,9 @@ export const ContactPage = () => {
             fullName: "",
             email: "",
             message: "",
-            website: ""
-        }
-    })
+            website: "",
+        },
+    });
 
     const onHandleSubmit = async (data: ContactFormValues) => {
         setSubmitError(null);
@@ -61,29 +60,29 @@ export const ContactPage = () => {
             setSubmitError(
                 err instanceof Error
                     ? err.message
-                    : "We couldn't send your message. Please email or call us directly."
+                    : "We couldn't send your message. Please email or call us directly.",
             );
         }
-    }
+    };
 
     return (
         <motion.div
             variants={container}
             initial="hidden"
             animate="visible"
-            className="container mx-auto max-w-7xl px-4 pb-10 mt-12 sm:mt-20 sm:px-6 lg:px-8">
-
+            className="container mx-auto max-w-7xl px-4 pb-10 mt-12 sm:mt-20 sm:px-6 lg:px-8"
+        >
             <Seo
                 title="Contact Us – Visit Our Coventry Dealership"
                 description="Find CARlimera Services at Opp 115 Max Road, Coventry CV6 1EL. Call 07469 292183 or send us a message. Open Monday to Saturday, 9am to 6pm."
                 path="/contact-us"
             />
 
-            {/* Breadcrumb */}
-            <Breadcrumb items={items} className="hover:text-primary">
-            </Breadcrumb>
+            <Breadcrumb items={items} className="hover:text-primary" />
 
-            <motion.h1 variants={fadeUp} className="my-6 text-3xl font-bold text-foreground">Contact Us</motion.h1>
+            <motion.h1 variants={fadeUp} className="my-6 text-3xl font-bold text-foreground">
+                Contact Us
+            </motion.h1>
 
             <motion.div variants={fadeUp} className="w-full">
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-stretch">
@@ -91,36 +90,48 @@ export const ContactPage = () => {
                     {/* Contact details */}
                     <div className="lg:col-span-7 space-y-6">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div
-                                className="flex items-start gap-3 p-3 rounded-lg bg-background border border-border shadow-sm">
-                                <MapPin size={24} className="mt-0.5 text-primary flex-shrink-0"/>
+
+                            {/* Address */}
+                            <div className="flex items-start gap-3 p-4 rounded-lg bg-card border border-border shadow-sm dark:shadow-black/30">
+                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                                    <MapPin className="h-5 w-5 text-primary" aria-hidden="true" />
+                                </div>
                                 <div>
                                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Address</p>
-                                    <p className="text-sm text-foreground/80 font-medium mt-1">CARlimera Services Ltd,
-                                        Opp 115 Max Road, Coventry CV6 1EL</p>
+                                    <p className="text-sm text-foreground font-medium mt-1">
+                                        CARlimera Services Ltd, Opp 115 Max Road, Coventry CV6 1EL
+                                    </p>
                                 </div>
                             </div>
 
                             <div className="space-y-3">
-                                <div
-                                    className="flex items-center gap-3 p-3 rounded-lg bg-background border border-border shadow-sm">
-                                    <Phone size={20} className="text-primary flex-shrink-0" aria-hidden="true"/>
-                                    <div>
-                                        <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Phone</h4>
-                                        <a href="tel:07469292183"
-                                           className="text-sm font-semibold text-foreground/80 transition-colors">
+                                {/* Phone */}
+                                <div className="flex items-center gap-3 p-4 rounded-lg bg-card border border-border shadow-sm dark:shadow-black/30">
+                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                                        <Phone className="h-5 w-5 text-primary" aria-hidden="true" />
+                                    </div>
+                                    <div className="min-w-0">
+                                        <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Phone</p>
+                                        <a
+                                            href="tel:07469292183"
+                                            className="text-sm font-semibold text-foreground transition-colors hover:text-primary"
+                                        >
                                             07469 292183
                                         </a>
                                     </div>
                                 </div>
 
-                                <div
-                                    className="flex items-center gap-3 p-3 rounded-lg bg-background border border-border shadow-sm">
-                                    <Mail size={20} className="text-primary flex-shrink-0"/>
-                                    <div>
-                                        <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Email</h4>
-                                        <a href="mailto:kalimeraservices@gmail.com"
-                                           className="text-sm font-semibold text-foreground/80 transition-colors block truncate max-w-[12.5rem]">
+                                {/* Email */}
+                                <div className="flex items-center gap-3 p-4 rounded-lg bg-card border border-border shadow-sm dark:shadow-black/30">
+                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                                        <Mail className="h-5 w-5 text-primary" aria-hidden="true" />
+                                    </div>
+                                    <div className="min-w-0">
+                                        <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Email</p>
+                                        <a
+                                            href="mailto:kalimeraservices@gmail.com"
+                                            className="block truncate text-sm font-semibold text-foreground transition-colors hover:text-primary"
+                                        >
                                             kalimeraservices@gmail.com
                                         </a>
                                     </div>
@@ -129,35 +140,40 @@ export const ContactPage = () => {
                         </div>
 
                         {/* Business Hours */}
-                        <div className="rounded-lg shadow-sm bg-border/30 p-5 space-y-4">
-                            <h2 className="text-base font-bold text-foreground/80 flex items-center">
-                                <Clock className="mr-2 h-5 w-5 text-primary/80"/>
+                        <div className="rounded-lg border border-border bg-card p-5 space-y-4 shadow-sm dark:shadow-black/30">
+                            <h2 className="flex items-center gap-2 text-base font-bold text-foreground">
+                                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+                                    <Clock className="h-4 w-4 text-primary" aria-hidden="true" />
+                                </span>
                                 Business Hours
                             </h2>
-                            <div className="divide-y divide-border/60 text-sm font-medium text-muted-foreground">
+
+                            <div className="divide-y divide-border text-sm font-medium text-muted-foreground">
                                 <div className="flex justify-between py-2">
                                     <span>Monday – Saturday</span>
                                     <span className="font-semibold text-foreground">9:00 AM – 6:00 PM</span>
                                 </div>
                                 <div className="flex justify-between py-2">
-                                    {/* Was "Saturday" twice — the row above already covers it,
-                                        and the booking slots exclude Sundays */}
                                     <span>Sunday</span>
                                     <span className="font-semibold text-foreground">Closed</span>
                                 </div>
                             </div>
-                            <div
-                                className="flex items-center bg-background/70 border border-border/50 rounded-lg p-2.5 text-xs text-primary/80 leading-relaxed">
-                                <CalendarDays className="mr-2 h-4.5 w-4.5 flex-shrink-0 mt-0.5"/>
-                                <span>We advise booking an appointment before visiting to guarantee staff availability and car preparation.</span>
+
+                            <div className="flex items-start gap-2 rounded-lg border border-primary/20 bg-primary/5 p-3 text-xs leading-relaxed text-foreground dark:bg-primary/10">
+                                <CalendarDays className="h-4 w-4 shrink-0 mt-0.5 text-primary" aria-hidden="true" />
+                                <span>
+                                    We advise booking an appointment before visiting to guarantee staff availability and car preparation.
+                                </span>
                             </div>
                         </div>
                     </div>
 
                     {/* Contact Form */}
                     <div className="lg:col-span-5 h-full">
-                        <form onSubmit={handleSubmit(onHandleSubmit)}
-                              className="bg-background p-6 rounded-lg border border-border shadow-sm h-full flex flex-col">
+                        <form
+                            onSubmit={handleSubmit(onHandleSubmit)}
+                            className="relative bg-card p-6 rounded-lg border border-border shadow-sm h-full flex flex-col dark:shadow-black/30"
+                        >
                             <h2 className="text-lg font-bold text-foreground mb-4">Send your inquiry</h2>
 
                             <div className="flex flex-col flex-1 justify-between">
@@ -167,11 +183,7 @@ export const ContactPage = () => {
                                             name="fullName"
                                             control={control}
                                             render={({ field, fieldState }) => (
-                                                <Field
-                                                    data-invalid={
-                                                        fieldState.invalid
-                                                    }
-                                                >
+                                                <Field data-invalid={fieldState.invalid}>
                                                     <InputGroup>
                                                         <InputGroupAddon>
                                                             <User className="h-4 w-4 text-muted-foreground" />
@@ -181,20 +193,12 @@ export const ContactPage = () => {
                                                             id="name"
                                                             placeholder="Your name"
                                                             aria-label="Your name"
-                                                            aria-invalid={
-                                                                fieldState.invalid
-                                                            }
+                                                            aria-invalid={fieldState.invalid}
                                                             autoComplete="name"
                                                             required
                                                         />
                                                     </InputGroup>
-                                                    {fieldState.invalid && (
-                                                        <FieldError
-                                                            errors={[
-                                                                fieldState.error,
-                                                            ]}
-                                                        />
-                                                    )}
+                                                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                                                 </Field>
                                             )}
                                         />
@@ -203,11 +207,7 @@ export const ContactPage = () => {
                                             name="email"
                                             control={control}
                                             render={({ field, fieldState }) => (
-                                                <Field
-                                                    data-invalid={
-                                                        fieldState.invalid
-                                                    }
-                                                >
+                                                <Field data-invalid={fieldState.invalid}>
                                                     <InputGroup>
                                                         <InputGroupAddon>
                                                             <Mail className="h-4 w-4 text-muted-foreground" />
@@ -216,31 +216,27 @@ export const ContactPage = () => {
                                                             {...field}
                                                             id="email"
                                                             type="email"
-                                                            placeholder="Email Address"
+                                                            placeholder="Email address"
                                                             aria-label="Email address"
-                                                            aria-invalid={
-                                                                fieldState.invalid
-                                                            }
+                                                            aria-invalid={fieldState.invalid}
                                                             autoComplete="email"
                                                             required
                                                         />
                                                     </InputGroup>
-                                                    {fieldState.invalid && (
-                                                        <FieldError
-                                                            errors={[
-                                                                fieldState.error,
-                                                            ]}
-                                                        />
-                                                    )}
+                                                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                                                 </Field>
                                             )}
                                         />
                                     </FieldGroup>
-                                    <Textarea placeholder="Message" rows={6}
-                                              aria-label="Message"
-                                              {...register("message")}
-                                              className="bg-gray-50 mb-2 border-gray-300 focus:border-teal-700 focus:ring-teal-700 flex-1 min-h-[7.5rem]"
-                                              required/>
+
+                                    <Textarea
+                                        placeholder="Message"
+                                        aria-label="Message"
+                                        rows={6}
+                                        {...register("message")}
+                                        className="bg-background border-input mb-2 flex-1 min-h-[7.5rem] focus-visible:border-primary focus-visible:ring-primary/30"
+                                        required
+                                    />
 
                                     {/* Honeypot */}
                                     <div className="absolute -left-[9999px]" aria-hidden="true">
@@ -256,9 +252,11 @@ export const ContactPage = () => {
                                 </div>
 
                                 <div className="space-y-4 mt-auto">
-                                    <Button type="submit"
-                                            disabled={isSubmitting}
-                                            className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-5 rounded-lg font-bold transition-colors cursor-pointer shadow-sm disabled:cursor-not-allowed disabled:opacity-60">
+                                    <Button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-5 rounded-lg font-bold transition-colors cursor-pointer shadow-sm disabled:cursor-not-allowed disabled:opacity-60"
+                                    >
                                         {isSubmitting ? (
                                             <span className="flex items-center justify-center gap-2">
                                                 <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
@@ -268,13 +266,22 @@ export const ContactPage = () => {
                                             "Send"
                                         )}
                                     </Button>
+
                                     {submitted && (
-                                        <p className="text-sm font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-center">
+                                        <p
+                                            role="status"
+                                            className="text-sm font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-center
+                                                dark:text-emerald-300 dark:bg-emerald-950/40 dark:border-emerald-900"
+                                        >
                                             Thank you! Your message has been sent. We'll reply as soon as possible.
                                         </p>
                                     )}
                                     {submitError && (
-                                        <p role="alert" className="text-sm font-semibold text-red-800 bg-red-50 border border-red-200 rounded-lg p-3 text-center">
+                                        <p
+                                            role="alert"
+                                            className="text-sm font-semibold text-red-800 bg-red-50 border border-red-200 rounded-lg p-3 text-center
+                                                dark:text-red-300 dark:bg-red-950/40 dark:border-red-900"
+                                        >
                                             {submitError}
                                         </p>
                                     )}
@@ -282,12 +289,11 @@ export const ContactPage = () => {
                             </div>
                         </form>
                     </div>
-
                 </div>
             </motion.div>
 
-            {/* Embedded Map Container */}
-            <motion.div variants={fadeUp} className="overflow-hidden rounded-lg mt-8 shadow-sm">
+            {/* Map */}
+            <motion.div variants={fadeUp} className="overflow-hidden rounded-lg mt-8 border border-border shadow-sm">
                 <iframe
                     className="h-90 w-full border-0"
                     referrerPolicy="strict-origin-when-cross-origin"
@@ -298,6 +304,6 @@ export const ContactPage = () => {
             </motion.div>
         </motion.div>
     );
-}
+};
 
 export default ContactPage;

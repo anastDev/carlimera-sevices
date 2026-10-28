@@ -1,18 +1,19 @@
 import { Link, useLocation } from "react-router";
 import type {ElementType} from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import ThemeToggle from "@/components/ThemeToggle.tsx";
 
 export const NavMobile = ({ routes }: { routes: Array<{ title: string; path: string; Icon: ElementType }> }) => {
     const { pathname } = useLocation();
 
     return (
-        <nav className="lg:hidden fixed top-4 left-3 right-3 z-50">
-            <ul className="flex items-center justify-around bg-card border border-border rounded-full py-2.5 shadow-md shadow-brand-dark/10">
+        <div className="lg:hidden fixed top-4 left-3 right-3 z-50">
+            <ul className="flex items-center justify-around bg-card border border-border rounded-full py-2.5 shadow-md shadow-brand-dark/10 dark:shadow-black/40">
                 {routes.map(({ title, path, Icon }) => {
                     const isActive = pathname === path;
                     return (
                         <li key={title} className="flex-1">
-                            <Link to={path} className="relative flex justify-center">
+                            <Link to={path} aria-label={title} className="relative flex justify-center">
                                 {isActive && (
                                     <motion.div
                                         layoutId="nav-glass-pill-mobile"
@@ -24,12 +25,10 @@ export const NavMobile = ({ routes }: { routes: Array<{ title: string; path: str
                                     whileTap={{ scale: 0.88 }}
                                     transition={{ type: "spring", stiffness: 500, damping: 25 }}
                                     className={`relative z-10 flex flex-col items-center justify-center py-1.5 gap-1 rounded-lg transition-colors duration-200 ${
-                                        isActive
-                                            ? "text-primary"
-                                            : "text-muted-foreground active:text-primary"
+                                        isActive ? "text-primary" : "text-muted-foreground active:text-primary"
                                     }`}
                                 >
-                                    <Icon className="w-4 h-4" />
+                                    <Icon className="w-4 h-4" aria-hidden="true" />
                                     <AnimatePresence>
                                         {isActive && (
                                             <motion.span
@@ -46,8 +45,12 @@ export const NavMobile = ({ routes }: { routes: Array<{ title: string; path: str
                         </li>
                     );
                 })}
+
+                <li className="flex flex-1 justify-center border-l border-border">
+                    <ThemeToggle className="h-10 w-10" />
+                </li>
             </ul>
-        </nav>
+        </div>
     );
 };
 

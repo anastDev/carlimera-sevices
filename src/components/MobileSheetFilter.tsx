@@ -1,7 +1,7 @@
 import {Sheet, SheetContent, SheetTrigger} from "@/components/ui/sheet.tsx";
 import FilterPanel from "@/components/FilterPanel.tsx";
 import type {FilterState} from "@/types/filterState.ts";
-import type {ReactNode} from "react";
+import type {ReactElement} from "react";
 
 interface MobileSheetFilterProps {
     mobileFilterControl: boolean;
@@ -15,7 +15,7 @@ interface MobileSheetFilterProps {
     makes: string[];
     fuelTypes: string[];
     transmissions: string[];
-    mobileSheetTrigger: ReactNode;
+    mobileSheetTrigger: ReactElement;
     priceBounds: [number, number];
 }
 

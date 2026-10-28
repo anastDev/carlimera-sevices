@@ -190,7 +190,7 @@ export const InventoryPage = ({ cars, isLoading, error }: InventoryPageProps) =>
                                 <SlidersHorizontal size={20} aria-hidden="true" />
                                 Filters
                                 {activeFilterCount > 0 && (
-                                    <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center  bg-primary text-xs font-semibold text-primary-foreground">
+                                    <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full  bg-primary text-xs font-semibold text-primary-foreground">
                       {activeFilterCount}
                     </span>
                                 )}

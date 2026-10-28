@@ -9,25 +9,23 @@ export const Footer = () => {
 
                     {/* Dealership Description & Contact Info */}
                     <div className="flex flex-col space-y-4">
-                        <div className="space-y-2">
-                           <div className="space-y-1">
-                               <div className="flex flex-row items-center space-x-2 mb-2">
-                                   <img className="w-8 rounded-sm bg-background" src="/carlimera-logo.png" alt="CARlimera Logo"/>
-                                   <h3 className="text-base font-bold text-primary-foreground">Carlimera Services Ltd</h3>
-                               </div>
-                               <p className="text-sm text-primary-foreground/70 leading-relaxed">
-                                   Carlimera Services Ltd is a Coventry second-hand car dealership offering quality vehicles, flexible finance, part exchange and UK-wide delivery with transparent, reliable service.
-                               </p>
-                           </div>
+                        <div className="space-y-1">
+                            <div className="flex flex-row items-center space-x-2 mb-2">
+                                <img className="w-8 rounded-sm bg-white" src="/carlimera-logo.png" alt="CARlimera Logo" />
+                                <h3 className="text-base font-bold text-footer-foreground">Carlimera Services Ltd</h3>
+                            </div>
+                            <p className="text-sm text-footer-foreground/70 leading-relaxed">
+                                Carlimera Services Ltd is a Coventry second-hand car dealership offering quality vehicles, flexible finance, part exchange and UK-wide delivery with transparent, reliable service.
+                            </p>
                         </div>
 
-                        <div className="space-y-1.5 text-xs text-primary-foreground/70">
+                        <div className="space-y-1.5 text-xs text-footer-foreground/70">
                             <p className="leading-relaxed">
                                 <a
                                     href="https://maps.app.goo.gl/WSmctXRKcSx4woJH7"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="hover:text-popover inline-block"
+                                    className="inline-block transition-colors hover:text-footer-foreground"
                                     title="Navigate to CARlimera Services on Google Maps"
                                 >
                                     Opp 115 Max Road, Coventry, West Midlands, CV6 1EL
@@ -36,14 +34,14 @@ export const Footer = () => {
                             <p className="flex items-center gap-1.5 flex-wrap">
                                 <a
                                     href="tel:07469292183"
-                                    className="text-sm font-semibold hover:text-white transition-colors"
+                                    className="text-sm font-semibold transition-colors hover:text-footer-foreground"
                                 >
                                     07469 292183
                                 </a>
-                                <span className="text-primary-foreground/40">&middot;</span>
+                                <span className="text-footer-foreground/40">&middot;</span>
                                 <a
                                     href="mailto:kalimeraservices@gmail.com"
-                                    className="hover:text-popover underline underline-offset-2 transition-colors"
+                                    className="underline underline-offset-2 transition-colors hover:text-footer-foreground"
                                 >
                                     kalimeraservices@gmail.com
                                 </a>
@@ -53,51 +51,52 @@ export const Footer = () => {
 
                     {/* Useful Links Navigation */}
                     <div className="flex flex-col items-start sm:items-center space-y-2">
-                      <div className="space-y-3">
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-primary">
-                              Useful Links
-                          </h4>
-                          <nav className="flex flex-col gap-2.5 text-sm font-semibold">
-                              <Link to="/cars" className="text-primary-foreground/70 hover:text-primary transition-colors">
-                                  Browse Cars
-                              </Link>
-                              <Link to="/about" className="text-primary-foreground/70 hover:text-primary transition-colors">
-                                  About Us
-                              </Link>
-                              <Link to="/contact-us" className="text-primary-foreground/70 hover:text-primary transition-colors">
-                                  Contact Us
-                              </Link>
-                              <Link to="/privacy" className="text-primary-foreground/70 hover:text-primary transition-colors">
-                                  Privacy policy
-                              </Link>
-                              <Link to="/delivery" className="text-primary-foreground/70 hover:text-primary transition-colors">
-                                  Estimate Delivery Cost
-                              </Link>
-                          </nav>
+                        <div className="space-y-3">
+                            <h4 className="text-xs font-bold uppercase tracking-wider text-primary">
+                                Useful Links
+                            </h4>
+                            <nav className="flex flex-col gap-2.5 text-sm font-semibold">
+                                <Link to="/cars" className="text-footer-foreground/70 hover:text-primary transition-colors">
+                                    Browse Cars
+                                </Link>
+                                <Link to="/about" className="text-footer-foreground/70 hover:text-primary transition-colors">
+                                    About Us
+                                </Link>
+                                <Link to="/contact-us" className="text-footer-foreground/70 hover:text-primary transition-colors">
+                                    Contact Us
+                                </Link>
+                                <Link to="/privacy" className="text-footer-foreground/70 hover:text-primary transition-colors">
+                                    Privacy policy
+                                </Link>
+                                <Link to="/delivery" className="text-footer-foreground/70 hover:text-primary transition-colors">
+                                    Estimate Delivery Cost
+                                </Link>
+                            </nav>
 
-                          <p className="flex flex-row items-center space-x-2">
-                              <span className="text-primary-foreground/70 text-sm font-semibold">Find us on: </span>
-                              <a
-                              href="https://www.youtube.com/@CARlimeraServices"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-xs font-semibold text-primary-foreground/70 hover:text-primary transition-colors"
-                              title="Follow our virtual car walkarounds on YouTube"
-                          >
-                              <SquarePlay className="w-5 h-5 " />
-                          </a>
-                              <a
-                                  className="text-xs font-semibold text-primary-foreground/70 hover:text-primary transition-colors"
-                                  href="https://www.autotrader.co.uk/dealers/warwickshire/coventry/carlimera-services-10035432?channel=cars"
-                                  title="Find us on AutoTrader UK"
-                                  rel="noopener noreferrer"
-                                  target="_blank"
-                              >
-                                  <Car />
-                              </a>
-                          </p>
-                      </div>
-
+                            <p className="flex flex-row items-center space-x-2">
+                                <span className="text-footer-foreground/70 text-sm font-semibold">Find us on:</span>
+                                <a
+                                    href="https://www.youtube.com/@CARlimeraServices"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-footer-foreground/70 hover:text-primary transition-colors"
+                                    title="Follow our virtual car walkarounds on YouTube"
+                                    aria-label="CARlimera Services on YouTube"
+                                >
+                                    <SquarePlay className="w-5 h-5" aria-hidden="true" />
+                                </a>
+                                <a
+                                    href="https://www.autotrader.co.uk/dealers/warwickshire/coventry/carlimera-services-10035432?channel=cars"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-footer-foreground/70 hover:text-primary transition-colors"
+                                    title="Find us on AutoTrader UK"
+                                    aria-label="CARlimera Services on AutoTrader"
+                                >
+                                    <Car aria-hidden="true" />
+                                </a>
+                            </p>
+                        </div>
                     </div>
 
                     {/* Business Hours */}
@@ -106,30 +105,41 @@ export const Footer = () => {
                             Business Hours
                         </h4>
                         <div className="flex flex-col gap-2 text-sm font-medium">
-                            <div className="flex justify-between border-b border-primary-foreground/10 pb-1.5">
-                                <span className="text-primary-foreground/70">Mon – Sat</span>
-                                <span className="text-primary-foreground font-semibold">9:00 AM – 6:00 PM</span>
+                            <div className="flex justify-between border-b border-footer-foreground/10 pb-1.5">
+                                <span className="text-footer-foreground/70">Mon – Sat</span>
+                                <span className="text-footer-foreground font-semibold">9:00 AM – 6:00 PM</span>
                             </div>
                             <div className="flex justify-between pb-1">
-                                <span className="text-primary-foreground/70">Sunday</span>
-                                <span className="text-primary-foreground font-semibold">Closed</span>
+                                <span className="text-footer-foreground/70">Sunday</span>
+                                <span className="text-footer-foreground font-semibold">Closed</span>
                             </div>
-                            <p className="text-xs text-primary-foreground/50 font-normal italic mt-1 leading-normal">
+                            <p className="text-xs text-footer-foreground/50 font-normal italic mt-1 leading-normal">
                                 * We advise booking an appointment before visiting to guarantee availability.
                             </p>
                         </div>
                     </div>
-
                 </div>
 
                 {/* Copyright */}
-                <div className="flex justify-between items-center text-xs text-primary-foreground/50 border-t border-primary-foreground/10 pt-6">
-                    <p>&copy; {new Date().getFullYear()} CARlimera Services Ltd. All rights reserved.</p>
-                    <p className="hidden sm:block">Developed by anastDev</p>
+                <div className="flex flex-col gap-3 border-t border-footer-foreground/10 pt-6 text-xs sm:flex-row sm:items-center sm:justify-between">
+                    <p className="text-footer-foreground/60">
+                        &copy; {new Date().getFullYear()} CARlimera Services Ltd. All rights reserved.
+                    </p>
+                    <p className="text-footer-foreground/60">
+                        Developed by{" "}
+                        <a
+                            href="https://anastdev.github.io/react-projects-hub/#/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold text-footer-foreground/80 underline-offset-4 transition-colors hover:text-primary hover:underline"
+                        >
+                            anastDev
+                        </a>
+                    </p>
                 </div>
             </div>
         </footer>
     );
-}
+};
 
 export default Footer;
