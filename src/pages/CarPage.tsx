@@ -111,6 +111,10 @@ export const CarPage = ({ cars, onBookViewing, isLoading = false, error = null }
 
     const vehicleName = `${car.year} ${car.make} ${car.model}`;
 
+    // Ignore blank entries, so an empty list or [""] doesn't show an empty section.
+    const features = (car.features ?? []).filter((f) => f.trim() !== "");
+    const conditionText = car.conditionText?.trim() !== "-" ? car.conditionText?.trim() : "";
+
     return (
         <div className="container mx-auto max-w-7xl px-4 pb-10 mt-12 sm:mt-20 sm:px-6 lg:px-8">
             <Seo
@@ -395,43 +399,46 @@ export const CarPage = ({ cars, onBookViewing, isLoading = false, error = null }
                     </motion.div>
 
                     {/* Features */}
-                    <motion.div className="space-y-4" {...fadeUp}>
-                        <h2 className="text-lg sm:text-xl font-bold text-foreground flex items-center">
-                            <Sparkles className="mr-2 h-5 w-5 text-sidebar-primary" />
-                            Premium Features & Highlights
-                        </h2>
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                            {car.features.map((feature, idx) => {
-                                const [title, desc] = feature.split(":");
-                                return (
-                                    <motion.div
-                                        key={idx}
-                                        className="flex items-start space-x-3 p-3 rounded-lg border border-border/50 hover:bg-background/80 transition-colors"
-                                        initial={{ opacity: 0, y: 12 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true, margin: "-40px" }}
-                                        transition={{ duration: 0.35, delay: (idx % 4) * 0.06, ease: "easeOut" }}
-                                    >
-                                        <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-600" />
-                                        <div>
-                                            <h3 className="font-bold text-sm text-foreground">{title}</h3>
-                                            {desc && <p className="text-xs text-muted-foreground mt-0.5">{desc.trim()}</p>}
-                                        </div>
-                                    </motion.div>
-                                );
-                            })}
-                        </div>
-                    </motion.div>
+                    {features.length > 0 && (
+                        <motion.div className="space-y-4" {...fadeUp}>
+                            <h2 className="text-lg sm:text-xl font-bold text-foreground flex items-center">
+                                <Sparkles className="mr-2 h-5 w-5 text-sidebar-primary" />
+                                Premium Features & Highlights
+                            </h2>
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                {features.map((feature, idx) => {
+                                    const [title, desc] = feature.split(":");
+                                    return (
+                                        <motion.div
+                                            key={feature}
+                                            className="flex items-start space-x-3 p-3 rounded-lg border border-border/50 hover:bg-background/80 transition-colors"
+                                            initial={{ opacity: 0, y: 12 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true, margin: "-40px" }}
+                                            transition={{ duration: 0.35, delay: (idx % 4) * 0.06, ease: "easeOut" }}
+                                        >
+                                            <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-600 dark:text-emerald-400" />
+                                            <div>
+                                                <h3 className="font-bold text-sm text-foreground">{title.trim()}</h3>
+                                                {desc?.trim() && <p className="text-xs text-muted-foreground mt-0.5">{desc.trim()}</p>}
+                                            </div>
+                                        </motion.div>
+                                    );
+                                })}
+                            </div>
+                        </motion.div>
+                    )}
 
-                    {car.conditionText !== "-" && (
-                        <motion.div className="rounded-lg bg-border/30 p-6 space-y-4" {...fadeUp}>
-                            <h2 className="text-lg sm:text-xl font-bold text-foreground/80 flex items-center">
-                                <ShieldCheck className="mr-2 h-6 w-6 text-primary/80" />
+                    {/* Condition report — only shown when there's real text */}
+                    {conditionText && (
+                        <motion.div className="rounded-lg border border-border bg-card p-6 space-y-4 shadow-sm dark:shadow-black/30" {...fadeUp}>
+                            <h2 className="text-lg sm:text-xl font-bold text-foreground flex items-center">
+                                <ShieldCheck className="mr-2 h-6 w-6 text-primary" />
                                 Pre-Inspection & Condition Report
                             </h2>
-                            <p className="text-sm text-foreground/80 leading-relaxed">{car.conditionText}</p>
-                            <div className="flex items-start bg-background rounded-lg p-3 text-xs text-foreground/80">
-                                <Info className="mr-2.5 h-5 w-5 flex-shrink-0 text-primary/80 mt-0.5" />
+                            <p className="text-sm text-foreground leading-relaxed">{conditionText}</p>
+                            <div className="flex items-start rounded-lg border border-primary/20 bg-primary/5 p-3 text-xs text-foreground dark:bg-primary/10">
+                                <Info className="mr-2.5 h-5 w-5 flex-shrink-0 text-primary mt-0.5" />
                                 <span>
                                     <strong>Verification Notice:</strong> While the exterior presents remarkably well in high-resolution photography, we always recommend an in-person viewing and a test drive to verify the interior trim condition, soft-top mechanism seals, and mechanical history.
                                 </span>
