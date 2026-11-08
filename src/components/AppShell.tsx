@@ -19,6 +19,8 @@ import ConsentBanner from "@/components/ConsentBanner.tsx";
 import PrivacyPolicy from "@/pages/PrivacyPolicy.tsx";
 import NotFound from "@/pages/NotFound.tsx";
 import DeliveryPage from "@/pages/DeliveryPage.tsx";
+import { Analytics } from "@vercel/analytics/react";
+import type {BeforeSendEvent} from "@vercel/analytics";
 
 interface WrapperProps {
     children: ReactNode;
@@ -34,10 +36,13 @@ function Wrapper({ children }: WrapperProps) {
     return <>{children}</>;
 }
 
-export const  AppShell = ()=>  {
+const ignoreAdminPages = (event: BeforeSendEvent): BeforeSendEvent | null =>
+    new URL(event.url).pathname.startsWith("/admin") ? null : event;
+
+export const AppShell = () => {
     const [bookingCar, setBookingCar] = useState<Car | null>(null);
     const [dialogOpen, setDialogOpen] = useState(false);
-    const {cars, isLoading, error} = useCars();
+    const { cars, isLoading, error } = useCars();
     const { pathname } = useLocation();
     const isAdminArea = pathname.startsWith("/admin");
 
@@ -46,10 +51,9 @@ export const  AppShell = ()=>  {
         setDialogOpen(true);
     };
 
-
     return (
         <Wrapper>
-           <Header/>
+            <Header />
 
             <main className="container mx-auto max-w-7xl px-4 pb-16 pt-10 sm:px-6 lg:px-8">
                 <Routes>
@@ -59,7 +63,7 @@ export const  AppShell = ()=>  {
                     <Route path="contact-us" element={<ContactPage />} />
                     <Route path="contact" element={<Navigate to="/contact-us" replace />} />
                     <Route path="privacy" element={<PrivacyPolicy />} />
-                    <Route path="delivery" element={<DeliveryPage/>}/>
+                    <Route path="delivery" element={<DeliveryPage />} />
 
                     <Route path="cars">
                         <Route index element={<InventoryPage cars={cars} isLoading={isLoading} error={error} />} />
@@ -88,7 +92,6 @@ export const  AppShell = ()=>  {
             </main>
 
             <Footer />
-            <ConsentBanner/>
 
             <BookingDialog
                 car={bookingCar}
@@ -96,9 +99,12 @@ export const  AppShell = ()=>  {
                 onOpenChange={setDialogOpen}
             />
 
+            {!isAdminArea && <ConsentBanner />}
             {!isAdminArea && <WhatsAppButton />}
+
+            <Analytics beforeSend={ignoreAdminPages} />
         </Wrapper>
     );
-}
+};
 
 export default AppShell;
