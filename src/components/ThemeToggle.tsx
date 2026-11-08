@@ -1,27 +1,15 @@
-import {useEffect, useRef, useState} from "react";
 import { Moon, Sun } from "lucide-react";
-import { applyTheme, getStoredTheme, resolveTheme, saveTheme, systemQuery, type Theme } from "@/lib/theme";
-import {cn} from "@/lib/utils.ts";
-import {flushSync} from "react-dom";
+import { useRef, useState } from "react";
+import { flushSync } from "react-dom";
+import { cn } from "@/lib/utils";
+import { currentTheme, saveTheme, type Theme } from "@/lib/theme";
 
 const prefersReducedMotion = () =>
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export const ThemeToggle = ({ className }: { className?: string }) => {
-    const [theme, setTheme] = useState<Theme>(resolveTheme);
+    const [theme, setTheme] = useState<Theme>(currentTheme);
     const buttonRef = useRef<HTMLButtonElement>(null);
-
-    useEffect(() => {
-        const query = systemQuery();
-        const onSystemChange = () => {
-            if (getStoredTheme()) return;
-            const next: Theme = query.matches ? "dark" : "light";
-            applyTheme(next);
-            setTheme(next);
-        };
-        query.addEventListener("change", onSystemChange);
-        return () => query.removeEventListener("change", onSystemChange);
-    }, []);
 
     const toggle = () => {
         const next: Theme = theme === "dark" ? "light" : "dark";

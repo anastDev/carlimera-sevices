@@ -7,7 +7,13 @@
 
     <meta property="og:site_name" content="CARlimera Services" />
     <meta property="og:type" content="website" />
-
+    <script>
+        (function () {
+            try {
+                document.documentElement.classList.toggle("dark", localStorage.getItem("theme") === "dark");
+            } catch (e) {}
+        })();
+    </script>
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
