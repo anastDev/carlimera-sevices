@@ -16,6 +16,7 @@ import {
 import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/input-group.tsx";
 import {sendContactMessage} from "@/services/api.contact.ts";
 import Seo from "@/components/Seo.tsx";
+import HiddenSanta from "@/components/festive/HiddenSanat.tsx";
 
 const items = [
     { label: "Home", value: "/" },
@@ -155,7 +156,7 @@ export const ContactPage = () => {
                                 </div>
                                 <div className="flex justify-between py-2">
                                     <span>Sunday</span>
-                                    <span className="font-semibold text-foreground">Closed</span>
+                                    <span className="font-semibold text-foreground"><HiddenSanta id="contact" className="pr-1.5"/> Closed</span>
                                 </div>
                             </div>
 

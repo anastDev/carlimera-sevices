@@ -4,6 +4,7 @@ import { Seo } from "@/components/Seo";
 import { DeliveryEstimator } from "@/components/DeliveryEstimator";
 import {container} from "@/utils/transitions.ts";
 import Breadcrumb from "@/components/smoothui/breadcrumb";
+import HiddenSanta from "@/components/festive/HiddenSanat.tsx";
 
 const breadcrumbItems = [
     { label: "Home", value: "/" },
@@ -60,6 +61,7 @@ export const DeliveryPage = () => (
                     <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
                         Find out roughly what it costs to have your car delivered from our Coventry
                         dealership. <strong className="text-foreground">The first 10 miles are always free.</strong>
+                        <HiddenSanta id="delivery" className="ml-1" />
                     </p>
                 </motion.div>
 

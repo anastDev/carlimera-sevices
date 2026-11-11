@@ -4,6 +4,7 @@ import Breadcrumb from "@/components/smoothui/breadcrumb";
 import {steps} from "@/data/aboutSteps.ts";
 import {trustPillars} from "@/data/trustPillarsData.ts";
 import Seo from "@/components/Seo.tsx";
+import HiddenSanta from "@/components/festive/HiddenSanat.tsx";
 
 const items = [
     { label: "Home", value: "/" },
@@ -73,6 +74,7 @@ export const AboutPage = () => {
             >
                 <p className="text-lg font-medium italic text-foreground">
                     Drive away happy, wherever you are in the UK.
+                    <HiddenSanta id="about" />
                 </p>
             </motion.div>
 

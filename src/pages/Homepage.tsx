@@ -19,6 +19,7 @@ import Testimonials3 from "@/components/smoothui/testimonials-3";
 import SmoothButton from "@/components/smoothui/smooth-button";
 import SpotlightCards from "@/components/kokonutui/spotlight-cards.tsx";
 import Seo from "@/components/Seo.tsx";
+import HiddenSanta from "@/components/festive/HiddenSanat.tsx";
 
 interface HomePageProps {
     cars: Car[];
@@ -181,6 +182,7 @@ export const HomePage = ({ cars }: HomePageProps) => {
                     <div className="mb-4">
                         <h2 className="text-lg font-bold tracking-tight text-foreground sm:text-2xl">
                             Featured Used Cars
+                            <HiddenSanta id="home" className="ml-1" />
                         </h2>
                         <p className="text-sm sm:text-base text-muted-foreground my-1">
                             Handpicked models checked for reliability.

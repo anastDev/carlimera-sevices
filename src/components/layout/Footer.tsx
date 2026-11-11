@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import {Car, SquarePlay} from "lucide-react";
+import HiddenSanta from "@/components/festive/HiddenSanat.tsx";
 
 export const Footer = () => {
     return (
@@ -103,6 +104,7 @@ export const Footer = () => {
                     <div className="flex flex-col space-y-3">
                         <h4 className="text-xs font-bold uppercase tracking-wider text-primary">
                             Business Hours
+                            <HiddenSanta id="footer" className="ml-1" />
                         </h4>
                         <div className="flex flex-col gap-2 text-sm font-medium">
                             <div className="flex justify-between border-b border-white/10 pb-1.5">

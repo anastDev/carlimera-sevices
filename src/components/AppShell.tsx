@@ -21,6 +21,7 @@ import NotFound from "@/pages/NotFound.tsx";
 import DeliveryPage from "@/pages/DeliveryPage.tsx";
 import { Analytics } from "@vercel/analytics/react";
 import type {BeforeSendEvent} from "@vercel/analytics";
+import Snow from "@/components/festive/Snow.tsx";
 
 interface WrapperProps {
     children: ReactNode;
@@ -101,6 +102,7 @@ export const AppShell = () => {
 
             {!isAdminArea && <ConsentBanner />}
             {!isAdminArea && <WhatsAppButton />}
+            {!isAdminArea && <Snow />}
 
             <Analytics beforeSend={ignoreAdminPages} />
         </Wrapper>
