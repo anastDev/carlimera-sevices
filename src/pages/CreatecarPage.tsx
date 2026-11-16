@@ -63,6 +63,7 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
         done: number;
         total: number;
     } | null>(null);
+    const [debug, setDebug] = useState("waiting for tap");
 
     const {
         control,
@@ -116,6 +117,7 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
     };
 
     const onSubmit = async (values: CarFormOutput) => {
+        setDebug("2. form is valid, starting upload");
         setSubmitError(null);
         setImageError(null);
         setSubmitSuccess(false);
@@ -150,7 +152,7 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
     };
 
     const onInvalid = (formErrors: FieldErrors<CarFormInput>) => {
-        // "motExpiry" → "mot expiry", so the message is readable
+        setDebug("2. form has invalid fields");
         const fields = Object.keys(formErrors).map((name) =>
             name.replace(/([A-Z])/g, " $1").toLowerCase(),
         );
@@ -159,7 +161,6 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
             `Some details need fixing before this can be published: ${fields.join(", ")}.`,
         );
 
-        // Wait for the red error text to render, then scroll to the first one
         requestAnimationFrame(() => {
             document
                 .querySelector('[aria-invalid="true"]')
@@ -190,7 +191,12 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
             </div>
 
             <form
-                onSubmit={handleSubmit(onSubmit, onInvalid)}
+                onSubmit={(e) => {
+                    setDebug("1. tap reached the form");
+                    handleSubmit(onSubmit, onInvalid)(e).catch((err) =>
+                        setDebug(`crashed: ${err instanceof Error ? err.message : String(err)}`),
+                    );
+                }}
                 noValidate
                 className="flex flex-col gap-10"
             >
@@ -246,6 +252,7 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
                                     ? `Preparing photo ${progress.done} of ${progress.total}…`
                                     : `Uploading photo ${progress.done} of ${progress.total}…`}
                     </Button>
+                    <p className="text-xs text-muted-foreground">Debug: {debug}</p>
                 </div>
             </form>
         </div>
