@@ -30,8 +30,9 @@ export async function createCarWithImages(
     features: string[],
     files: File[],
     onProgress?: (done: number, total: number) => void,
+    onPreparing?: (done: number, total: number) => void,
 ): Promise<Car> {
-    const prepared = await prepareImages(files);
+    const prepared = await prepareImages(files, onPreparing);
     const [first, ...rest] = prepared;
 
     const formData = new FormData();

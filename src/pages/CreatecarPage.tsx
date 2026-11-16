@@ -59,7 +59,11 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
     const [imageError, setImageError] = useState<string | null>(null);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [submitSuccess, setSubmitSuccess] = useState(false);
-    const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
+    const [progress, setProgress] = useState<{
+        step: "preparing" | "uploading";
+        done: number;
+        total: number;
+    } | null>(null);
 
     const {
         control,
@@ -128,7 +132,8 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
                 values,
                 features,
                 images.map((img) => img.file),
-                (done, total) => setProgress({ done, total }),
+                (done, total) => setProgress({ step: "uploading", done, total }),
+                (done, total) => setProgress({ step: "preparing", done, total }),
             );
 
             reset();
@@ -183,7 +188,7 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
                 {/* ---- Photos ---- */}
                 <section className="flex flex-col gap-4">
                     <h3 className="flex items-center gap-2 text-lg font-medium text-foreground">
-                        <ImageIcon className="h-5 w-5 text-teal-600" aria-hidden="true" />
+                        <ImageIcon className="h-5 w-5 text-primary" aria-hidden="true" />
                         Photos
                     </h3>
                     <ImageDropzone
@@ -215,9 +220,11 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
                         {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
                         {!isSubmitting
                             ? "Create listing"
-                            : progress
-                                ? `Uploading photo ${progress.done} of ${progress.total}…`
-                                : "Preparing photos…"}
+                            : !progress
+                                ? "Preparing photos…"
+                                : progress.step === "preparing"
+                                    ? `Preparing photo ${progress.done} of ${progress.total}…`
+                                    : `Uploading photo ${progress.done} of ${progress.total}…`}
                     </Button>
                 </div>
             </form>
