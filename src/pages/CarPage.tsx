@@ -111,7 +111,6 @@ export const CarPage = ({ cars, onBookViewing, isLoading = false, error = null }
 
     const vehicleName = `${car.year} ${car.make} ${car.model}`;
 
-    // Ignore blank entries, so an empty list or [""] doesn't show an empty section.
     const features = (car.features ?? []).filter((f) => f.trim() !== "");
     const conditionText = car.conditionText?.trim() !== "-" ? car.conditionText?.trim() : "";
 
@@ -310,7 +309,7 @@ export const CarPage = ({ cars, onBookViewing, isLoading = false, error = null }
                             </div>
                             <div>
                                 <p className="text-[0.70rem] text-muted-foreground font-semibold uppercase tracking-wider">Registration</p>
-                                <p className="text-[0.85rem] font-bold text-foreground uppercase">{car.registration}</p>
+                                <p className="text-[0.85rem] font-bold text-foreground uppercase">{car.year}</p>
                             </div>
                         </div>
                         <div className="flex items-center space-x-3">
