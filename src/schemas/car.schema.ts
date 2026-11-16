@@ -34,7 +34,7 @@ export const carFormSchema = z.object({
     exteriorColor: z.string().trim().optional(),
     interiorColor: z.string().trim().optional(),
 
-    registration: z.string().trim().min(1, "Registration is required"),
+    registration: z.string().trim().optional(),
     registrationPlate: z.string().trim().optional(),
     motExpiry: z.string().min(1, "MOT expiry is required"),
     prevOwners: z.string().optional(),

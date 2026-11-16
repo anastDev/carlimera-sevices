@@ -230,12 +230,10 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
                         </p>
                     )}
 
-                    <button
+                    <Button
                         type="submit"
                         disabled={isSubmitting || images.length === 0}
-                        className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-3
-        text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90
-        disabled:pointer-events-none disabled:opacity-50 sm:w-fit"
+                        className="gap-2 sm:w-fit py-5 px-4"
                     >
                         {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
                         {!isSubmitting
@@ -245,7 +243,7 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
                                 : progress.step === "preparing"
                                     ? `Preparing photo ${progress.done} of ${progress.total}…`
                                     : `Uploading photo ${progress.done} of ${progress.total}…`}
-                    </button>
+                    </Button>
                 </div>
             </form>
         </div>
