@@ -1,5 +1,5 @@
 import { useState, } from "react";
-import { useForm} from "react-hook-form";
+import { useForm, type FieldErrors } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ImageIcon, Loader2, ArrowLeft } from "lucide-react";
 import {type CarFormInput, type CarFormOutput, carFormSchema} from "@/schemas/car.schema.ts";
@@ -7,7 +7,6 @@ import {createCarWithImages} from "@/services/api.cars.ts";
 import {Button} from "@/components/ui/button.tsx";
 import ImageDropzone from "@/components/ImageDropZone.tsx";
 import CarFormFields from "@/components/CarFormFields.tsx";
-
 interface StagedImage {
     file: File;
     previewUrl: string;
@@ -21,38 +20,38 @@ interface CreateCarPageProps {
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
 const DEFAULT_VALUES: CarFormInput = {
-        title: "",
-        subtitle: "",
-        make: "",
-        model: "",
-        year: "",
-        price: "",
-        mileage: "",
-        category: "",
-        location: "",
-        engine: "",
-        engineLocation: "",
-        transmission: "",
-        fuelType: "",
-        topSpeed: "",
-        doors: "",
-        seats: "",
-        carWidth: "",
-        carLength: "",
-        exteriorColor: "",
-        interiorColor: "",
-        registration: "",
-        registrationPlate: "",
-        motExpiry: "",
-        prevOwners: "",
-        emissionClass: "",
-        insuranceGroup: "",
-        serviceHistory: "",
-        warranty: "",
-        keys: "",
-        conditionText: "",
-        description: "",
-    }
+    title: "",
+    subtitle: "",
+    make: "",
+    model: "",
+    year: "",
+    price: "",
+    mileage: "",
+    category: "",
+    location: "",
+    engine: "",
+    engineLocation: "",
+    transmission: "",
+    fuelType: "",
+    topSpeed: "",
+    doors: "",
+    seats: "",
+    carWidth: "",
+    carLength: "",
+    exteriorColor: "",
+    interiorColor: "",
+    registration: "",
+    registrationPlate: "",
+    motExpiry: "",
+    prevOwners: "",
+    emissionClass: "",
+    insuranceGroup: "",
+    serviceHistory: "",
+    warranty: "",
+    keys: "",
+    conditionText: "",
+    description: "",
+}
 
 export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
     const [images, setImages] = useState<StagedImage[]>([]);
@@ -150,6 +149,24 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
         }
     };
 
+    const onInvalid = (formErrors: FieldErrors<CarFormInput>) => {
+        // "motExpiry" → "mot expiry", so the message is readable
+        const fields = Object.keys(formErrors).map((name) =>
+            name.replace(/([A-Z])/g, " $1").toLowerCase(),
+        );
+
+        setSubmitError(
+            `Some details need fixing before this can be published: ${fields.join(", ")}.`,
+        );
+
+        // Wait for the red error text to render, then scroll to the first one
+        requestAnimationFrame(() => {
+            document
+                .querySelector('[aria-invalid="true"]')
+                ?.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+    };
+
     return (
         <div className="mx-auto w-full max-w-3xl">
             {onBack && (
@@ -172,8 +189,11 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
                 </p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-10">
-
+            <form
+                onSubmit={handleSubmit(onSubmit, onInvalid)}
+                noValidate
+                className="flex flex-col gap-10"
+            >
                 {/* ---- Basic information ---- */}
                 <CarFormFields
                     control={control}
