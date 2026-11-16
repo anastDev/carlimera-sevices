@@ -63,7 +63,6 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
         done: number;
         total: number;
     } | null>(null);
-    const [debug, setDebug] = useState("waiting for tap");
 
     const {
         control,
@@ -117,7 +116,6 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
     };
 
     const onSubmit = async (values: CarFormOutput) => {
-        setDebug("2. form is valid, starting upload");
         setSubmitError(null);
         setImageError(null);
         setSubmitSuccess(false);
@@ -152,7 +150,6 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
     };
 
     const onInvalid = (formErrors: FieldErrors<CarFormInput>) => {
-        setDebug("2. form has invalid fields");
         const fields = Object.keys(formErrors).map((name) =>
             name.replace(/([A-Z])/g, " $1").toLowerCase(),
         );
@@ -191,12 +188,7 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
             </div>
 
             <form
-                onSubmit={(e) => {
-                    setDebug("1. tap reached the form");
-                    handleSubmit(onSubmit, onInvalid)(e).catch((err) =>
-                        setDebug(`crashed: ${err instanceof Error ? err.message : String(err)}`),
-                    );
-                }}
+                onSubmit={handleSubmit(onSubmit, onInvalid)}
                 noValidate
                 className="flex flex-col gap-10"
             >
@@ -238,10 +230,12 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
                         </p>
                     )}
 
-                    <Button
+                    <button
                         type="submit"
                         disabled={isSubmitting || images.length === 0}
-                        className="gap-2 sm:w-fit py-5 px-4"
+                        className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-3
+        text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90
+        disabled:pointer-events-none disabled:opacity-50 sm:w-fit"
                     >
                         {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
                         {!isSubmitting
@@ -251,8 +245,7 @@ export const CreateCarPage = ({ onBack, onCreated }: CreateCarPageProps) =>  {
                                 : progress.step === "preparing"
                                     ? `Preparing photo ${progress.done} of ${progress.total}…`
                                     : `Uploading photo ${progress.done} of ${progress.total}…`}
-                    </Button>
-                    <p className="text-xs text-muted-foreground">Debug: {debug}</p>
+                    </button>
                 </div>
             </form>
         </div>
